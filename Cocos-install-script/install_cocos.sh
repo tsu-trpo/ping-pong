@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 echo "Start installing cocos..."
 
 echo "Creating cocos folder..."
@@ -24,6 +26,9 @@ cd $HOME/cocos/cocos*/tools/travis-scr*/
 echo "Run setup..."
 cd $HOME/cocos/cocos*/
 ./setup.py
+
+echo "Reload .bashrc"
+source ~/.bashrc
 
 echo "Make cmake..."
 cd $HOME/cocos/cocos*/build
