@@ -1,11 +1,10 @@
-SUPER-PING-PONG/.cocos-project.json
-SUPER-PING-PONG/bin/
-SUPER-PING-PONG/cocos2d/
+**/bin
+**/.idea
+**/cmake-build-debug
 SUPER-PING-PONG/linux-build/
 SUPER-PING-PONG/proj.android-studio/
 SUPER-PING-PONG/proj.android/
 SUPER-PING-PONG/proj.ios_mac/
-SUPER-PING-PONG/proj.linux/
 SUPER-PING-PONG/proj.tizen/
 SUPER-PING-PONG/proj.win10/
 SUPER-PING-PONG/proj.win32/
