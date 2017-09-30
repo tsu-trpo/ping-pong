@@ -1,6 +1,6 @@
 **/bin
-SUPER-PING-PONG/.idea/
-SUPER-PING-PONG/cmake-build-debug/
+**/.idea
+**/cmake-build-debug
 SUPER-PING-PONG/linux-build/
 SUPER-PING-PONG/proj.android-studio/
 SUPER-PING-PONG/proj.android/
