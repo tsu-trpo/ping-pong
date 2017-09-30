@@ -180,3 +180,7 @@ else()
     )
 
 endif()
+
+# включаем тесты
+add_subdirectory(libs/googletest)
+enable_testing()
