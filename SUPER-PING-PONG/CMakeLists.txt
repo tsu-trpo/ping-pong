@@ -27,6 +27,7 @@ cmake_policy(SET CMP0017 NEW)
 cmake_minimum_required(VERSION 3.1)
 
 set(APP_NAME pong)
+set(LIB_NAME ${APP_NAME}_lib)
 project (${APP_NAME})
 
 set(COCOS2D_ROOT ${CMAKE_SOURCE_DIR}/cocos2d)
@@ -87,23 +88,23 @@ set(PLATFORM_SPECIFIC_SRC)
 set(PLATFORM_SPECIFIC_HEADERS)
 
 if(MACOSX OR APPLE)
-    set(PLATFORM_SPECIFIC_SRC
+    set(MAIN_CPP
       proj.ios_mac/mac/main.cpp
     )
 elseif(LINUX)
-    set(PLATFORM_SPECIFIC_SRC
+    set(MAIN_CPP
       proj.linux/main.cpp
     )
 elseif ( WIN32 )
-    set(PLATFORM_SPECIFIC_SRC
+    set(MAIN_CPP
       proj.win32/main.cpp
     )
-    set(PLATFORM_SPECIFIC_HEADERS
+set(MAIN_CPP
       proj.win32/main.h
       proj.win32/resource.h
     )
 elseif(ANDROID)
-    set(PLATFORM_SPECIFIC_SRC
+    set(MAIN_CPP
       proj.android-studio/app/jni/hellocpp/main.cpp
     )
 endif()
@@ -128,12 +129,14 @@ endif( WIN32 )
 set(GAME_SRC
   Classes/AppDelegate.cpp
   Classes/HelloWorldScene.cpp
+  Classes/lol.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
 set(GAME_HEADERS
   Classes/AppDelegate.h
   Classes/HelloWorldScene.h
+  Classes/lol.h
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 
@@ -153,10 +156,11 @@ if( ANDROID )
         ADD_CUSTOM_COMMAND(TARGET ${APP_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} lib${APP_NAME}.so)
     ENDIF()
 else()
-    add_executable(${APP_NAME} ${GAME_SRC} ${GAME_HEADERS})
+    add_library(${LIB_NAME} STATIC ${GAME_SRC} ${GAME_HEADERS})
+    add_executable(${APP_NAME} ${MAIN_CPP} ${GAME_HEADERS})
 endif()
 
-target_link_libraries(${APP_NAME} cocos2d)
+target_link_libraries(${APP_NAME} cocos2d ${LIB_NAME})
 
 set(APP_BIN_DIR "${CMAKE_BINARY_DIR}/bin")
 
@@ -184,3 +188,4 @@ endif()
 # включаем тесты
 add_subdirectory(libs/googletest)
 enable_testing()
+add_subdirectory(tests)
