@@ -2,13 +2,9 @@
 USING_NS_CC;
 Scene* GameScene::createScene()
 {
-    // 'scene' is an autorelease object
     auto scene = Scene::create();
-    // 'layer' is an autorelease object
     auto layer = GameScene::create();
-    // add layer as a child to scene
     scene->addChild(layer);
-    // return the scene
     return scene;
 }
 
@@ -24,11 +20,10 @@ bool GameScene::init()
     bg->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.5));
     this->addChild(bg);
 
-
     pongBall = Ball::createBall();
     pongBall->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.5));
     this->addChild(pongBall);
-    
+
     playerPaddle = PlayerPaddle::createPlayerPaddle();
     playerPaddle->setPosition(Vec2(origin.x + screenSize.width * 0.05, origin.y + screenSize.height * 0.5));
     this->addChild(playerPaddle);
@@ -66,7 +61,6 @@ bool GameScene::init()
     eventListener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
     eventListener->onTouchCancelled = CC_CALLBACK_2(GameScene::onTouchCancelled, this);
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, playerPaddle);
-
     return true;
 }
 
@@ -78,19 +72,7 @@ bool GameScene::onTouchBegan(Touch *touch, Event *unused_event) {
 
         //start the ball in a random direction
         pongBall->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.5));
-
-        int startLeft = 0;
-        float randStart = CCRANDOM_0_1();
-        if (randStart < 0.5) {
-            startLeft = 1;
-        }
-
-        float randStartPercentage = CCRANDOM_0_1() * 90 - 45;
-        float startAngleInDegrees = startLeft * 180 + randStartPercentage;
-
-        float xDirectionPos = cosf(CC_DEGREES_TO_RADIANS(startAngleInDegrees));
-        float yDirectionPos = sinf(CC_DEGREES_TO_RADIANS(startAngleInDegrees));
-        ballDirection = Vec2(xDirectionPos, yDirectionPos);
+        ballDirection = Ball::randDirection();
 
         this->scheduleUpdate();
         gameHasStarted = true;
