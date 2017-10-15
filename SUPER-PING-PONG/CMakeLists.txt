@@ -26,8 +26,7 @@ cmake_policy(SET CMP0017 NEW)
 
 cmake_minimum_required(VERSION 3.1)
 
-set(APP_NAME pong)
-set(LIB_NAME ${APP_NAME}_lib)
+set(APP_NAME MyGame)
 project (${APP_NAME})
 
 set(COCOS2D_ROOT ${CMAKE_SOURCE_DIR}/cocos2d)
@@ -88,23 +87,23 @@ set(PLATFORM_SPECIFIC_SRC)
 set(PLATFORM_SPECIFIC_HEADERS)
 
 if(MACOSX OR APPLE)
-    set(MAIN_CPP
+    set(PLATFORM_SPECIFIC_SRC
       proj.ios_mac/mac/main.cpp
     )
 elseif(LINUX)
-    set(MAIN_CPP
+    set(PLATFORM_SPECIFIC_SRC
       proj.linux/main.cpp
     )
 elseif ( WIN32 )
-    set(MAIN_CPP
+    set(PLATFORM_SPECIFIC_SRC
       proj.win32/main.cpp
     )
-set(MAIN_CPP
+    set(PLATFORM_SPECIFIC_HEADERS
       proj.win32/main.h
       proj.win32/resource.h
     )
 elseif(ANDROID)
-    set(MAIN_CPP
+    set(PLATFORM_SPECIFIC_SRC
       proj.android-studio/app/jni/hellocpp/main.cpp
     )
 endif()
@@ -128,15 +127,13 @@ endif( WIN32 )
 
 set(GAME_SRC
   Classes/AppDelegate.cpp
-  Classes/HelloWorldScene.cpp
-  ${PLATFORM_SPECIFIC_SRC}
+        ${PLATFORM_SPECIFIC_SRC}
 )
 
 set(GAME_HEADERS
   Classes/AppDelegate.h
-  Classes/HelloWorldScene.h
-  ${PLATFORM_SPECIFIC_HEADERS}
-)
+        ${PLATFORM_SPECIFIC_HEADERS}
+        Classes/GameScene.h Classes/Ball.cpp Classes/Ball.h Classes/PlayerPaddle.cpp Classes/PlayerPaddle.h Classes/GameScene.cpp Classes/GlobalVariables.cpp Classes/GlobalVariables.h)
 
 
 # Configure libcocos2d
@@ -147,18 +144,17 @@ set(BUILD_JS_LIBS OFF CACHE BOOL "turn off build js related targets")
 add_subdirectory(${COCOS2D_ROOT})
 
 
-# pong
+# MyGame
 if( ANDROID )
     add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})
     IF(CMAKE_BUILD_TYPE MATCHES RELEASE)
         ADD_CUSTOM_COMMAND(TARGET ${APP_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} lib${APP_NAME}.so)
     ENDIF()
 else()
-    add_library(${LIB_NAME} STATIC ${GAME_SRC} ${GAME_HEADERS})
-    add_executable(${APP_NAME} ${MAIN_CPP} ${GAME_HEADERS})
+    add_executable(${APP_NAME} ${GAME_SRC} ${GAME_HEADERS})
 endif()
 
-target_link_libraries(${APP_NAME} cocos2d ${LIB_NAME})
+target_link_libraries(${APP_NAME} cocos2d)
 
 set(APP_BIN_DIR "${CMAKE_BINARY_DIR}/bin")
 
@@ -182,8 +178,3 @@ else()
     )
 
 endif()
-
-# включаем тесты
-add_subdirectory(libs/googletest)
-enable_testing()
-add_subdirectory(tests)
