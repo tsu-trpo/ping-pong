@@ -133,7 +133,7 @@ set(GAME_SRC
 set(GAME_HEADERS
   Classes/AppDelegate.h
         ${PLATFORM_SPECIFIC_HEADERS}
-        Classes/GameScene.h Classes/Ball.cpp Classes/Ball.h Classes/PlayerPaddle.cpp Classes/PlayerPaddle.h Classes/GameScene.cpp Classes/GlobalVariables.cpp Classes/GlobalVariables.h)
+        Classes/GameScene.h Classes/Ball.cpp Classes/Ball.h Classes/PlayerPaddle.cpp Classes/PlayerPaddle.h Classes/GameScene.cpp)
 
 
 # Configure libcocos2d

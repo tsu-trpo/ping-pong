@@ -11,26 +11,28 @@ Scene* GameScene::createScene()
     // return the scene
     return scene;
 }
-// on "init" you need to initialize your instance
+
 bool GameScene::init()
 {
-    // super init first
     if ( !Layer::init() )
     {
         return false;
     }
     screenSize = Director::getInstance()->getVisibleSize();
-    origin = Director::getInstance()->getVisibleOrigin();
+
     auto *bg = Sprite::create("pongBG.png");
     bg->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.5));
     this->addChild(bg);
 
+
     pongBall = Ball::createBall();
     pongBall->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.5));
     this->addChild(pongBall);
+    
     playerPaddle = PlayerPaddle::createPlayerPaddle();
     playerPaddle->setPosition(Vec2(origin.x + screenSize.width * 0.05, origin.y + screenSize.height * 0.5));
     this->addChild(playerPaddle);
+
     opponentPaddle = Sprite::create("paddle.png");
     opponentPaddle->setPosition(Vec2(origin.x + screenSize.width * 0.95, origin.y + screenSize.height * 0.5));
     this->addChild(opponentPaddle);
@@ -46,24 +48,17 @@ bool GameScene::init()
     playerScoreLabel = Label::createWithTTF("Player Score: 0", "fonts/arial.ttf", scoreLabelSize);
     playerScoreLabel->setPosition(Vec2(origin.x + screenSize.width * 0.2, origin.y + screenSize.height * 0.95));
     this->addChild(playerScoreLabel);
+
     opponentScoreLabel = Label::createWithTTF("Opponent Score: 0", "fonts/arial.ttf", scoreLabelSize);
     opponentScoreLabel->setPosition(Vec2(origin.x + screenSize.width * 0.8, origin.y + screenSize.height * 0.95));
     this->addChild(opponentScoreLabel);
+
     playerScore = 0;
     opponentScore = 0;
     gameHasStarted = false;
+
     ballDirection = Vec2(0, 0);
     ballVelocity = screenSize.width * 0.5;
-
-    /*
-    //Simple play without score
-    startText = Label::createWithTTF("Tap to Start", "fonts/arial.ttf", 50);
-    startText->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.8));
-    this->addChild(startText);
-    gameHasStarted = false;
-    ballDirection = Vec2(0, 0);
-    ballVelocity = 300;
-    */
 
     auto eventListener = EventListenerTouchOneByOne::create();
     eventListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
@@ -77,44 +72,48 @@ bool GameScene::init()
 
 bool GameScene::onTouchBegan(Touch *touch, Event *unused_event) {
     if (!gameHasStarted) {
-        //remove label
+        //remove text from screen
         this->removeChild(startText);
         startText = NULL;
+
         //start the ball in a random direction
-        pongBall->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y +         screenSize.height * 0.5));
+        pongBall->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.5));
 
         int startLeft = 0;
         float randStart = CCRANDOM_0_1();
         if (randStart < 0.5) {
             startLeft = 1;
         }
+
         float randStartPercentage = CCRANDOM_0_1() * 90 - 45;
         float startAngleInDegrees = startLeft * 180 + randStartPercentage;
+
         float xDirectionPos = cosf(CC_DEGREES_TO_RADIANS(startAngleInDegrees));
         float yDirectionPos = sinf(CC_DEGREES_TO_RADIANS(startAngleInDegrees));
         ballDirection = Vec2(xDirectionPos, yDirectionPos);
 
-        //ballDirection = Vec2(1, 1);
         this->scheduleUpdate();
         gameHasStarted = true;
-    } else {
+    }
+    else {
         Vec2 touchLocation = touch->getLocation();
-        //make sure paddle can't go off screen
         float paddleY = MIN(MAX(touchLocation.y, origin.y + playerPaddle->getContentSize().height * 0.5 ), origin.y + screenSize.height - playerPaddle->getContentSize().height * 0.5 );
         playerPaddle->setPosition(Vec2(playerPaddle->getPosition().x, paddleY));
     }
+
     return true;
 }
 
 void GameScene::onTouchMoved(Touch *touch, Event *unused_event) {
     Vec2 touchLocation = touch->getLocation();
-    //make sure paddle can't go off screen
     float paddleY = MIN(MAX(touchLocation.y, origin.y + playerPaddle->getContentSize().height * 0.5 ), origin.y + screenSize.height - playerPaddle->getContentSize().height * 0.5 );
     playerPaddle->setPosition(Vec2(playerPaddle->getPosition().x, paddleY));
 }
+
 void GameScene::onTouchEnded(Touch *touch, Event *unused_event) {
-    //nothing for now
+    //nothing for
 }
+
 void GameScene::onTouchCancelled(Touch *touch, Event *unused_event) {
     //nothing for now
 }
@@ -122,9 +121,8 @@ void GameScene::onTouchCancelled(Touch *touch, Event *unused_event) {
 void GameScene::update(float delta) {
     //find new opponent paddle position
     float paddleY = MIN(MAX(MAX(MIN(pongBall->getPosition().y, opponentPaddle->getPosition().y + screenSize.height * 0.01), opponentPaddle->getPosition().y - screenSize.height * 0.01), origin.y + opponentPaddle->getContentSize().height * 0.5), origin.y + screenSize.height - opponentPaddle->getContentSize().height * 0.5 );
-
-    //float paddleY = MIN(MAX(pongBall->getPosition().y, origin.y + opponentPaddle->getContentSize().height * 0.5), origin.y + screenSize.height - opponentPaddle->getContentSize().height * 0.5 );
     opponentPaddle->setPosition(Vec2(opponentPaddle->getPosition().x, paddleY));
+
     //find new ball position
     Vec2 newPosition = pongBall->getPosition() + ballDirection * ballVelocity * delta;
     if (newPosition.y < origin.y || newPosition.y > origin.y + screenSize.height) {
@@ -135,7 +133,7 @@ void GameScene::update(float delta) {
 
     pongBall->setPosition(newPosition);
     if ((playerPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox()) && ballDirection.x < 0) || (opponentPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox()) && ballDirection.x > 0)) {
-//reverse x direction of the ball & y direction based on paddle hit later
+    //reverse x direction of the ball & y direction based on paddle hit later
         Sprite *contactPaddle = playerPaddle;
         float newDirectionIsLeft = false;
         if (opponentPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox())) {
