@@ -10,3 +10,9 @@ Brick* Brick::createWithTexture(std::string textureName)
 
     return self;
 }
+
+Rect Brick::getRect()
+{
+    auto s = getTexture()->getContentSize();
+    return Rect(-s.width / 2, -s.height / 2, s.width, s.height);
+}

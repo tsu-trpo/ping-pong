@@ -5,6 +5,7 @@ using namespace cocos2d;
 
 
 class Paddle;
+class Brick;
 
 class Ball : public Sprite
 {
@@ -20,4 +21,5 @@ public:
 
     void move(float delta);
     void collideWithPaddle(Paddle* paddle);
+    bool collideWithBrick(Brick* brick);
 };

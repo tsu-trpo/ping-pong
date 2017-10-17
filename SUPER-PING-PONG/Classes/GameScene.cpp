@@ -22,21 +22,47 @@ bool GameScene::init()
         return false;
     }
 
+    // DEBUG
+    //_ballStartingVelocity = Vec2(100.0f, 0.0f) * 4;
     _ballStartingVelocity = Vec2(20.0f, -100.0f) * 4;
-    screenSize = Director::getInstance()->getVisibleSize();
+
+    _screenSize = Director::getInstance()->getVisibleSize();
 
     //auto *bg = Sprite::create("pongBG.png");
     //bg->setPosition(VisibleRect::center());
     //this->addChild(bg);
 
     _paddle = Paddle::createWithTexture("res/paddle.png");
-    _paddle->setPosition(Vec2(VisibleRect::center().x, VisibleRect::bottom().y + screenSize.height * 0.1));
+    _paddle->setPosition(Vec2(VisibleRect::center().x, VisibleRect::bottom().y + _screenSize.height * 0.1));
     this->addChild(_paddle);
 
     _ball = Ball::createWithTexture("res/ball.png");
+    // DEBUG
+    //_ball->setPosition( Vec2(VisibleRect::right().x, VisibleRect::center().x + 300 ));
     _ball->setPosition( VisibleRect::center() );
     _ball->setVelocity( _ballStartingVelocity );
     this->addChild(_ball);
+
+    int bricksPerLine = 9;
+    int bricksLineCount = 6;
+
+    Vector<Brick*> bricksM( bricksPerLine * bricksLineCount);
+
+    for(int i=0; i < bricksPerLine; i++)
+    {
+        for(int j=0; j < bricksLineCount; j++) {
+            Brick *brick = Brick::createWithTexture("res/brick.png");
+            brick->setPosition(VisibleRect::left().x + 40 + i * 70, VisibleRect::center().y + 70 + j * 30);
+            bricksM.pushBack(brick);
+        }
+    }
+
+    _bricks = bricksM;
+
+    for (auto& brick : _bricks)
+    {
+        addChild(brick);
+    }
 
     //////////////////////////////
 
@@ -50,5 +76,16 @@ void GameScene::doStep(float delta)
     _ball->move(delta);
 
     _ball->collideWithPaddle( _paddle );
+
+    for( auto it = _bricks.begin(); it != _bricks.end(); it++)
+    {
+        if(_ball->collideWithBrick(*it))
+        {
+            removeChild(*it);
+            _bricks.erase(it);
+            it = _bricks.end() - 1;
+            CCLOG("Delete Brick, left: %d", _bricks.size() );
+        }
+    }
 }
 
