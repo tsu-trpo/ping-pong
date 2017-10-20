@@ -135,7 +135,7 @@ set(GAME_HEADERS
   Classes/AppDelegate.h
   Classes/GameScene.h
   ${PLATFORM_SPECIFIC_HEADERS}
-        Classes/Ball.cpp Classes/Ball.h Classes/Paddle.cpp Classes/Paddle.h Classes/VisibleRect.cpp Classes/VisibleRect.h Classes/Brick.cpp Classes/Brick.h)
+        Classes/Ball.cpp Classes/Ball.h Classes/Paddle.cpp Classes/Paddle.h Classes/VisibleRect.cpp Classes/VisibleRect.h Classes/Brick.cpp Classes/Brick.h Classes/WallBuilder.cpp Classes/WallBuilder.h Classes/GameOverScene.cpp Classes/GameOverScene.h)
 
 
 # Configure libcocos2d

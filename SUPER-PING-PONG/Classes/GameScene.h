@@ -17,6 +17,8 @@ class GameScene : public cocos2d::Layer
     Vec2 _ballStartingDirection;
     int _ballStartingVelocity;
     Size _screenSize;
+    int _lifes;
+    int _score;
 
 public:
     CREATE_FUNC(GameScene);

@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include "GameOverScene.h"
 #include "SimpleAudioEngine.h"
 #include "VisibleRect.h"
 USING_NS_CC;
@@ -27,6 +28,8 @@ bool GameScene::init()
     //_ballStartingVelocity = Vec2(100.0f, 0.0f) * 4;
     _ballStartingDirection = Vec2(1, -1);
     _ballStartingVelocity = 300;
+    _lifes = 3;
+    _score = 0;
 
     //auto *bg = Sprite::create("pongBG.png");
     //bg->setPosition(VisibleRect::center());
@@ -75,19 +78,36 @@ void GameScene::doStep(float delta)
 {
     _ball->move(delta);
 
-    _ball->collideWithPaddle( _paddle );
 
+
+    _ball->collideWithPaddle( _paddle );
 
     for( auto it = _bricks.begin(); it != _bricks.end(); it++)
     {
         if(_ball->collideWithBrick(*it))
         {
+            _score++;
             removeChild(*it);
             _bricks.erase(it);
             //it = _bricks.end() - 1;
             CCLOG("Delete Brick, left: %d", _bricks.size() );
         }
     }
+
+    if(_ball->collideWithBottom())
+    {
+        _lifes--;
+        if (_lifes <= 0)
+        {
+            _ball->setVelocity(0);
+            Director::getInstance()->replaceScene(
+                    TransitionFade::create(0.5, GameOverScene::createScene(), Color3B(255, 0, 0)));
+        } else
+        {
+            _ball->setPosition(VisibleRect::center());
+            _ball->setVelocity(_ballStartingVelocity);
+            _ball->setDirection(_ballStartingDirection);
+        }
+
+    }
 }
-
-

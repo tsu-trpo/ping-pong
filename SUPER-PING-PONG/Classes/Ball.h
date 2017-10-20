@@ -24,6 +24,7 @@ public:
     int getVelocity();
 
     void move(float delta);
+    bool collideWithBottom();
     void collideWithPaddle(Paddle* paddle);
     bool collideWithBrick(Brick* brick);
 };

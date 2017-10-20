@@ -63,10 +63,11 @@ void Ball::move(float delta)
         setPosition(getPosition().x, VisibleRect::top().y - radius());
         _direction.y *= -1;
     }
-    else if (getPosition().y < VisibleRect::bottom().y)
-    {
-        _direction.y *= -1;
-    }
+}
+
+bool Ball::collideWithBottom()
+{
+    return getPosition().y < VisibleRect::bottom().y;
 }
 
 void Ball::collideWithPaddle(Paddle* paddle)
@@ -105,7 +106,7 @@ bool Ball::collideWithBrick(Brick *brick)
     if (getBoundingBox().intersectsRect(brickRect))
     {
         auto ball = getBoundingBox();
-        
+
         if ((ball.getMinY() < brickRect.getMaxY() && ball.getMinY() > brickRect.getMinY()) ||
                 (ball.getMaxY() > brickRect.getMinY() && ball.getMaxY() < brickRect.getMaxY()))
         {
