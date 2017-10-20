@@ -26,14 +26,14 @@ bool GameScene::init()
 
     // DEBUG
     //_ballStartingVelocity = Vec2(100.0f, 0.0f) * 4;
-    _ballStartingDirection = Vec2(1, -1);
+    _ballStartingDirection = Vec2(0, -1);
     _ballStartingVelocity = 300;
     _lifes = 3;
     _score = 0;
 
-    //auto *bg = Sprite::create("pongBG.png");
-    //bg->setPosition(VisibleRect::center());
-    //this->addChild(bg);
+    auto *bg = Sprite::create("res/pongBG.png");
+    bg->setPosition(VisibleRect::center());
+    this->addChild(bg);
 
     _paddle = Paddle::createWithTexture("res/paddle.png");
     _paddle->setPosition(Vec2(VisibleRect::center().x, VisibleRect::bottom().y + _screenSize.height * 0.1));
@@ -45,8 +45,8 @@ bool GameScene::init()
     _ball->setDirection( _ballStartingDirection);
     this->addChild(_ball);
 
-    int bricksPerLine = 9;
-    int bricksLineCount = 6;
+    int bricksPerLine = 16;
+    int bricksLineCount = 10;
 
     Vector<Brick*> bricksM( bricksPerLine * bricksLineCount);
 
@@ -54,7 +54,7 @@ bool GameScene::init()
     {
         for(int j=0; j < bricksLineCount; j++) {
             Brick *brick = Brick::createWithTexture("res/brick.png");
-            brick->setPosition(VisibleRect::left().x + 40 + i * 70, VisibleRect::center().y + 70 + j * 30);
+            brick->setPosition(VisibleRect::left().x + 45 + i * 90, VisibleRect::center().y + 100 + j * 35);
             bricksM.pushBack(brick);
         }
     }
