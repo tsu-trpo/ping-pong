@@ -75,70 +75,26 @@ void Ball::collideWithPaddle(Paddle* paddle)
     paddleRect.origin.x += paddle->getPosition().x;
     paddleRect.origin.y += paddle->getPosition().y;
 
-    float leftX  = paddleRect.getMinX();
-    float rightX = paddleRect.getMaxX();
-
-    float midY  = paddleRect.getMidY();
-    float highY = paddleRect.getMaxY();
-
-    bool isWidthCorrect = getPosition().x > leftX && getPosition().x < rightX;
-    bool isHighCorrect = getPosition().y > midY && getPosition().y <= highY + radius();
-
-    if (isWidthCorrect && isHighCorrect) //is Collide with paddle
+    if (getBoundingBox().intersectsRect(paddleRect))
     {
-        setPosition(getPosition().x, highY + radius());
+        auto ball = getBoundingBox();
 
-        float hitDisplacement = (getPosition().x - paddle->getPosition().x) / (paddle->getContentSize().width / 2);
-        _direction = Vec2(hitDisplacement, _direction.y * -1);
+        if( ball.getMaxX() > paddleRect.getMinX() && ball.getMidX() < paddleRect.getMaxX() &&
+                    ball.getMinY() < paddleRect.getMaxY() + radius() )
+        {
+            setPosition(getPosition().x, paddleRect.getMaxY() + radius());
 
-        int minVelosity = 350; // Костыль
-        _velocity = MAX(minVelosity, fabsf(VisibleRect::top().y * hitDisplacement) - 100);
+            float hitDisplacement = (getPosition().x - paddle->getPosition().x) / (paddle->getContentSize().width / 2);
+            _direction = Vec2(hitDisplacement, _direction.y * -1);
 
-        CCLOG("Ball collide with Paddle at %f ", hitDisplacement);
+            int minVelocity = 350; // Костыль
+            _velocity = MAX(minVelocity, abs(VisibleRect::top().y * hitDisplacement) - 100);
+
+            CCLOG("Ball collide with Paddle at %f ", hitDisplacement);
+        }
     }
-
 }
 
-
-//void Ball::collideWithPaddle(Paddle* paddle)
-//{
-//    auto paddleRect = paddle->getRect();
-//    paddleRect.origin.x += paddle->getPosition().x;
-//    paddleRect.origin.y += paddle->getPosition().y;
-//
-//    float leftX  = paddleRect.getMinX();
-//    float rightX = paddleRect.getMaxX();
-//
-//    float midY  = paddleRect.getMidY();
-//    float highY = paddleRect.getMaxY();
-//
-//    bool isWidthCorrect = getPosition().x > leftX && getPosition().x < rightX;
-//    bool isHighCorrect = getPosition().y > midY && getPosition().y <= highY + radius();
-//
-//    if (isWidthCorrect && isHighCorrect) //is Collide with paddle
-//    {
-//        //CCLOG("Ball collide with Paddle");
-//        CCLOG("///////////////////////////////////////////////////////////////////////");
-//        setPosition(getPosition().x, highY + radius());
-//
-//        float angleOffset = (float)M_PI / 2;
-//        float hitAngle = (paddle->getPosition() - getPosition() ).getAngle() + angleOffset;
-//        float velocityAngle = -_velocity.getAngle() + 0.5f * hitAngle;  // 0.5f
-//
-//        float scalarVelocity = MIN(_velocity.getLength() * 1.05f, VisibleRect::top().y);    // speed
-//
-//        _velocity = Vec2::forAngle(velocityAngle) * scalarVelocity;
-//    }
-//}
-
-//bool Ball::collideWithBrick(Brick *brick)
-//{
-//    if( brick->getBoundingBox().intersectsRect(getBoundingBox()) )
-//    {
-//        return true;
-//    }
-//    return false;
-//}
 
 bool Ball::collideWithBrick(Brick *brick)
 {
@@ -149,6 +105,7 @@ bool Ball::collideWithBrick(Brick *brick)
     if (getBoundingBox().intersectsRect(brickRect))
     {
         auto ball = getBoundingBox();
+        
         if ((ball.getMinY() < brickRect.getMaxY() && ball.getMinY() > brickRect.getMinY()) ||
                 (ball.getMaxY() > brickRect.getMinY() && ball.getMaxY() < brickRect.getMaxY()))
         {
@@ -172,55 +129,3 @@ bool Ball::collideWithBrick(Brick *brick)
     }
     return false;
 }
-
-
-//bool Ball::collideWithBrick(Brick *brick)
-//{
-//    auto brickRect = brick->getRect();
-//    brickRect.origin.x += brick->getPosition().x;
-//    brickRect.origin.y += brick->getPosition().y;
-//
-//    float lowY = brickRect.getMinY();
-//    float midY = brickRect.getMidY();
-//    float highY = brickRect.getMaxY();
-//
-//    float leftX = brickRect.getMinX();
-//    float midX = brickRect.getMidX();
-//    float rightX = brickRect.getMaxX();
-//
-//    if (getPosition().x > leftX - radius() && getPosition().x < rightX + radius())
-//    {
-//        if (getPosition().y > midY && getPosition().y < highY + radius())
-//        {
-//            //CCLOG("Ball collide with Brick on the top");
-//            //setPosition(getPosition().x, highY + radius());
-//            _direction.y *= -1;
-//            return true;
-//        }
-//        else if (getPosition().y < midY && getPosition().y > lowY - radius())
-//        {
-//            //CCLOG("Ball collide with Brick on the bottom");
-//            //setPosition(getPosition().x, lowY - radius());
-//            _direction.y *= -1;
-//            return true;
-//        }
-//    }
-//    else if(getPosition().y > lowY - radius() && getPosition().y < highY + radius())
-//    {
-//        if (getPosition().x > midX && getPosition().x < rightX + radius())
-//        {
-//            //CCLOG("Ball collide with Brick on the right");
-//            //setPosition(rightX + radius(), getPosition().y);
-//            _direction.x *= -1;
-//            return true;
-//        }
-//        else if (getPosition().y < midX && getPosition().y > leftX - radius())
-//        {
-//            //CCLOG("Ball collide with Brick on the left");
-//            //setPosition(leftX - radius(), getPosition().y);
-//            _direction.x *= -1;
-//            return true;
-//        }
-//    }
-//    return false;
-//}

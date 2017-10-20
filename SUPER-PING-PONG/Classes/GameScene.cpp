@@ -85,7 +85,7 @@ void GameScene::doStep(float delta)
             removeChild(*it);
             _bricks.erase(it);
             //it = _bricks.end() - 1;
-            //CCLOG("Delete Brick, left: %d", _bricks.size() );
+            CCLOG("Delete Brick, left: %d", _bricks.size() );
         }
     }
 }
