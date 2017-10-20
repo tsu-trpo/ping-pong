@@ -1,7 +1,6 @@
 #include "GameScene.h"
 #include "SimpleAudioEngine.h"
 #include "VisibleRect.h"
-
 USING_NS_CC;
 
 
@@ -21,12 +20,13 @@ bool GameScene::init()
     {
         return false;
     }
+    _screenSize = Director::getInstance()->getVisibleSize();
+
 
     // DEBUG
     //_ballStartingVelocity = Vec2(100.0f, 0.0f) * 4;
-    _ballStartingVelocity = Vec2(20.0f, -100.0f) * 4;
-
-    _screenSize = Director::getInstance()->getVisibleSize();
+    _ballStartingDirection = Vec2(1, -1);
+    _ballStartingVelocity = 300;
 
     //auto *bg = Sprite::create("pongBG.png");
     //bg->setPosition(VisibleRect::center());
@@ -37,10 +37,9 @@ bool GameScene::init()
     this->addChild(_paddle);
 
     _ball = Ball::createWithTexture("res/ball.png");
-    // DEBUG
-    //_ball->setPosition( Vec2(VisibleRect::right().x, VisibleRect::center().x + 300 ));
     _ball->setPosition( VisibleRect::center() );
     _ball->setVelocity( _ballStartingVelocity );
+    _ball->setDirection( _ballStartingDirection);
     this->addChild(_ball);
 
     int bricksPerLine = 9;
@@ -71,11 +70,13 @@ bool GameScene::init()
     return true;
 }
 
+
 void GameScene::doStep(float delta)
 {
     _ball->move(delta);
 
     _ball->collideWithPaddle( _paddle );
+
 
     for( auto it = _bricks.begin(); it != _bricks.end(); it++)
     {
@@ -83,9 +84,10 @@ void GameScene::doStep(float delta)
         {
             removeChild(*it);
             _bricks.erase(it);
-            it = _bricks.end() - 1;
-            CCLOG("Delete Brick, left: %d", _bricks.size() );
+            //it = _bricks.end() - 1;
+            //CCLOG("Delete Brick, left: %d", _bricks.size() );
         }
     }
 }
+
 

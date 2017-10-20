@@ -2,6 +2,7 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "Brick.h"
+#import "Box2D/Box2D.h"
 #pragma once
 
 using namespace cocos2d;
@@ -13,7 +14,8 @@ class GameScene : public cocos2d::Layer
     Paddle* _paddle;
     Vector<Brick*> _bricks;
 
-    Vec2 _ballStartingVelocity;
+    Vec2 _ballStartingDirection;
+    int _ballStartingVelocity;
     Size _screenSize;
 
 public:

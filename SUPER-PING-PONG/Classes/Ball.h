@@ -9,15 +9,19 @@ class Brick;
 
 class Ball : public Sprite
 {
-    Vec2 _velocity;
+    Vec2 _direction;
+    float _velocity;
 
 public:
     static Ball* createWithTexture(std::string textureName);
 
     float radius();
 
-    void setVelocity(Vec2 velocity);
-    Vec2 getVelocity();
+    void setDirection(Vec2 direction);
+    Vec2 getDirection();
+
+    void setVelocity(int velocity);
+    int getVelocity();
 
     void move(float delta);
     void collideWithPaddle(Paddle* paddle);
