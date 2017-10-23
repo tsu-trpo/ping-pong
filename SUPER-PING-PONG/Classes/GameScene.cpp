@@ -1,3 +1,4 @@
+#include <iostream>
 #include "GameScene.h"
 USING_NS_CC;
 Scene* GameScene::createScene()
@@ -116,6 +117,14 @@ void GameScene::update(float delta) {
     pongBall->setPosition(newPosition);
     if ((playerPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox()) && ballDirection.x < 0) || (opponentPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox()) && ballDirection.x > 0)) {
     //reverse x direction of the ball & y direction based on paddle hit later
+
+        std::cout << "Touch detect" << std::endl;
+        //#############################
+        //pongBall->setScale(pongBall->decSizeBonus());
+        if (playerPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox())) {
+            playerPaddle->setScaleY(playerPaddle->decPaddleBonus());
+        }
+
         Sprite *contactPaddle = playerPaddle;
         float newDirectionIsLeft = false;
         if (opponentPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox())) {

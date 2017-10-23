@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "Ball.h"
 #include "PlayerPaddle.h"
+#include <Box2D/Box2D.h>
 using namespace cocos2d;
 class GameScene : public cocos2d::Layer
 {
