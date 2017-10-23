@@ -18,7 +18,7 @@ bool TouchScene::init()
     {
         return false;
     }
-    
+
    auto touchListener = EventListenerTouchOneByOne::create();
 
    touchListener->onTouchBegan = CC_CALLBACK_2(TouchScene::onTouchBegan, this);
@@ -39,7 +39,7 @@ bool TouchScene::init()
    ball->setPosition( VisibleRect::center() );
    this->addChild(ball);
 
-   auto paddle1 = Sprite::create("paddle.png");
+   paddle1 = Sprite::create("paddle.png");
    paddle1->setPosition(VisibleRect::bottom());
    this->addChild(paddle1);
 
@@ -60,7 +60,7 @@ void TouchScene::onTouchEnded(Touch* touch, Event* event)
 
 void TouchScene::onTouchMoved(Touch* touch, Event* event)
 {
-    Vec2 touchLocation = touch->getLocation();
+    auto touchLocation = touch->getLocation();
     paddle1->setPosition(Vec2(touchLocation.x, paddle1->getPosition().y));
     cocos2d::log("touch moved");
 }
