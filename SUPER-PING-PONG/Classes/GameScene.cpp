@@ -33,6 +33,39 @@ bool GameScene::init()
     opponentPaddle->setPosition(Vec2(origin.x + screenSize.width * 0.95, origin.y + screenSize.height * 0.5));
     this->addChild(opponentPaddle);
 
+    // ############################################
+
+
+    int bricks_string = 6;
+        int bricks_column = 3;
+        Vector <Brick*> bricks_mass (bricks_string * bricks_column);
+
+    for(int i = 0; i < bricks_string; i++)
+    {
+        for(int j = 0; j < bricks_column; j++) {
+            testSprite = Brick::createBrick();
+            testSprite->setPosition(Vec2(VisibleRect::center().x - 130 + i * 52, VisibleRect::center().y + 40 + j * 52));
+            testSprite->setScale(0.2);
+            bricks_mass.pushBack(testSprite);
+        }
+    }
+
+    for (auto& brick: bricks_mass)
+    {
+        addChild(brick);
+    }
+
+    bricks = bricks_mass;
+
+    // ############################################
+
+        /*
+        testSprite = Brick::createBrick();
+        testSprite->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.8));
+        testSprite->setScale(0.5);
+        this->addChild(testSprite);
+         */
+
     int textSize = 0;
     textSize = 40;
     startText = Label::createWithTTF("First to 5 Wins", "fonts/arial.ttf", textSize);
@@ -113,17 +146,34 @@ void GameScene::update(float delta) {
         ballDirection = Vec2(ballDirection.x, -ballDirection.y);
         newPosition = Vec2(newPosition.x, pongBall->getPosition().y + ballDirection.y * ballVelocity * delta);
     }
-
     pongBall->setPosition(newPosition);
+
+
+    // ############################################
+
+        for (auto it = bricks.begin(); it < bricks.end(); it++)
+        {
+            if (pongBall->collide(*it, pongBall)) {
+                removeChild(*it);
+                bricks.erase(it);
+                // Плохая физика - что делать?
+                ballDirection = Vec2(-ballDirection.x, -ballDirection.y);
+            }
+        }
+
+    // ############################################
+
+
     if ((playerPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox()) && ballDirection.x < 0) || (opponentPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox()) && ballDirection.x > 0)) {
     //reverse x direction of the ball & y direction based on paddle hit later
 
         std::cout << "Touch detect" << std::endl;
-        //#############################
+        //Сектор "ПРИЗ" на барабане!
         //pongBall->setScale(pongBall->decSizeBonus());
-        if (playerPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox())) {
-            playerPaddle->setScaleY(playerPaddle->decPaddleBonus());
-        }
+
+        //if (playerPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox())) {
+        //    playerPaddle->setScaleY(playerPaddle->decPaddleBonus());
+        //}
 
         Sprite *contactPaddle = playerPaddle;
         float newDirectionIsLeft = false;

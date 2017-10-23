@@ -46,3 +46,10 @@ float Ball::decSizeBonus()
     }
     return size;
 }
+
+bool Ball::collide(Brick *it, Ball *ball) {
+    if ((it->getBoundingBox().intersectsRect(ball->getBoundingBox()))){
+        return true;
+    }
+    return false;
+}

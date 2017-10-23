@@ -1,13 +1,18 @@
+#pragma once
 #ifndef GameScene_hpp
 #define GameScene_hpp
 #include "cocos2d.h"
 #include "Ball.h"
 #include "PlayerPaddle.h"
+#include "VisibleRect.h"
+#include "Brick.h"
 #include <Box2D/Box2D.h>
 using namespace cocos2d;
 class GameScene : public cocos2d::Layer
 {
 public:
+    Vector <Brick *> bricks;
+    Brick *testSprite;
     Ball *pongBall;
     PlayerPaddle *playerPaddle;
     Sprite *opponentPaddle;
