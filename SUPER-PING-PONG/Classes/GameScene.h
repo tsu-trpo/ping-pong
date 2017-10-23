@@ -2,7 +2,6 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "Brick.h"
-#import "Box2D/Box2D.h"
 #pragma once
 
 using namespace cocos2d;

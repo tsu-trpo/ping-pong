@@ -26,22 +26,41 @@ void Ball::setDirection(Vec2 direction)
 {
     _direction = direction;
 }
-
 Vec2 Ball::getDirection()
 {
     return _direction;
 }
 
+
 void Ball::setVelocity(int velocity)
 {
     _velocity = velocity;
 }
-
-
 int Ball::getVelocity()
 {
     return _velocity;
 }
+
+
+void Ball::setMinVelocity(int minVelocity)
+{
+    _minVelocity = minVelocity;
+}
+int Ball::getMinVelocity()
+{
+    return _minVelocity;
+}
+
+
+void Ball::setMaxVelocity(int maxVelocity)
+{
+    _maxVelocity = maxVelocity;
+}
+int Ball::getMaxVelocity()
+{
+    return _maxVelocity;
+}
+
 
 
 void Ball::move(float delta)
@@ -70,7 +89,7 @@ bool Ball::collideWithBottom()
     return getPosition().y < VisibleRect::bottom().y;
 }
 
-void Ball::collideWithPaddle(Paddle* paddle)
+bool Ball::collideWithPaddle(Paddle* paddle)
 {
     auto paddleRect = paddle->getRect();
     paddleRect.origin.x += paddle->getPosition().x;
@@ -88,12 +107,14 @@ void Ball::collideWithPaddle(Paddle* paddle)
             float hitDisplacement = (getPosition().x - paddle->getPosition().x) / (paddle->getContentSize().width / 2);
             _direction = Vec2(hitDisplacement, _direction.y * -1);
 
-            int minVelocity = 350; // Костыль
-            _velocity = MAX(minVelocity, abs(VisibleRect::top().y * hitDisplacement) - 100);
+            _velocity = _minVelocity + (_maxVelocity - _minVelocity)* abs(hitDisplacement);
 
             CCLOG("Ball collide with Paddle at %f ", hitDisplacement);
+
+            return true;
         }
     }
+    return false;
 }
 
 

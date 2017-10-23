@@ -10,7 +10,9 @@ class Brick;
 class Ball : public Sprite
 {
     Vec2 _direction;
-    float _velocity;
+    int _velocity;
+    int _minVelocity;
+    int _maxVelocity;
 
 public:
     static Ball* createWithTexture(std::string textureName);
@@ -23,8 +25,14 @@ public:
     void setVelocity(int velocity);
     int getVelocity();
 
+    void setMinVelocity(int velocity);
+    int getMinVelocity();
+
+    void setMaxVelocity(int velocity);
+    int getMaxVelocity();
+
     void move(float delta);
     bool collideWithBottom();
-    void collideWithPaddle(Paddle* paddle);
+    bool collideWithPaddle(Paddle* paddle);
     bool collideWithBrick(Brick* brick);
 };
