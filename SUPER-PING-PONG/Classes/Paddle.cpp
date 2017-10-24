@@ -16,8 +16,8 @@ void Paddle::onEnter()
 {
     Sprite::onEnter();
 
-    _rightLimit = VisibleRect::right().x - getContentSize().width * 0.5;
-    _leftLimit = VisibleRect::left().x + getContentSize().width * 0.5;
+    _rightLimit = VisibleRect::right().x - getContentSize().width * getScaleX() * 0.5;
+    _leftLimit = VisibleRect::left().x + getContentSize().width * getScaleX() * 0.5;
 
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(Paddle::onTouchBegan, this);
@@ -35,8 +35,11 @@ void Paddle::onExit()
 
 Rect Paddle::getRect()
 {
-    auto s = getTexture()->getContentSize();
-    return Rect(-s.width / 2, -s.height / 2, s.width, s.height);
+    return Rect(
+            -(getContentSize().width * getScaleX() * 0.5),
+            -(getContentSize().height * getScaleY() * 0.5),
+            getContentSize().width * getScaleX(),
+            getContentSize().height * getScaleY());
 }
 
 

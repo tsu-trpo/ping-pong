@@ -13,6 +13,9 @@ Brick* Brick::createWithTexture(std::string textureName)
 
 Rect Brick::getRect()
 {
-    auto s = getTexture()->getContentSize();
-    return Rect(-s.width / 2, -s.height / 2, s.width, s.height);
+    return Rect(
+            -(getContentSize().width * getScaleX() / 2),
+            -(getContentSize().height * getScaleY() / 2),
+            getContentSize().width * getScaleX(),
+            getContentSize().height * getScaleY());
 }

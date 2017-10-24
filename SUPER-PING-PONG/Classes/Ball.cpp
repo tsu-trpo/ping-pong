@@ -18,7 +18,7 @@ Ball* Ball::createWithTexture(std::string textureName)
 
 float Ball::radius()
 {
-    return getTexture()->getContentSize().width / 2;
+    return getTexture()->getContentSize().width * 0.5;
 }
 
 
@@ -84,10 +84,12 @@ void Ball::move(float delta)
     }
 }
 
+
 bool Ball::collideWithBottom()
 {
     return getPosition().y < VisibleRect::bottom().y;
 }
+
 
 bool Ball::collideWithPaddle(Paddle* paddle)
 {
@@ -105,12 +107,11 @@ bool Ball::collideWithPaddle(Paddle* paddle)
             setPosition(getPosition().x, paddleRect.getMaxY() + radius());
 
             float hitDisplacement = (getPosition().x - paddle->getPosition().x) / (paddle->getContentSize().width / 2);
-            _direction = Vec2(hitDisplacement, _direction.y * -1);
 
+            _direction = Vec2(hitDisplacement, _direction.y * -1);
             _velocity = _minVelocity + (_maxVelocity - _minVelocity)* abs(hitDisplacement);
 
             CCLOG("Ball collide with Paddle at %f ", hitDisplacement);
-
             return true;
         }
     }

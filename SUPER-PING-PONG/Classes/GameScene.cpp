@@ -25,10 +25,9 @@ bool GameScene::init()
     //////////////////////////////
 
     _screenSize = Director::getInstance()->getVisibleSize();
-    _ballStartingDirection = Vec2(0, -1);
-    _ballStartingVelocity = 300;
-    _lifes = 3;
+    _lives = 3;
     _score = 0;
+    _currentLevel = 0;
 
     //////////////////////////////
 
@@ -39,12 +38,23 @@ bool GameScene::init()
 
     //////////////////////////////
 
+    _scoreLabel = Label::createWithTTF("Score: " + std::to_string(_score * 10), "fonts/arial.ttf", 30);
+    _scoreLabel->setPosition(VisibleRect::leftTop());
+    _scoreLabel->setAnchorPoint(Vec2(0,1));
+    this->addChild(_scoreLabel);
+
+    //////////////////////////////
+
     _paddle = Paddle::createWithTexture("res/paddle.png");
     _paddle->setPosition(Vec2(VisibleRect::center().x, VisibleRect::bottom().y + _screenSize.height * 0.07));
+    _paddle->setScaleX(1.2);
+
     this->addChild(_paddle);
 
     //////////////////////////////
 
+    _ballStartingDirection = Vec2(0, -1);
+    _ballStartingVelocity = 300;
     _ball = Ball::createWithTexture("res/ball.png");
     _ball->setPosition( VisibleRect::center() );
     _ball->setVelocity( _ballStartingVelocity );
@@ -55,23 +65,7 @@ bool GameScene::init()
 
     //////////////////////////////
 
-    int bricksPerLine = 1;  //max = 16
-    int bricksLineCount = 1;    //max = 10
-    Vector<Brick*> bricksM( bricksPerLine * bricksLineCount);
-    for(int i=0; i < bricksPerLine; i++)
-    {
-        for(int j=0; j < bricksLineCount; j++) {
-            Brick *brick = Brick::createWithTexture("res/brick.png");
-            brick->setColor(Color3B(random(0,255),random(0,255),random(0,255)));
-            brick->setPosition(VisibleRect::left().x + 45 + i * 90, VisibleRect::center().y + 60 + j * 35);
-            bricksM.pushBack(brick);
-        }
-    }
-    _bricks = bricksM;
-    for (auto& brick : _bricks)
-    {
-        addChild(brick);
-    }
+    buildWall(_currentLevel);
 
     //////////////////////////////
 
@@ -94,19 +88,23 @@ void GameScene::doStep(float delta)
     {
         if(_ball->collideWithBrick(*it))
         {
-            _score++;
+            CCLOG("Delete Brick");
             removeChild(*it);
             _bricks.erase(it);
-
             CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("res/hit.wav", false, 1.0f, 1.0f, 1.0f);
-            CCLOG("Delete Brick");
 
-            if(_bricks.size() == 0) 
+            _score++;
+            _scoreLabel->setString("Score: " + std::to_string(_score * 10));
+
+            if(_bricks.size() == 0)
             {
                 CCLOG("WINNER WINNER CHICKEN DINNER" );
-                CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
-                Director::getInstance()->replaceScene(
-                        TransitionFade::create(0.5, GameOverScene::createScene(), Color3B(255, 0, 0)));
+                _currentLevel++;
+                buildWall(_currentLevel);
+
+                _ball->setPosition(VisibleRect::center());
+                _ball->setVelocity(_ballStartingVelocity);
+                _ball->setDirection(_ballStartingDirection);
             }
             break;
         }
@@ -114,17 +112,73 @@ void GameScene::doStep(float delta)
 
     if(_ball->collideWithBottom())
     {
-        _lifes--;
+        _lives--;
         _ball->setPosition(VisibleRect::center());
         _ball->setVelocity(_ballStartingVelocity);
         _ball->setDirection(_ballStartingDirection);
 
-        if (_lifes <= 0)
+        if (_lives <= 0)
         {
             _ball->setVelocity(0);
             CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
             Director::getInstance()->replaceScene(
                     TransitionFade::create(0.5, GameOverScene::createScene(), Color3B(255, 0, 0)));
         }
+    }
+}
+
+void GameScene::buildWall(int levelNo)
+{
+    char** levels = new char*[10]; // levels count
+    for(int i = 0; i< 10; i++)
+    {
+        levels[i] = new char[161]; // bricks count
+    }
+
+    levels[0] = "0000000000000000000001111110000000001222222100000001222222221000001222222222210000122222222221000001222222221000000012222221000000000111111000000000000000000000";
+    levels[1] = "2200000000000000222200000000000022222200000000002222222200000000222222222200000022222222222200002222222222222200222222222222222211111111111111111111111111111111";
+    levels[2] = "0111010001110002001001000100100200100100010010020111011101110002000000000000000200011100011100020001010001001002000111000111000200010100010010022222222222222222";
+
+    int columnN = 16;  //max = 16
+    int lineN = 10;    //max = 10
+    Vector<Brick*> bricksM;
+
+    for(int line = 0; line < lineN; line++)
+    {
+        for(int column = 0; column < columnN; column++)
+        {
+            switch (levels[levelNo][ columnN * line + column ])
+            {
+                case '0':
+                {
+                    CCLOG("WHITE");
+                    break;
+                }
+                case '1':
+                {
+                    CCLOG("PINK");
+                    Brick *brick = Brick::createWithTexture("res/brick.png");
+                    brick->setColor(Color3B::GREEN);
+                    brick->setPosition(VisibleRect::left().x + 45 + column * 90, VisibleRect::top().y - 100- line * 35);
+
+                    bricksM.pushBack(brick);
+                    break;
+                }
+                case '2':
+                {
+                    CCLOG("GREEN");
+                    Brick *brick = Brick::createWithTexture("res/brick.png");
+                    brick->setColor(Color3B(random(0,255),random(0,255),random(0,255)));
+                    brick->setPosition(VisibleRect::left().x + 45 + column * 90, VisibleRect::top().y - 100 - line * 35);
+                    bricksM.pushBack(brick);
+                    break;
+                }
+            }
+        }
+    }
+    _bricks = bricksM;
+    for (auto& brick : _bricks)
+    {
+        addChild(brick);
     }
 }
