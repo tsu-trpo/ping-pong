@@ -17,12 +17,12 @@ bool GameScene::init()
     }
     screenSize = Director::getInstance()->getVisibleSize();
 
-    auto *bg = Sprite::create("pongBG.png");
-    bg->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.5));
-    this->addChild(bg);
+    //auto *bg = Sprite::create("pongBG.png");
+   // bg->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.5));
+    //this->addChild(bg);
 
     pongBall = Ball::createBall();
-    pongBall->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.5));
+    pongBall->setPosition(Vec2(origin.x + screenSize.width * 0.1, origin.y + screenSize.height * 0.5));
     this->addChild(pongBall);
 
     playerPaddle = PlayerPaddle::createPlayerPaddle();
@@ -33,19 +33,17 @@ bool GameScene::init()
     opponentPaddle->setPosition(Vec2(origin.x + screenSize.width * 0.95, origin.y + screenSize.height * 0.5));
     this->addChild(opponentPaddle);
 
-    // ############################################
-
-
     int bricks_string = 6;
-        int bricks_column = 3;
-        Vector <Brick*> bricks_mass (bricks_string * bricks_column);
+    int bricks_column = 6;
+    Vector <Brick*> bricks_mass (bricks_string * bricks_column);
 
     for(int i = 0; i < bricks_string; i++)
     {
         for(int j = 0; j < bricks_column; j++) {
             testSprite = Brick::createBrick();
-            testSprite->setPosition(Vec2(VisibleRect::center().x - 130 + i * 52, VisibleRect::center().y + 40 + j * 52));
+            testSprite->setPosition(Vec2(VisibleRect::center().x - 130 + i * 51, VisibleRect::center().y + -130 + j * 51));
             testSprite->setScale(0.2);
+            testSprite->setColor(Color3B (random(0,255), random(0,255), random(0,255)));
             bricks_mass.pushBack(testSprite);
         }
     }
@@ -57,23 +55,14 @@ bool GameScene::init()
 
     bricks = bricks_mass;
 
-    // ############################################
-
-        /*
-        testSprite = Brick::createBrick();
-        testSprite->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.8));
-        testSprite->setScale(0.5);
-        this->addChild(testSprite);
-         */
-
     int textSize = 0;
     textSize = 40;
     startText = Label::createWithTTF("First to 5 Wins", "fonts/arial.ttf", textSize);
     startText->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.8));
     this->addChild(startText);
+
     int scoreLabelSize = 0;
     scoreLabelSize = 40;
-
     playerScoreLabel = Label::createWithTTF("Player Score: 0", "fonts/arial.ttf", scoreLabelSize);
     playerScoreLabel->setPosition(Vec2(origin.x + screenSize.width * 0.2, origin.y + screenSize.height * 0.95));
     this->addChild(playerScoreLabel);
@@ -85,7 +74,6 @@ bool GameScene::init()
     playerScore = 0;
     opponentScore = 0;
     gameHasStarted = false;
-
     ballDirection = Vec2(0, 0);
     ballVelocity = screenSize.width * 0.5;
 
@@ -100,12 +88,10 @@ bool GameScene::init()
 
 bool GameScene::onTouchBegan(Touch *touch, Event *unused_event) {
     if (!gameHasStarted) {
-        //remove text from screen
         this->removeChild(startText);
         startText = NULL;
 
-        //start the ball in a random direction
-        pongBall->setPosition(Vec2(origin.x + screenSize.width * 0.5, origin.y + screenSize.height * 0.5));
+        pongBall->setPosition(Vec2(origin.x + screenSize.width * 0.1, origin.y + screenSize.height * 0.5));
         ballDirection = Ball::randDirection();
 
         this->scheduleUpdate();
@@ -116,7 +102,6 @@ bool GameScene::onTouchBegan(Touch *touch, Event *unused_event) {
         float paddleY = MIN(MAX(touchLocation.y, origin.y + playerPaddle->getContentSize().height * 0.5 ), origin.y + screenSize.height - playerPaddle->getContentSize().height * 0.5 );
         playerPaddle->setPosition(Vec2(playerPaddle->getPosition().x, paddleY));
     }
-
     return true;
 }
 
@@ -125,55 +110,34 @@ void GameScene::onTouchMoved(Touch *touch, Event *unused_event) {
     float paddleY = MIN(MAX(touchLocation.y, origin.y + playerPaddle->getContentSize().height * 0.5 ), origin.y + screenSize.height - playerPaddle->getContentSize().height * 0.5 );
     playerPaddle->setPosition(Vec2(playerPaddle->getPosition().x, paddleY));
 }
-
-void GameScene::onTouchEnded(Touch *touch, Event *unused_event) {
-    //nothing for
-}
-
-void GameScene::onTouchCancelled(Touch *touch, Event *unused_event) {
-    //nothing for now
-}
+void GameScene::onTouchEnded(Touch *touch, Event *unused_event) {}
+void GameScene::onTouchCancelled(Touch *touch, Event *unused_event) {}
 
 void GameScene::update(float delta) {
-    //find new opponent paddle position
     float paddleY = MIN(MAX(MAX(MIN(pongBall->getPosition().y, opponentPaddle->getPosition().y + screenSize.height * 0.01), opponentPaddle->getPosition().y - screenSize.height * 0.01), origin.y + opponentPaddle->getContentSize().height * 0.5), origin.y + screenSize.height - opponentPaddle->getContentSize().height * 0.5 );
     opponentPaddle->setPosition(Vec2(opponentPaddle->getPosition().x, paddleY));
 
-    //find new ball position
     Vec2 newPosition = pongBall->getPosition() + ballDirection * ballVelocity * delta;
     if (newPosition.y < origin.y || newPosition.y > origin.y + screenSize.height) {
-        //reverse y direction of the ball
         ballDirection = Vec2(ballDirection.x, -ballDirection.y);
         newPosition = Vec2(newPosition.x, pongBall->getPosition().y + ballDirection.y * ballVelocity * delta);
     }
     pongBall->setPosition(newPosition);
 
-
     // ############################################
-
-        for (auto it = bricks.begin(); it < bricks.end(); it++)
-        {
-            if (pongBall->collide(*it, pongBall)) {
-                removeChild(*it);
-                bricks.erase(it);
-                // Плохая физика - что делать?
-                ballDirection = Vec2(-ballDirection.x, -ballDirection.y);
-            }
+    for (auto it = bricks.begin(); it < bricks.end(); it++)
+    {
+        if (pongBall->collide(*it, pongBall)) {
+            ballDirection = pongBall->newDirection(*it, pongBall, ballDirection);
+            pongBall->changeColour(pongBall);
+            removeChild(*it);
+            bricks.erase(it);
         }
-
+    }
     // ############################################
-
 
     if ((playerPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox()) && ballDirection.x < 0) || (opponentPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox()) && ballDirection.x > 0)) {
-    //reverse x direction of the ball & y direction based on paddle hit later
-
         std::cout << "Touch detect" << std::endl;
-        //Сектор "ПРИЗ" на барабане!
-        //pongBall->setScale(pongBall->decSizeBonus());
-
-        //if (playerPaddle->getBoundingBox().intersectsRect(pongBall->getBoundingBox())) {
-        //    playerPaddle->setScaleY(playerPaddle->decPaddleBonus());
-        //}
 
         Sprite *contactPaddle = playerPaddle;
         float newDirectionIsLeft = false;
@@ -199,7 +163,7 @@ void GameScene::update(float delta) {
 
         //point over--enemy wins int textSize = 0;
         int textSize = 0;
-            textSize = 40;
+        textSize = 40;
         opponentScore++;
         std::string middleText;
         if (opponentScore < 5) {
@@ -232,7 +196,7 @@ void GameScene::update(float delta) {
     } else if (newPosition.x > origin.x +  screenSize.width) {
         //point over--player wins
         int textSize = 0;
-            textSize = 40;
+        textSize = 40;
         playerScore++;
         std::string middleText;
         if (playerScore < 5) {

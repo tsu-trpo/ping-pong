@@ -48,8 +48,42 @@ float Ball::decSizeBonus()
 }
 
 bool Ball::collide(Brick *it, Ball *ball) {
-    if ((it->getBoundingBox().intersectsRect(ball->getBoundingBox()))){
+    if ((ball->getBoundingBox().intersectsRect(it->getBoundingBox()))){
         return true;
     }
     return false;
+}
+
+Vec2 Ball::newDirection(Brick *it, Ball *ball, Vec2 ballDirection) {
+    auto BrickRect = it->brickRect();
+    BrickRect.origin.x += it->getPositionX();
+    BrickRect.origin.y += it->getPositionY();
+
+    auto _ball = ball->getBoundingBox();
+    if ((_ball.getMinY() < BrickRect.getMaxY() && _ball.getMinY() > BrickRect.getMinY()) ||
+        (_ball.getMaxY() > BrickRect.getMinY() && _ball.getMaxY() < BrickRect.getMaxY()))
+        {
+        if (_ball.getMinX() < BrickRect.getMaxX() && _ball.getMaxX() > BrickRect.getMaxX())
+        {
+            ballDirection.x = fabsf(ballDirection.x);
+        }
+        else if (_ball.getMaxX() > BrickRect.getMinX() && _ball.getMinX() < BrickRect.getMinX())
+        {
+            ballDirection.x = -fabsf(ballDirection.x);
+        }
+        if (_ball.getMinY() < BrickRect.getMaxY() && _ball.getMinY() > BrickRect.getMinY())
+        {
+            ballDirection.y = fabsf(ballDirection.y);
+        }
+        else
+        {
+            ballDirection.y = -fabsf(ballDirection.y);
+        }
+    }
+    return Vec2(ballDirection.x, ballDirection.y);
+}
+
+void Ball::changeColour(Ball *ball)
+{
+    ball->setColor(Color3B (random(0,255), random(0,255), random(0,255)));
 }

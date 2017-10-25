@@ -11,6 +11,8 @@ public:
     static Ball* createBall();
     static Vec2 randDirection();
     bool collide(Brick *it, Ball *ball);
+    Vec2 newDirection(Brick *it, Ball *ball, Vec2 ballDirection);
+    void changeColour(Ball *ball);
     float incSizeBonus();
     float decSizeBonus();
 };
