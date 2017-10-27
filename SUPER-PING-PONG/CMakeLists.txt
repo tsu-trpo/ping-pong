@@ -130,6 +130,7 @@ set(GAME_SRC
   Classes/AppDelegate.cpp
   Classes/TouchScene.cpp
   Classes/VisibleRect.cpp 
+  Classes/ball.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
@@ -137,6 +138,7 @@ set(GAME_HEADERS
   Classes/AppDelegate.h
   Classes/TouchScene.h
   Classes/VisibleRect.h
+  Classes/ball.h
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 
@@ -156,7 +158,7 @@ if( ANDROID )
         ADD_CUSTOM_COMMAND(TARGET ${APP_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} lib${APP_NAME}.so)
     ENDIF()
 else()
-    add_library(${LIB_NAME} STATIC ${GAME_SRC} ${GAME_HEADERS})
+    add_library(${LIB_NAME} STATIC ${GAME_SRC} ${GAME_HEADERS} Classes/paddle.cpp Classes/paddle.h Classes/brick.cpp Classes/brick.h)
     add_executable(${APP_NAME} ${MAIN_CPP} ${GAME_HEADERS})
 endif()
 
