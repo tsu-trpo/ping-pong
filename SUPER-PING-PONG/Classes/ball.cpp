@@ -67,4 +67,25 @@ bool Ball::collideWithPaddle(Paddle* paddle) {
     return false;
 }
 
+bool Ball::collideWithBrick(Brick *brick) {
+    auto positionX = getPosition().x;
+    auto positionY = getPosition().y;
+
+    float width_of_brick = brick->getContentSize().width * brick->getScaleX();
+    float height_of_brick = brick->getContentSize().height * brick->getScaleY();
+
+
+    if(positionX < brick->getPosition().x + width_of_brick/2) {
+        if(brick->getPosition().x - width_of_brick/2 < positionX) {
+            if(positionY > brick->getPosition().y - height_of_brick/2) {
+                direction_m.y *= -1;
+                setPosition(positionX, brick->getPosition().y - width_of_brick/2);
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 

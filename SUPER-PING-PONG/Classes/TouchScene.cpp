@@ -78,7 +78,7 @@ bool TouchScene::init()
 
     glob = Ball::createWithTexture("ball.png");
     glob->setPosition(VisibleRect::center());
-    glob->setVelocity(2);
+    glob->setVelocity(3);
     glob->setDirection(Vec2(1,1));
     glob->setScale(0.5);
     this->addChild(glob);
@@ -98,7 +98,6 @@ void TouchScene::onTouchEnded(Touch* touch, Event* event) {
 void TouchScene::onTouchMoved(Touch* touch, Event* event) {
     auto touchLocation = touch->getLocation();
     paddle1->setPosition(Vec2(touchLocation.x, paddle1->getPosition().y));
-    std::cout << paddle1->getPosition().x << std::endl;
     cocos2d::log("touch moved");
 }
 
@@ -111,6 +110,14 @@ void TouchScene::doStep(float delta) {
         cocos2d::log("COLLIDE");
     }
     glob->move(delta);
+
+    for(auto i = 0; i < bricks_m.size(); i++) {
+        if(glob->collideWithBrick(bricks_m.at(i))) {
+            removeChild(bricks_m.at(i));
+            bricks_m.erase(i);
+            cocos2d::log("sdafasdfasdf");
+        };
+    }
 
 
 }

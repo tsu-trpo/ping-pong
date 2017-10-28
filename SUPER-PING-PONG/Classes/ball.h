@@ -1,5 +1,6 @@
 #pragma once
 #include "paddle.h"
+#include "brick.h"
 #include "cocos2d.h"
 #include <iostream>
 
@@ -22,5 +23,6 @@ public:
     void move(float delta);
 
     bool collideWithPaddle(Paddle* paddle);
+    bool collideWithBrick(Brick* brick);
 
 };
