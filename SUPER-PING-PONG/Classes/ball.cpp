@@ -64,7 +64,6 @@ bool Ball::collideWithPaddle(Paddle* paddle) {
             }
         }
     }
-
     return false;
 }
 

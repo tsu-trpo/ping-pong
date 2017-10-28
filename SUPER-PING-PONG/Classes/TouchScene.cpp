@@ -37,14 +37,39 @@ bool TouchScene::init()
     sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     this->addChild(sprite, 0);
 
-    bricks_m = std::vector<Brick*>(2*2);
-    for(int i = 0; i<4; i++) {
+    unsigned int perLine = 7;
+    unsigned int perColumn = 2;
+    float center = VisibleRect::center().x;
+    float top = VisibleRect::top().y;
+    bricks_m = Vector<Brick*>(perLine*perColumn);
+    for(unsigned int i = 0; i < (perLine*perColumn); i++) {
         Brick* br = Brick::createWithTexture("brick.jpg");
-        br->setPosition(VisibleRect::center());
         br->setScaleY(0.3);
         br->setScaleX(0.3);
+        br->setColor(Color3B(random(0,255),random(0,255),random(0,255)));
         this->addChild(br);
-        bricks_m.push_back(br);
+        bricks_m.pushBack(br);
+    }
+
+    float width_of_brick = bricks_m.at(0)->getContentSize().width * bricks_m.at(0)->getScaleX();
+    float height_of_brick = bricks_m.at(0)->getContentSize().height * bricks_m.at(0)->getScaleY();
+    unsigned int oneside = perLine/2;
+
+    int flag = perLine%2; //если четное
+
+    float x = center - width_of_brick*oneside - (width_of_brick*flag)/2 + width_of_brick/2;
+    float y = top - height_of_brick/2;
+
+    int k = 0;
+    for(int j = 0; j < perColumn; j++) {
+        for (int i = 0; i < perLine; i++) {
+            log("add");
+            bricks_m.at(k)->setPosition(x, y);
+            x += width_of_brick;
+            k++;
+        }
+        y -= height_of_brick;
+        x = center - width_of_brick*oneside - (width_of_brick*flag)/2 + width_of_brick/2;
     }
 
     paddle1 = Paddle::createWithTexture("pad.png");

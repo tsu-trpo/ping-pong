@@ -2,7 +2,6 @@
 #include "ball.h"
 #include "paddle.h"
 #include "brick.h"
-#include <vector>
 #include "cocos2d.h"
 
 
@@ -13,7 +12,7 @@ public:
     static::Scene* createScene();
     Paddle *paddle1;
     Ball *glob;
-    std::vector <Brick*> bricks_m;
+    Vector <Brick*> bricks_m;
 
     virtual bool init();
 
