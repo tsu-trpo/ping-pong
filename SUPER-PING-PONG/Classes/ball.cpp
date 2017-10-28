@@ -78,9 +78,12 @@ bool Ball::collideWithBrick(Brick *brick) {
     if(positionX < brick->getPosition().x + width_of_brick/2) {
         if(brick->getPosition().x - width_of_brick/2 < positionX) {
             if(positionY > brick->getPosition().y - height_of_brick/2) {
-                direction_m.y *= -1;
-                setPosition(positionX, brick->getPosition().y - width_of_brick/2);
-                return true;
+                if(positionY < brick->getPosition().y + height_of_brick/2) {
+                    direction_m.y *= -1;
+                    setPosition(positionX, brick->getPosition().y + direction_m.y * (width_of_brick / 2));
+                    return true;
+                }
+
             }
         }
     }
