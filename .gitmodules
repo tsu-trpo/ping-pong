@@ -1,0 +1,3 @@
+[submodule "SUPER-PING-PONG/libs"]
+	path = SUPER-PING-PONG/libs
+	url = git://github.com/google/googletest.git
