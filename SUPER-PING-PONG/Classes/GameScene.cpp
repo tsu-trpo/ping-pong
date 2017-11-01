@@ -25,7 +25,7 @@ bool GameScene::init()
     //////////////////////////////
 
     _screenSize = Director::getInstance()->getVisibleSize();
-    _lives = 3;
+    _lifes = 3;
     _score = 0;
     _currentLevel = 0;
 
@@ -42,6 +42,11 @@ bool GameScene::init()
     _scoreLabel->setPosition(VisibleRect::leftTop());
     _scoreLabel->setAnchorPoint(Vec2(0,1));
     this->addChild(_scoreLabel);
+
+    _lifesLabel = Label::createWithTTF("Lifes: " + std::to_string(_lifes), "fonts/arial.ttf", 30);
+    _lifesLabel->setPosition(VisibleRect::rightTop());
+    _lifesLabel->setAnchorPoint(Vec2(1,1));
+    this->addChild(_lifesLabel);
 
     //////////////////////////////
 
@@ -91,6 +96,7 @@ void GameScene::doStep(float delta)
             CCLOG("Delete Brick");
             removeChild(*it);
             _bricks.erase(it);
+            //it--;
             CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("res/hit.wav", false, 1.0f, 1.0f, 1.0f);
 
             _score++;
@@ -112,12 +118,13 @@ void GameScene::doStep(float delta)
 
     if(_ball->collideWithBottom())
     {
-        _lives--;
+        _lifes--;
+        _lifesLabel->setString("Lifes: " + std::to_string(_lifes));
         _ball->setPosition(VisibleRect::center());
         _ball->setVelocity(_ballStartingVelocity);
         _ball->setDirection(_ballStartingDirection);
 
-        if (_lives <= 0)
+        if (_lifes <= 0)
         {
             _ball->setVelocity(0);
             CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
@@ -126,6 +133,7 @@ void GameScene::doStep(float delta)
         }
     }
 }
+
 
 void GameScene::buildWall(int levelNo)
 {
@@ -138,6 +146,10 @@ void GameScene::buildWall(int levelNo)
     levels[0] = "0000000000000000000001111110000000001222222100000001222222221000001222222222210000122222222221000001222222221000000012222221000000000111111000000000000000000000";
     levels[1] = "2200000000000000222200000000000022222200000000002222222200000000222222222200000022222222222200002222222222222200222222222222222211111111111111111111111111111111";
     levels[2] = "0111010001110002001001000100100200100100010010020111011101110002000000000000000200011100011100020001010001001002000111000111000200010100010010022222222222222222";
+    levels[3] = "0000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000000000010000000000000001000000000000000100000000";
+    levels[4] = "0000000000000000000001111110000000001222222100000001222222221000001222222222210000122222222221000001222222221000000012222221000000000111111000000000000000000000";
+    levels[5] = "2200000000000000222200000000000022222200000000002222222200000000222222222200000022222222222200002222222222222200222222222222222211111111111111111111111111111111";
+    levels[6] = "0111010001110002001001000100100200100100010010020111011101110002000000000000000200011100011100020001010001001002000111000111000200010100010010022222222222222222";
 
     int columnN = 16;  //max = 16
     int lineN = 10;    //max = 10

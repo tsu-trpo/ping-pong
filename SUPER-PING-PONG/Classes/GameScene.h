@@ -16,10 +16,11 @@ class GameScene : public cocos2d::Layer
     Vec2 _ballStartingDirection;
     int _ballStartingVelocity;
     Size _screenSize;
-    int _lives;
+    int _lifes;
     int _score;
     int _currentLevel;
     Label* _scoreLabel;
+    Label* _lifesLabel;
 
 public:
     CREATE_FUNC(GameScene);
