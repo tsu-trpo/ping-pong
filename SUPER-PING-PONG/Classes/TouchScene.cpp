@@ -64,7 +64,7 @@ bool TouchScene::init()
     for(int j = 0; j < perColumn; j++) {
         for (int i = 0; i < perLine; i++) {
             log("add");
-            bricks_m.at(k)->setPosition(x, y);
+            bricks_m.at(k)->setPosition(x, y-10);
             x += width_of_brick;
             k++;
         }
@@ -115,7 +115,6 @@ void TouchScene::doStep(float delta) {
         if(glob->collideWithBrick(bricks_m.at(i))) {
             removeChild(bricks_m.at(i));
             bricks_m.erase(i);
-            cocos2d::log("sdafasdfasdf");
         };
     }
 
