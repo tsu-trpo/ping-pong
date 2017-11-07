@@ -2,6 +2,7 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "Brick.h"
+#include <vector>
 #pragma once
 
 using namespace cocos2d;
@@ -9,25 +10,24 @@ using namespace cocos2d;
 
 class GameScene : public cocos2d::Layer
 {
-    Ball* _ball;
+    Vector <Ball*> _balls;
     Paddle* _paddle;
     Vector<Brick*> _bricks;
 
     Vec2 _ballStartingDirection;
     int _ballStartingVelocity;
     Size _screenSize;
-    int _lifes;
-    int _score;
-    int _currentLevel;
-    Label* _scoreLabel;
-    Label* _lifesLabel;
+//    int _life;
+//    int _score;
+//    int _currentLevel;
+//    Label* _scoreLabel;
+//    Label* _lifesLabel;
 
 public:
     CREATE_FUNC(GameScene);
     static cocos2d::Scene* createScene();
     virtual bool init();
 
-    void doStep(float delta);
-
-    void buildWall(int levelNo);
+    void update(float delta);
+    void move(float delta, Ball* ball);
 };

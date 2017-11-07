@@ -1,14 +1,11 @@
 #include "Ball.h"
-#include "Paddle.h"
-#include "Brick.h"
-#include "VisibleRect.h"
-//#include <stdio.h>
 
-
-Ball* Ball::createWithTexture(std::string textureName)
+Ball* Ball::createWithTexture(std::string textureName, int minVelocity, int maxVelocity)
 {
-
     Ball* self = new (std::nothrow) Ball();
+    self->_minVelocity = minVelocity;
+    self->_maxVelocity = maxVelocity;
+    self->_collisionStrategy = std::make_shared<Classic>();
     self->initWithFile(textureName);
     self->autorelease();
 
@@ -16,9 +13,15 @@ Ball* Ball::createWithTexture(std::string textureName)
 }
 
 
-float Ball::radius()
+void Ball::setCollisionStrategy(std::shared_ptr<CollisionStrategy> strategy)
 {
-    return getTexture()->getContentSize().width * 0.5;
+    _collisionStrategy = strategy;
+}
+
+
+double Ball::getRadius()
+{
+    return getContentSize().width * getScaleX() * 0.5;
 }
 
 
@@ -42,44 +45,25 @@ int Ball::getVelocity()
 }
 
 
-void Ball::setMinVelocity(int minVelocity)
-{
-    _minVelocity = minVelocity;
-}
-int Ball::getMinVelocity()
-{
-    return _minVelocity;
-}
-
-
-void Ball::setMaxVelocity(int maxVelocity)
-{
-    _maxVelocity = maxVelocity;
-}
-int Ball::getMaxVelocity()
-{
-    return _maxVelocity;
-}
-
 
 
 void Ball::move(float delta)
 {
-    this->setPosition(getPosition() + _direction * _velocity * delta);
+    setPosition(getPosition() + _direction * _velocity * delta);
 
-    if (getPosition().x > VisibleRect::right().x - radius())
+    if (getPosition().x > VisibleRect::right().x - getRadius())
     {
-        setPosition(VisibleRect::right().x - radius(), getPosition().y);
+        setPosition(VisibleRect::right().x - getRadius(), getPosition().y);
         _direction.x *= -1;
     }
-    else if (getPosition().x < VisibleRect::left().x + radius())
+    else if (getPosition().x < VisibleRect::left().x + getRadius())
     {
-        setPosition(VisibleRect::left().x + radius(), getPosition().y);
+        setPosition(VisibleRect::left().x + getRadius(), getPosition().y);
         _direction.x *= -1;
     }
-    else if (getPosition().y > VisibleRect::top().y - radius())
+    else if (getPosition().y > VisibleRect::top().y - getRadius())
     {
-        setPosition(getPosition().x, VisibleRect::top().y - radius());
+        setPosition(getPosition().x, VisibleRect::top().y - getRadius());
         _direction.y *= -1;
     }
 }
@@ -102,9 +86,9 @@ bool Ball::collideWithPaddle(Paddle* paddle)
         auto ball = getBoundingBox();
 
         if( ball.getMaxX() > paddleRect.getMinX() && ball.getMidX() < paddleRect.getMaxX() &&
-                    ball.getMinY() < paddleRect.getMaxY() + radius() )
+            ball.getMinY() < paddleRect.getMaxY() )
         {
-            setPosition(getPosition().x, paddleRect.getMaxY() + radius());
+            setPosition(getPosition().x, paddleRect.getMaxY() + getRadius());
 
             float hitDisplacement = (getPosition().x - paddle->getPosition().x) / (paddle->getContentSize().width / 2);
 
@@ -121,42 +105,5 @@ bool Ball::collideWithPaddle(Paddle* paddle)
 
 bool Ball::collideWithBrick(Brick *brick)
 {
-    auto brickRect = brick->getRect();
-    brickRect.origin.x += brick->getPosition().x;
-    brickRect.origin.y += brick->getPosition().y;
-
-    if (getBoundingBox().intersectsRect(brickRect))
-    {
-        auto ball = getBoundingBox();
-
-        if ((ball.getMinY() < brickRect.getMaxY() && ball.getMinY() > brickRect.getMinY()) ||
-                (ball.getMaxY() > brickRect.getMinY() && ball.getMaxY() < brickRect.getMaxY()))
-        {
-            if (ball.getMinX() < brickRect.getMaxX() && ball.getMaxX() > brickRect.getMaxX())
-            {
-                // right
-                //setPosition(brickRect.getMaxX() + radius(),getPosition().y);
-                _direction.x = fabsf(_direction.x);
-            } else if (ball.getMaxX() > brickRect.getMinX() && ball.getMinX() < brickRect.getMinX())
-            {
-                // left
-                //setPosition(brickRect.getMinX() - radius(),getPosition().y);
-                _direction.x = -fabsf(_direction.x);
-            }
-
-            if (ball.getMinY() < brickRect.getMaxY() && ball.getMinY() > brickRect.getMinY())
-            {
-                // top
-                //setPosition(getPosition().x, brickRect.getMaxY() + radius());
-                _direction.y = fabsf(_direction.y);
-            } else
-            {
-                //bottom
-                //setPosition(getPosition().x, brickRect.getMinY() - radius());
-                _direction.y = -fabsf(_direction.y);
-            }
-        }
-        return true;
-    }
-    return false;
+    return _collisionStrategy->collideWithBrick(this, brick);
 }

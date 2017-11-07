@@ -6,7 +6,7 @@
 USING_NS_CC;
 
 
-//static cocos2d::Size designResolutionSize = cocos2d::Size(640, 960);
+//static cocos2d::Size designResolutionSize = cocos2d::Size(800, 600);
 static cocos2d::Size designResolutionSize = cocos2d::Size(1440, 960);
 
 
@@ -53,7 +53,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
     // turn on display FPS
-    director->setDisplayStats(false);
+    director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0f / 60);
