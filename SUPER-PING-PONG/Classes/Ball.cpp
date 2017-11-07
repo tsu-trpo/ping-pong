@@ -135,24 +135,24 @@ bool Ball::collideWithBrick(Brick *brick)
             if (ball.getMinX() < brickRect.getMaxX() && ball.getMaxX() > brickRect.getMaxX())
             {
                 // right
-                setPosition(brickRect.getMaxX() + radius(),getPosition().y);
+                //setPosition(brickRect.getMaxX() + radius(),getPosition().y);
                 _direction.x = fabsf(_direction.x);
             } else if (ball.getMaxX() > brickRect.getMinX() && ball.getMinX() < brickRect.getMinX())
             {
                 // left
-                setPosition(brickRect.getMinX() - radius(),getPosition().y);
+                //setPosition(brickRect.getMinX() - radius(),getPosition().y);
                 _direction.x = -fabsf(_direction.x);
             }
 
             if (ball.getMinY() < brickRect.getMaxY() && ball.getMinY() > brickRect.getMinY())
             {
                 // top
-                setPosition(getPosition().x, brickRect.getMaxY() + radius());
+                //setPosition(getPosition().x, brickRect.getMaxY() + radius());
                 _direction.y = fabsf(_direction.y);
             } else
             {
                 //bottom
-                setPosition(getPosition().x, brickRect.getMinY() - radius());
+                //setPosition(getPosition().x, brickRect.getMinY() - radius());
                 _direction.y = -fabsf(_direction.y);
             }
         }

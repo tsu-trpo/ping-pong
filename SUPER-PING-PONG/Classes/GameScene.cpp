@@ -43,7 +43,7 @@ bool GameScene::init()
     _scoreLabel->setAnchorPoint(Vec2(0,1));
     this->addChild(_scoreLabel);
 
-    _lifesLabel = Label::createWithTTF("Lifes: " + std::to_string(_lifes), "fonts/arial.ttf", 30);
+    _lifesLabel = Label::createWithTTF("Life: " + std::to_string(_lifes), "fonts/arial.ttf", 30);
     _lifesLabel->setPosition(VisibleRect::rightTop());
     _lifesLabel->setAnchorPoint(Vec2(1,1));
     this->addChild(_lifesLabel);
@@ -119,7 +119,7 @@ void GameScene::doStep(float delta)
     if(_ball->collideWithBottom())
     {
         _lifes--;
-        _lifesLabel->setString("Lifes: " + std::to_string(_lifes));
+        _lifesLabel->setString("Life: " + std::to_string(_lifes));
         _ball->setPosition(VisibleRect::center());
         _ball->setVelocity(_ballStartingVelocity);
         _ball->setDirection(_ballStartingDirection);
