@@ -8,7 +8,6 @@ using namespace cocos2d;
 
 class Paddle : public Sprite
 {
-    //float _size = 1.0;
     float _rightLimit;
     float _leftLimit;
 

@@ -1,5 +1,4 @@
 #include "GameScene.h"
-#include "GameOverScene.h"
 #include "SimpleAudioEngine.h"
 #include "VisibleRect.h"
 USING_NS_CC;

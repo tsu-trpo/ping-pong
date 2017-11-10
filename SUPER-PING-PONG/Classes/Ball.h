@@ -7,7 +7,6 @@
 
 
 using namespace cocos2d;
-//using StrategyPtr = std::shared_ptr<CollisionStrategy>;
 
 class CollisionStrategy;
 

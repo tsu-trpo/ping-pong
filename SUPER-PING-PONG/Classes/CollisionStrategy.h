@@ -2,7 +2,7 @@
 #include "cocos2d.h"
 #include "Ball.h"
 #include "Brick.h"
-// Needs Brick class methods: getPosition, getRect
+
 
 class Ball;
 class Brick;
@@ -26,9 +26,4 @@ class Sharp : public CollisionStrategy
 };
 
 
-//class Fury : public CollisionStrategy
-//{
-//public:
-//    bool collideWithBrick(Ball* ball, Brick* brick) override;
-//};
-
+// TODO:  class Fury

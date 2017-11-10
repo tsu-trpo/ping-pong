@@ -18,24 +18,20 @@ bool Classic::collideWithBrick(Ball* ball, Brick *brick)
             if (ballRect.getMinX() < brickRect.getMaxX() && ballRect.getMaxX() > brickRect.getMaxX())
             {
                 // right
-                //setPosition(brickRect.getMaxX() + radius(),getPosition().y);
                 ball->setDirection( Vec2( fabsf(ballDirection.x), ballDirection.y));
             } else if (ballRect.getMaxX() > brickRect.getMinX() && ballRect.getMinX() < brickRect.getMinX())
             {
                 // left
-                //setPosition(brickRect.getMinX() - radius(),getPosition().y);
                 ball->setDirection( Vec2( -fabsf(ballDirection.x), ballDirection.y));
             }
 
             if (ballRect.getMinY() < brickRect.getMaxY() && ballRect.getMinY() > brickRect.getMinY())
             {
                 // top
-                //setPosition(getPosition().x, brickRect.getMaxY() + radius());
                 ball->setDirection( Vec2( ballDirection.x, fabsf(ballDirection.y)));
             } else
             {
                 //bottom
-                //setPosition(getPosition().x, brickRect.getMinY() - radius());
                 ball->setDirection( Vec2( ballDirection.x, -fabsf(ballDirection.y)));
 
             }
