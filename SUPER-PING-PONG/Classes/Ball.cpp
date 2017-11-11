@@ -2,7 +2,7 @@
 
 Ball* Ball::createWithTexture(std::string textureName, int minVelocity, int maxVelocity)
 {
-    Ball* self = new (std::nothrow) Ball();
+    Ball* self = new Ball();
     self->_minVelocity = minVelocity;
     self->_maxVelocity = maxVelocity;
     self->_collisionStrategy = std::make_shared<Classic>();
@@ -61,7 +61,7 @@ void Ball::move(float delta)
         setPosition(VisibleRect::left().x + getRadius(), getPosition().y);
         _direction.x *= -1;
     }
-    else if (getPosition().y > VisibleRect::top().y - getRadius())
+    if (getPosition().y > VisibleRect::top().y - getRadius())
     {
         setPosition(getPosition().x, VisibleRect::top().y - getRadius());
         _direction.y *= -1;
@@ -78,14 +78,14 @@ bool Ball::collideWithBottom()
 bool Ball::collideWithPaddle(Paddle* paddle)
 {
     auto paddleRect = paddle->getRect();
-    paddleRect.origin.x += paddle->getPosition().x;
+    paddleRect.origin.x += paddle->getPosition().x; //setting rect to it's real position
     paddleRect.origin.y += paddle->getPosition().y;
 
     if (getBoundingBox().intersectsRect(paddleRect))
     {
         auto ball = getBoundingBox();
 
-        if( ball.getMaxX() > paddleRect.getMinX() && ball.getMidX() < paddleRect.getMaxX() &&
+        if( ball.getMaxX() > paddleRect.getMinX() && ball.getMinX() < paddleRect.getMaxX() &&
             ball.getMinY() < paddleRect.getMaxY() )
         {
             setPosition(getPosition().x, paddleRect.getMaxY() + getRadius());
@@ -93,7 +93,7 @@ bool Ball::collideWithPaddle(Paddle* paddle)
             float hitDisplacement = (getPosition().x - paddle->getPosition().x) / (paddle->getContentSize().width / 2);
 
             _direction = Vec2(hitDisplacement, _direction.y * -1);
-            _velocity = _minVelocity + (_maxVelocity - _minVelocity)* abs(hitDisplacement);
+            _velocity = _minVelocity + (_maxVelocity - _minVelocity)* fabsf(hitDisplacement);
 
             CCLOG("Ball collide with Paddle at %f ", hitDisplacement);
             return true;
