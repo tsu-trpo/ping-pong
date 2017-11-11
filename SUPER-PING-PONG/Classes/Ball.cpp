@@ -83,10 +83,10 @@ bool Ball::collideWithPaddle(Paddle* paddle)
 
     if (getBoundingBox().intersectsRect(paddleRect))
     {
-        auto ball = getBoundingBox();
+        auto ballBox = getBoundingBox();
 
-        if( ball.getMaxX() > paddleRect.getMinX() && ball.getMinX() < paddleRect.getMaxX() &&
-            ball.getMinY() < paddleRect.getMaxY() )
+        if( ballBox.getMaxX() > paddleRect.getMinX() && ballBox.getMinX() < paddleRect.getMaxX() &&
+            ballBox.getMinY() < paddleRect.getMaxY() )
         {
             setPosition(getPosition().x, paddleRect.getMaxY() + getRadius());
 
