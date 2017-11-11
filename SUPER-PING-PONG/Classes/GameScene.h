@@ -1,9 +1,9 @@
+#pragma once
 #include "cocos2d.h"
 #include "Ball.h"
 #include "Paddle.h"
 #include "Brick.h"
 #include <vector>
-#pragma once
 
 using namespace cocos2d;
 

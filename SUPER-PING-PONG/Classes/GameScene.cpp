@@ -1,7 +1,6 @@
 #include "GameScene.h"
 #include "SimpleAudioEngine.h"
 #include "VisibleRect.h"
-USING_NS_CC;
 
 
 Scene* GameScene::createScene()

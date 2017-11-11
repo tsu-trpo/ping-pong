@@ -2,7 +2,6 @@
 #include "cocos2d.h"
 #include "VisibleRect.h"
 
-
 using namespace cocos2d;
 
 

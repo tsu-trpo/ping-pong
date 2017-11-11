@@ -1,8 +1,8 @@
 #include "AppDelegate.h"
 #include "GameScene.h"
 #include "audio/include/SimpleAudioEngine.h"
-USING_NS_CC;
 
+using namespace cocos2d;
 
 static cocos2d::Size designResolutionSize = cocos2d::Size(1440, 960);
 

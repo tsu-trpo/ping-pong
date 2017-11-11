@@ -1,5 +1,5 @@
-#include "cocos2d.h"
 #pragma once
+#include "cocos2d.h"
 
 class VisibleRect
 {
