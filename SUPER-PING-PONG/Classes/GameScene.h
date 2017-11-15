@@ -14,10 +14,6 @@ class GameScene : public cocos2d::Layer
     Paddle* _paddle;
     Vector<Brick*> _bricks;
 
-    Vec2 _ballStartingDirection;
-    int _ballStartingVelocity;
-    Size _screenSize;
-
 public:
     CREATE_FUNC(GameScene);
     static cocos2d::Scene* createScene();
