@@ -6,6 +6,7 @@
 #include "Brick.h"
 
 
+
 using namespace cocos2d;
 
 class CollisionStrategy;
@@ -17,18 +18,22 @@ class Ball : public Sprite
 
     int _minVelocity;
     int _maxVelocity;
+    Vec2 _startPosition;
+    Vec2 _startDirection;
+    int _startVelocity;
+
     std::shared_ptr<CollisionStrategy> _collisionStrategy;
 
 public:
-    static Ball* createWithTexture(std::string textureName, int minVelocity, int maxVelocity);
-    void setCollisionStrategy(std::shared_ptr<CollisionStrategy> strategy);
+    static Ball* createWithTexture(std::string textureName, Vec2 startPosition, Vec2 startDirection, int startVelocity);
 
     void move(float delta);
     bool collideWithBottom();
-    bool collideWithPaddle(Paddle* paddle);
+    void collideWithPaddle(Paddle* paddle);
     bool collideWithBrick(Brick* brick);
 
-
+    void respawn();
+    void setCollisionStrategy(std::shared_ptr<CollisionStrategy> strategy);
     double getRadius();
 
     void setDirection(Vec2 direction);
@@ -36,5 +41,20 @@ public:
 
     void setVelocity(int velocity);
     int getVelocity();
+
+    void setMinVelocity(int minVelocity);
+    int getMinVelocity();
+
+    void setMaxVelocity(int maxVelocity);
+    int getMaxVelocity();
+
+    void setStartPosition(Vec2 startPosition);
+    Vec2 getStartPosition();
+
+    void setStartDirection(Vec2 startDirection);
+    Vec2 getStartDirection();
+
+    void setStartVelocity(int startVelocity);
+    int getStartVelocity();
 
 };
