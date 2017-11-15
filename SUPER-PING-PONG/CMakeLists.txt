@@ -127,16 +127,25 @@ if ( WIN32 )
 endif( WIN32 )
 
 set(GAME_SRC
-  Classes/AppDelegate.cpp
-  Classes/GameScene.cpp
-  ${PLATFORM_SPECIFIC_SRC}
-)
+        Classes/AppDelegate.cpp
+        Classes/GameScene.cpp
+        Classes/Ball.cpp
+        Classes/CollisionStrategy.cpp
+        Classes/Paddle.cpp
+        Classes/VisibleRect.cpp
+        ${PLATFORM_SPECIFIC_SRC}
+        )
 
 set(GAME_HEADERS
-  Classes/AppDelegate.h
-  Classes/GameScene.h
-  ${PLATFORM_SPECIFIC_HEADERS}
-        Classes/Ball.cpp Classes/Ball.h Classes/Paddle.cpp Classes/Paddle.h Classes/VisibleRect.cpp Classes/VisibleRect.h Classes/Brick.h Classes/GameOverScene.cpp Classes/GameOverScene.h)
+        Classes/AppDelegate.h
+        Classes/GameScene.h
+        Classes/Ball.h
+        Classes/CollisionStrategy.h
+        Classes/Paddle.h
+        Classes/VisibleRect.h
+        Classes/Brick.h
+        ${PLATFORM_SPECIFIC_HEADERS}
+        )
 
 
 # Configure libcocos2d
@@ -154,7 +163,7 @@ if( ANDROID )
         ADD_CUSTOM_COMMAND(TARGET ${APP_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} lib${APP_NAME}.so)
     ENDIF()
 else()
-    add_library(${LIB_NAME} STATIC ${GAME_SRC} ${GAME_HEADERS} Classes/CollisionStrategy.cpp Classes/CollisionStrategy.h)
+    add_library(${LIB_NAME} STATIC ${GAME_SRC} ${GAME_HEADERS})
     add_executable(${APP_NAME} ${MAIN_CPP} ${GAME_HEADERS})
 endif()
 
