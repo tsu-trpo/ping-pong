@@ -40,6 +40,14 @@ Rect Paddle::getRect()
             getContentSize().height * getScaleY());
 }
 
+Rect Paddle::getBox()
+{
+    auto box = getRect();
+    box.origin.x += getPosition().x; //setting rect to it's real position
+    box.origin.y += getPosition().y;
+    return box;
+}
+
 
 bool Paddle::containsTouchLocation(Touch* touch)
 {

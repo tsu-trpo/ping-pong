@@ -17,6 +17,7 @@ public:
     virtual void onExit() override;
 
     cocos2d::Rect getRect();
+    cocos2d::Rect getBox();
     bool containsTouchLocation(cocos2d::Touch* touch);
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
