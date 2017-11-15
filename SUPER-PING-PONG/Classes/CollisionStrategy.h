@@ -10,7 +10,7 @@ class Brick;
 class CollisionStrategy
 {
 public:
-    virtual bool collideWithBrick(Ball* ball, Brick* brick){};
+    virtual bool collideWithBrick(Ball* ball, Brick* brick){return 0;};
 };
 
 
