@@ -127,16 +127,25 @@ if ( WIN32 )
 endif( WIN32 )
 
 set(GAME_SRC
-  Classes/AppDelegate.cpp
-  Classes/HelloWorldScene.cpp
-  ${PLATFORM_SPECIFIC_SRC}
-)
+        Classes/AppDelegate.cpp
+        Classes/GameScene.cpp
+        Classes/Ball.cpp
+        Classes/CollisionStrategy.cpp
+        Classes/Paddle.cpp
+        Classes/VisibleRect.cpp
+        ${PLATFORM_SPECIFIC_SRC}
+        )
 
 set(GAME_HEADERS
-  Classes/AppDelegate.h
-  Classes/HelloWorldScene.h
-  ${PLATFORM_SPECIFIC_HEADERS}
-)
+        Classes/AppDelegate.h
+        Classes/GameScene.h
+        Classes/Ball.h
+        Classes/CollisionStrategy.h
+        Classes/Paddle.h
+        Classes/VisibleRect.h
+        Classes/Brick.h
+        ${PLATFORM_SPECIFIC_HEADERS}
+        )
 
 
 # Configure libcocos2d
