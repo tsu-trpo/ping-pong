@@ -1,6 +1,6 @@
 #include "Ball.h"
 
-Ball* Ball::createWithTexture(std::string textureName, Vec2 startPosition, Vec2 startDirection, int startVelocity)
+Ball* Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startDirection, int startVelocity)
 {
     Ball* self = new Ball();
     self->_startPosition = startPosition;

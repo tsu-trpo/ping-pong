@@ -25,7 +25,7 @@ class Ball : public Sprite
     std::shared_ptr<CollisionStrategy> _collisionStrategy;
 
 public:
-    static Ball* createWithTexture(std::string textureName, Vec2 startPosition, Vec2 startDirection, int startVelocity);
+    static Ball* createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startDirection, int startVelocity);
 
     void move(float delta);
     bool collideWithBottom();
