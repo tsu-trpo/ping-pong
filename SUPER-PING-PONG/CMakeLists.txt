@@ -193,6 +193,6 @@ else()
 endif()
 
 # включаем тесты
-#d_subdirectory(libs/googletest)
-#enable_testing()
-#add_subdirectory(tests)
+add_subdirectory(libs/googletest)
+enable_testing()
+add_subdirectory(tests)
