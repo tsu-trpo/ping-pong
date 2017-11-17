@@ -34,7 +34,7 @@ bool Classic::collideWithBrick(Ball* ball, Brick *brick)
 //                ball->setDirection( Vec2( ballDirection.x, -fabsf(ballDirection.y)));
 //            }
 //        }
-//        //Todo play HitBrickEffect
+//        AudioPlayer::playEffect(AudioPlayer::HIT_BRICK);
 //        return true;
 //    }
 //    return false;
@@ -47,7 +47,7 @@ bool Sharp::collideWithBrick(Ball* ball, Brick *brick)
 //
 //    if (ball->getBoundingBox().intersectsRect(brickBox))
 //    {
-//        //Todo play HitBrickEffect
+//        AudioPlayer::playEffect(AudioPlayer::HIT_PADDLE);
 //        return true;
 //    }
 //    return false;
