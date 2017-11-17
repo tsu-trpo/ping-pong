@@ -1,5 +1,4 @@
 #include "GameScene.h"
-#include "VisibleRect.h"
 
 Scene* GameScene::createScene()
 {
@@ -20,7 +19,7 @@ bool GameScene::init()
 
     /// Background ///
 
-    //Todo play bg music
+    AudioPlayer::playBackgroundMusic();
 
     auto *bg = Sprite::create("res/pongBG.png");
     bg->setPosition(VisibleRect::center());
@@ -74,6 +73,7 @@ void GameScene::update(float delta)
 
         if(ball->collideWithBottom())
         {
+            AudioPlayer::playEffect(AudioPlayer::LOSE);
             ball->respawn();
             CCLOG("BETTER LUCK NEXT TIME" );
         }

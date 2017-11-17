@@ -49,7 +49,6 @@ void Ball::move(float delta)
 bool Ball::collideWithBottom()
 {
     return getPosition().y < VisibleRect::bottom().y;
-    //Todo play lose effect
 }
 
 
