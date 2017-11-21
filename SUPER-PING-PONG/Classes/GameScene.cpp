@@ -57,8 +57,8 @@ bool GameScene::init()
         _bricks.pushBack(br);
     }
 
-    float width_of_brick = _bricks.at(0)->getContentSize().width * _bricks.at(0)->getScaleX();
-    float height_of_brick = _bricks.at(0)->getContentSize().height * _bricks.at(0)->getScaleY();
+    float width_of_brick = _bricks.at(0)->getWidth();
+    float height_of_brick = _bricks.at(0)->getHeight();
     unsigned int oneside = perLine/2;
 
     int flag = perLine%2; //если четное
@@ -70,7 +70,7 @@ bool GameScene::init()
     for(int j = 0; j < perColumn; j++) {
         for (int i = 0; i < perLine; i++) {
             log("add");
-            _bricks.at(k)->setPosition(x, y-10);
+            _bricks.at(k)->setPosition(x, y);
             x += width_of_brick;
             k++;
         }

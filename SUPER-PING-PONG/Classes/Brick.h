@@ -9,4 +9,7 @@ public:
 
     static Brick* createWithTexture(std::string textureName);
     Rect getBox();
+
+    float getWidth();
+    float getHeight();
 };

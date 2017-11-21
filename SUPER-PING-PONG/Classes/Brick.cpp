@@ -11,3 +11,12 @@ Brick* Brick::createWithTexture(std::string textureName) {
 Rect Brick::getBox() {
 
 }
+
+float Brick::getWidth() {
+    return getContentSize().width * getScaleX();
+
+}
+
+float Brick::getHeight() {
+    return getContentSize().height * getScaleY();
+}
