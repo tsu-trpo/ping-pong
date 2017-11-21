@@ -8,7 +8,7 @@ CocosDenshion::SimpleAudioEngine &getPlayer()
 
 void AudioPlayer::playBackgroundMusic()
 {
-    getPlayer().playBackgroundMusic("res/bg_1.ogg", true);
+    getPlayer().playBackgroundMusic(BG, true);
 }
 
 void AudioPlayer::playEffect(const char* effect)
