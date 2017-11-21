@@ -1,4 +1,5 @@
 #include "CollisionStrategy.h"
+#include "AudioPlayer.h"
 
 //Todo Brick's method getBox(): class CollisionStrategy don't work without getBox()
 

@@ -4,9 +4,6 @@
 #include "CollisionStrategy.h"
 #include "Paddle.h"
 #include "Brick.h"
-#include "AudioPlayer.h"
-
-
 
 using namespace cocos2d;
 

@@ -2,7 +2,6 @@
 #include "cocos2d.h"
 #include "Ball.h"
 #include "Brick.h"
-#include "AudioPlayer.h"
 
 
 class Ball;
