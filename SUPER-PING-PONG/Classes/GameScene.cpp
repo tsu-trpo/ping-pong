@@ -10,22 +10,15 @@ Scene* GameScene::createScene()
     return scene;
 }
 
-void GameScene::createBricks(int perLine, int perColumn)
+void GameScene::createBricks(int perLine, int perColumn, std::string textureName)
 {
-    //инициализация кубиков
     float center = VisibleRect::center().x;
     float top = VisibleRect::top().y;
     _bricks = Vector<Brick*>(perLine*perColumn);
 
-    for(unsigned int i = 0; i < (perLine*perColumn); i++)
-    {
-        Brick* br = Brick::createWithTexture("res/brick.png");
-        addChild(br);
-        _bricks.pushBack(br);
-    }
-
-    float widthBrick = _bricks.at(0)->getWidth();
-    float heightBrick = _bricks.at(0)->getHeight();
+    Brick *br = Brick::createWithTexture(textureName);
+    float widthBrick = br->getWidth();
+    float heightBrick = br->getHeight();
     int oneside = perLine/2;
 
     int flag = perLine%2; //если четное
@@ -33,16 +26,18 @@ void GameScene::createBricks(int perLine, int perColumn)
     float x = center - widthBrick*oneside - (widthBrick*flag)/2 + widthBrick/2;
     float y = top - heightBrick/2 - heightBrick*1.5;
 
-    //задание позиции
-    int k = 0;
+
     for(int j = 0; j < perColumn; j++)
     {
         for (int i = 0; i < perLine; i++)
         {
+            Brick* brTemp = Brick::createWithTexture(textureName);
             log("add");
-            _bricks.at(k)->setPosition(x, y);
+            brTemp->setPosition(x, y);
+            addChild(br);
+            _bricks.pushBack(brTemp);
             x += widthBrick;
-            k++;
+
         }
         y -= heightBrick;
         x = center - widthBrick * oneside - (widthBrick * flag) / 2 + widthBrick / 2;
@@ -84,7 +79,7 @@ bool GameScene::init()
 
     ///Bricks///
 
-    createBricks(7,2);
+    createBricks(7,2, "res/brick.png");
 
     /// Update method ///
 
