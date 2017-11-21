@@ -1,4 +1,6 @@
 #include "GameScene.h"
+#include "AudioPlayer.h"
+#include "VisibleRect.h"
 
 Scene* GameScene::createScene()
 {

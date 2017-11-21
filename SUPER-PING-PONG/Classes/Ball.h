@@ -1,6 +1,5 @@
 #pragma once
 #include "cocos2d.h"
-#include "VisibleRect.h"
 #include "CollisionStrategy.h"
 #include "Paddle.h"
 #include "Brick.h"

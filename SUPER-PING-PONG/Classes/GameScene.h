@@ -4,8 +4,6 @@
 #include "Paddle.h"
 #include "Brick.h"
 #include <vector>
-#include "VisibleRect.h"
-#include "AudioPlayer.h"
 
 using namespace cocos2d;
 

@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "GameScene.h"
-#include "audio/include/SimpleAudioEngine.h"
+#include "SimpleAudioEngine.h"
 
 using namespace cocos2d;
 

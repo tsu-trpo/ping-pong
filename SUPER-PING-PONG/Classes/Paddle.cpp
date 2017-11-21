@@ -1,4 +1,5 @@
 #include "Paddle.h"
+#include "VisibleRect.h"
 
 Paddle * Paddle::createWithTexture(std::string textureName)
 {
