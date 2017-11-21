@@ -75,7 +75,7 @@ void GameScene::update(float delta)
 
         if(ball->collideWithBottom())
         {
-            AudioPlayer::playEffect(AudioPlayer::LOSE);
+            AudioPlayer::playEffect(AudioPlayer::lose);
             ball->respawn();
             CCLOG("BETTER LUCK NEXT TIME" );
         }

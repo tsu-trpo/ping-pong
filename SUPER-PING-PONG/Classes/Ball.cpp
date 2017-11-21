@@ -73,7 +73,7 @@ void Ball::collideWithPaddle(Paddle* paddle)
             _direction = Vec2(hitDisplacement, _direction.y * -1);
             _velocity = _minVelocity + (_maxVelocity - _minVelocity)* fabsf(hitDisplacement);
 
-            AudioPlayer::playEffect(AudioPlayer::HIT_PADDLE);
+            AudioPlayer::playEffect(AudioPlayer::hitPaddle);
             CCLOG("Ball collide with Paddle at %f ", hitDisplacement);
         }
     }
