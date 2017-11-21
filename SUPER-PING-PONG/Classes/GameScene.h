@@ -19,6 +19,7 @@ public:
     static cocos2d::Scene* createScene();
     virtual bool init();
 
+    void createBricks(int perLine, int perColumn);
     void update(float delta);
     void move(float delta, Ball* ball);
 };

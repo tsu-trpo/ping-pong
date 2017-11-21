@@ -10,6 +10,44 @@ Scene* GameScene::createScene()
     return scene;
 }
 
+void GameScene::createBricks(int perLine, int perColumn)
+{
+    //инициализация кубиков
+    float center = VisibleRect::center().x;
+    float top = VisibleRect::top().y;
+    _bricks = Vector<Brick*>(perLine*perColumn);
+
+    for(unsigned int i = 0; i < (perLine*perColumn); i++)
+    {
+        Brick* br = Brick::createWithTexture("res/brick.png");
+        addChild(br);
+        _bricks.pushBack(br);
+    }
+
+    float widthBrick = _bricks.at(0)->getWidth();
+    float heightBrick = _bricks.at(0)->getHeight();
+    int oneside = perLine/2;
+
+    int flag = perLine%2; //если четное
+
+    float x = center - widthBrick*oneside - (widthBrick*flag)/2 + widthBrick/2;
+    float y = top - heightBrick/2 - heightBrick*1.5;
+
+    //задание позиции
+    int k = 0;
+    for(int j = 0; j < perColumn; j++)
+    {
+        for (int i = 0; i < perLine; i++)
+        {
+            log("add");
+            _bricks.at(k)->setPosition(x, y);
+            x += widthBrick;
+            k++;
+        }
+        y -= heightBrick;
+        x = center - widthBrick * oneside - (widthBrick * flag) / 2 + widthBrick / 2;
+    }
+}
 
 bool GameScene::init()
 {
@@ -46,42 +84,7 @@ bool GameScene::init()
 
     ///Bricks///
 
-    unsigned int perLine = 7;
-    unsigned int perColumn = 2;
-
-    //инициализация кубиков
-    float center = VisibleRect::center().x;
-    float top = VisibleRect::top().y;
-    _bricks = Vector<Brick*>(perLine*perColumn);
-
-    for(unsigned int i = 0; i < (perLine*perColumn); i++) {
-        Brick* br = Brick::createWithTexture("res/brick.png");
-        addChild(br);
-        _bricks.pushBack(br);
-    }
-
-    float width_of_brick = _bricks.at(0)->getWidth();
-    float height_of_brick = _bricks.at(0)->getHeight();
-    unsigned int oneside = perLine/2;
-
-    int flag = perLine%2; //если четное
-
-    float x = center - width_of_brick*oneside - (width_of_brick*flag)/2 + width_of_brick/2;
-    float y = top - height_of_brick/2 - height_of_brick*1.5;
-
-    //задание позиции
-    int k = 0;
-    for(int j = 0; j < perColumn; j++) {
-        for (int i = 0; i < perLine; i++) {
-            log("add");
-            _bricks.at(k)->setPosition(x, y);
-            x += width_of_brick;
-            k++;
-        }
-        y -= height_of_brick;
-        x = center - width_of_brick*oneside - (width_of_brick*flag)/2 + width_of_brick/2;
-    }
-
+    createBricks(7,2);
 
     /// Update method ///
 
