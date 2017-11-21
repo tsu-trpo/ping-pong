@@ -48,9 +48,12 @@ bool GameScene::init()
 
     unsigned int perLine = 7;
     unsigned int perColumn = 2;
+
+    //инициализация кубиков
     float center = VisibleRect::center().x;
     float top = VisibleRect::top().y;
     _bricks = Vector<Brick*>(perLine*perColumn);
+
     for(unsigned int i = 0; i < (perLine*perColumn); i++) {
         Brick* br = Brick::createWithTexture("res/brick.png");
         addChild(br);
@@ -64,8 +67,9 @@ bool GameScene::init()
     int flag = perLine%2; //если четное
 
     float x = center - width_of_brick*oneside - (width_of_brick*flag)/2 + width_of_brick/2;
-    float y = top - height_of_brick/2;
+    float y = top - height_of_brick/2 - height_of_brick*1.5;
 
+    //задание позиции
     int k = 0;
     for(int j = 0; j < perColumn; j++) {
         for (int i = 0; i < perLine; i++) {
@@ -94,7 +98,7 @@ void GameScene::update(float delta)
         ball->move(delta);
         ball->collideWithPaddle( _paddle );
 
-      /*  for( auto it = _bricks.begin(); it != _bricks.end(); it++)
+        for( auto it = _bricks.begin(); it != _bricks.end(); it++)
         {
             if (ball->collideWithBrick(*it))
             {
@@ -106,7 +110,7 @@ void GameScene::update(float delta)
                 }
             }
         }
-*/
+
         if(ball->collideWithBottom())
         {
             ball->respawn();

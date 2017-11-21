@@ -8,6 +8,7 @@ class Brick : public Sprite
 public:
 
     static Brick* createWithTexture(std::string textureName);
+    Rect getRect();
     Rect getBox();
 
     float getWidth();
