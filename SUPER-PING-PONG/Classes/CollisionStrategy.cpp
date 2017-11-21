@@ -1,4 +1,5 @@
 #include "CollisionStrategy.h"
+#include "AudioPlayer.h"
 
 //Todo Brick's method getBox(): class CollisionStrategy don't work without getBox()
 
@@ -34,7 +35,7 @@ bool Classic::collideWithBrick(Ball* ball, Brick *brick)
 //                ball->setDirection( Vec2( ballDirection.x, -fabsf(ballDirection.y)));
 //            }
 //        }
-//        //Todo play HitBrickEffect
+//        AudioPlayer::playEffect(AudioPlayer::hitBrick);
 //        return true;
 //    }
 //    return false;
@@ -47,7 +48,7 @@ bool Sharp::collideWithBrick(Ball* ball, Brick *brick)
 //
 //    if (ball->getBoundingBox().intersectsRect(brickBox))
 //    {
-//        //Todo play HitBrickEffect
+//        AudioPlayer::playEffect(AudioPlayer::hitBrick);
 //        return true;
 //    }
 //    return false;

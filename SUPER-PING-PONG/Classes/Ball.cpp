@@ -1,4 +1,7 @@
 #include "Ball.h"
+#include "AudioPlayer.h"
+#include "VisibleRect.h"
+
 
 Ball* Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startDirection, int startVelocity)
 {
@@ -70,7 +73,7 @@ void Ball::collideWithPaddle(Paddle* paddle)
             _direction = Vec2(hitDisplacement, _direction.y * -1);
             _velocity = _minVelocity + (_maxVelocity - _minVelocity)* fabsf(hitDisplacement);
 
-            //Todo play HitEffect
+            AudioPlayer::playEffect(AudioPlayer::hitPaddle);
             CCLOG("Ball collide with Paddle at %f ", hitDisplacement);
         }
     }
