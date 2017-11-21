@@ -44,6 +44,41 @@ bool GameScene::init()
     _balls.pushBack(Ball::createWithTexture("res/ball.png", ballStartPosition, ballStartDirection, ballStartVelocity));
     addChild(_balls.at(0));
 
+    ///Bricks///
+
+    unsigned int perLine = 7;
+    unsigned int perColumn = 2;
+    float center = VisibleRect::center().x;
+    float top = VisibleRect::top().y;
+    _bricks = Vector<Brick*>(perLine*perColumn);
+    for(unsigned int i = 0; i < (perLine*perColumn); i++) {
+        Brick* br = Brick::createWithTexture("res/brick.png");
+        addChild(br);
+        _bricks.pushBack(br);
+    }
+
+    float width_of_brick = _bricks.at(0)->getContentSize().width * _bricks.at(0)->getScaleX();
+    float height_of_brick = _bricks.at(0)->getContentSize().height * _bricks.at(0)->getScaleY();
+    unsigned int oneside = perLine/2;
+
+    int flag = perLine%2; //если четное
+
+    float x = center - width_of_brick*oneside - (width_of_brick*flag)/2 + width_of_brick/2;
+    float y = top - height_of_brick/2;
+
+    int k = 0;
+    for(int j = 0; j < perColumn; j++) {
+        for (int i = 0; i < perLine; i++) {
+            log("add");
+            _bricks.at(k)->setPosition(x, y-10);
+            x += width_of_brick;
+            k++;
+        }
+        y -= height_of_brick;
+        x = center - width_of_brick*oneside - (width_of_brick*flag)/2 + width_of_brick/2;
+    }
+
+
     /// Update method ///
 
     schedule( CC_SCHEDULE_SELECTOR(GameScene::update) );
@@ -59,7 +94,7 @@ void GameScene::update(float delta)
         ball->move(delta);
         ball->collideWithPaddle( _paddle );
 
-        for( auto it = _bricks.begin(); it != _bricks.end(); it++)
+      /*  for( auto it = _bricks.begin(); it != _bricks.end(); it++)
         {
             if (ball->collideWithBrick(*it))
             {
@@ -71,7 +106,7 @@ void GameScene::update(float delta)
                 }
             }
         }
-
+*/
         if(ball->collideWithBottom())
         {
             ball->respawn();

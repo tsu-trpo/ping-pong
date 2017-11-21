@@ -7,3 +7,7 @@ Brick* Brick::createWithTexture(std::string textureName) {
 
     return self;
 }
+
+Rect Brick::getBox() {
+
+}

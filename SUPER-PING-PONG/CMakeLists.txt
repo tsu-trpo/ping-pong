@@ -133,6 +133,7 @@ set(GAME_SRC
         Classes/CollisionStrategy.cpp
         Classes/Paddle.cpp
         Classes/VisibleRect.cpp
+        Classes/Brick.cpp
         ${PLATFORM_SPECIFIC_SRC}
         )
 
