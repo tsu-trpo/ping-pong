@@ -13,4 +13,6 @@ public:
 
     float getWidth();
     float getHeight();
+    void setWidth(float newWidth);
+    void setHeight(float newHeight);
 };

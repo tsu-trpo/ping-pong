@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include <iostream>
 #include "VisibleRect.h"
 
 Scene* GameScene::createScene()
@@ -16,31 +17,33 @@ void GameScene::createBricks(int perLine, int perColumn, std::string textureName
     float top = VisibleRect::top().y;
     _bricks = Vector<Brick*>(perLine*perColumn);
 
-    Brick *br = Brick::createWithTexture(textureName);
-    float widthBrick = br->getWidth();
-    float heightBrick = br->getHeight();
-    int oneside = perLine/2;
+    float widthBrick = 90;
+    float heightBrick = 35;
+    int oneSide = perLine/2;
 
-    int flag = perLine%2; //если четное
+    bool flag = perLine%2; //если четное
 
-    float x = center - widthBrick*oneside - (widthBrick*flag)/2 + widthBrick/2;
+    float beginString = center - widthBrick*oneSide - (widthBrick*flag)/2 + widthBrick/2;
     float y = top - heightBrick/2 - heightBrick*1.5;
 
 
+    float x = beginString;
     for(int j = 0; j < perColumn; j++)
     {
         for (int i = 0; i < perLine; i++)
         {
             Brick* brTemp = Brick::createWithTexture(textureName);
-            log("add");
+            log("add brick");
+            brTemp->setWidth(widthBrick);
+            brTemp->setHeight(heightBrick);
             brTemp->setPosition(x, y);
-            addChild(br);
+            addChild(brTemp);
             _bricks.pushBack(brTemp);
             x += widthBrick;
 
         }
         y -= heightBrick;
-        x = center - widthBrick * oneside - (widthBrick * flag) / 2 + widthBrick / 2;
+        x = beginString;
     }
 }
 
