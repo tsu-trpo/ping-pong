@@ -19,17 +19,16 @@ Rect Brick::getRect()
 
 Rect Brick::getBox()
 {
+    //setting rect to it's real position
     auto box = getRect();
-    box.origin.x += getPosition().x; //setting rect to it's real position
+    box.origin.x += getPosition().x;
     box.origin.y += getPosition().y;
     return box;
-
 }
 
 float Brick::getWidth()
 {
     return getContentSize().width * getScaleX();
-
 }
 
 float Brick::getHeight()

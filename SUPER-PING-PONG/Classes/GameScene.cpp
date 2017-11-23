@@ -1,5 +1,4 @@
 #include "GameScene.h"
-#include <iostream>
 #include "VisibleRect.h"
 
 Scene* GameScene::createScene()
@@ -19,31 +18,27 @@ void GameScene::createBricks(int perLine, int perColumn, std::string textureName
 
     float widthBrick = 90;
     float heightBrick = 35;
+
     int oneSide = perLine/2;
-
-    bool flag = perLine%2; //если четное
-
-    float beginString = center - widthBrick*oneSide - (widthBrick*flag)/2 + widthBrick/2;
+    bool uneven = perLine%2;
+    float beginString = center - widthBrick*oneSide - (widthBrick*uneven)/2 + widthBrick/2;
     float y = top - heightBrick/2 - heightBrick*1.5;
 
-
-    float x = beginString;
     for(int j = 0; j < perColumn; j++)
     {
+        float x = beginString;
         for (int i = 0; i < perLine; i++)
         {
-            Brick* brTemp = Brick::createWithTexture(textureName);
+            Brick* br = Brick::createWithTexture(textureName);
             log("add brick");
-            brTemp->setWidth(widthBrick);
-            brTemp->setHeight(heightBrick);
-            brTemp->setPosition(x, y);
-            addChild(brTemp);
-            _bricks.pushBack(brTemp);
+            br->setWidth(widthBrick);
+            br->setHeight(heightBrick);
+            br->setPosition(x, y);
+            addChild(br);
+            _bricks.pushBack(br);
             x += widthBrick;
-
         }
         y -= heightBrick;
-        x = beginString;
     }
 }
 
