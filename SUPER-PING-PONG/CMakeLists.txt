@@ -133,6 +133,7 @@ set(GAME_SRC
         Classes/CollisionStrategy.cpp
         Classes/Paddle.cpp
         Classes/VisibleRect.cpp
+        Classes/AudioPlayer.cpp
         Classes/Brick.cpp
         ${PLATFORM_SPECIFIC_SRC}
         )
@@ -144,6 +145,7 @@ set(GAME_HEADERS
         Classes/CollisionStrategy.h
         Classes/Paddle.h
         Classes/VisibleRect.h
+        Classes/AudioPlayer.h
         Classes/Brick.h
         ${PLATFORM_SPECIFIC_HEADERS}
         )
