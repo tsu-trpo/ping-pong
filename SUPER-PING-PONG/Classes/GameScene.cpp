@@ -21,8 +21,8 @@ void GameScene::createBricks(int lines, int columns)
     float heightBrick = 35;
 
     int oneSide = columns/2;
-    bool uneven = columns%2;
-    float beginString = center - widthBrick*oneSide - (widthBrick*uneven)/2 + widthBrick/2;
+    bool isEven = columns%2;
+    float beginString = center - widthBrick*oneSide - (widthBrick*isEven)/2 + widthBrick/2;
     float y = top - heightBrick/2 - heightBrick*1.5;
 
     for(int j = 0; j < lines; j++)
@@ -97,7 +97,7 @@ void GameScene::update(float delta)
 
         for( auto str = _bricks.begin(); str != _bricks.end(); str++)
         {
-            for( auto clmn = (*str).begin(); clmn != (*str).end(); clmn++)
+            for( auto clmn = str->begin(); clmn != str->end(); clmn++)
             {
                 if(ball->collideWithBrick(*clmn))
                 {
