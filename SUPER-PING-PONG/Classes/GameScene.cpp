@@ -2,9 +2,13 @@
 #include "AudioPlayer.h"
 #include "VisibleRect.h"
 
+
 Scene* GameScene::createScene()
 {
-    auto scene = Scene::create();
+    auto scene = Scene::createWithPhysics();
+    scene->getPhysicsWorld()->setGravity(Vec2(0,0));
+    scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+
     auto layer = GameScene::create();
     scene->addChild(layer);
 
@@ -27,6 +31,17 @@ bool GameScene::init()
     bg->setPosition(VisibleRect::center());
     addChild(bg);
 
+    /// World boundaries ///
+
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PhysicsMaterial(0.1f, 1.0f, 0.0f), 5);
+    edgeBody->setDynamic(false);
+
+    auto edgeNode = Node::create();
+    edgeNode->setPosition(VisibleRect::center());
+    edgeNode->setPhysicsBody(edgeBody);
+
+    this->addChild(edgeNode);
 
     /// Paddle ///
 
@@ -39,45 +54,10 @@ bool GameScene::init()
     /// Balls ///
 
     Vec2 ballStartPosition = Vec2(VisibleRect::center().x, VisibleRect::center().y);
-    Vec2 ballStartDirection = Vec2(0,-1);
-    int ballStartVelocity = 300;
+    Vec2 ballStartVelocity = Vec2(0,-500);
 
-    _balls.pushBack(Ball::createWithTexture("res/ball.png", ballStartPosition, ballStartDirection, ballStartVelocity));
+    _balls.pushBack(Ball::createWithTexture("res/ball.png", ballStartPosition, ballStartVelocity));
     addChild(_balls.at(0));
 
-    /// Update method ///
-
-    schedule( CC_SCHEDULE_SELECTOR(GameScene::update) );
-
     return true;
-}
-
-
-void GameScene::update(float delta)
-{
-    for(auto ball : _balls)
-    {
-        ball->move(delta);
-        ball->collideWithPaddle( _paddle );
-
-        for( auto it = _bricks.begin(); it != _bricks.end(); it++)
-        {
-            if (ball->collideWithBrick(*it))
-            {
-                CCLOG("Delete Brick");
-
-                if(_bricks.size() == 0)
-                {
-                    CCLOG("WINNER WINNER CHICKEN DINNER" );
-                }
-            }
-        }
-
-        if(ball->collideWithBottom())
-        {
-            AudioPlayer::playEffect(AudioPlayer::lose);
-            ball->respawn();
-            CCLOG("BETTER LUCK NEXT TIME" );
-        }
-    }
 }

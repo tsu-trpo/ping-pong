@@ -18,7 +18,4 @@ public:
     CREATE_FUNC(GameScene);
     static cocos2d::Scene* createScene();
     virtual bool init();
-
-    void update(float delta);
-    void move(float delta, Ball* ball);
 };
