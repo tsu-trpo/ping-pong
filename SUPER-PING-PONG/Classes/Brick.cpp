@@ -1,6 +1,6 @@
 #include <Brick.h>
 
-Brick* Brick::createWithTexture(std::string textureName) {
+Brick* Brick::createWithTexture(const std::string &textureName) {
     Brick* self = new Brick();
     self->initWithFile(textureName);
     self->autorelease();
