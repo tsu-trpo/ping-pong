@@ -11,24 +11,24 @@ Scene* GameScene::createScene()
     return scene;
 }
 
-void GameScene::createBricks(int perLine, int perColumn)
+void GameScene::createBricks(int lines, int columns)
 {
-    _bricks = std::vector<std::vector<Brick*>>(perColumn);
+    _bricks = std::vector<std::vector<Brick*>>(lines);
     float center = VisibleRect::center().x;
     float top = VisibleRect::top().y;
 
     float widthBrick = 90;
     float heightBrick = 35;
 
-    int oneSide = perLine/2;
-    bool uneven = perLine%2;
+    int oneSide = columns/2;
+    bool uneven = columns%2;
     float beginString = center - widthBrick*oneSide - (widthBrick*uneven)/2 + widthBrick/2;
     float y = top - heightBrick/2 - heightBrick*1.5;
 
-    for(int j = 0; j < perColumn; j++)
+    for(int j = 0; j < lines; j++)
     {
         float x = beginString;
-        for (int i = 0; i < perLine; i++)
+        for (int i = 0; i < columns; i++)
         {
             Brick* br = Brick::createWithTexture("res/brick.png");
             log("add brick");
@@ -78,7 +78,7 @@ bool GameScene::init()
 
     ///Bricks///
 
-    createBricks(7,2);
+    createBricks(2,7);
 
     /// Update method ///
 
@@ -95,11 +95,11 @@ void GameScene::update(float delta)
         ball->move(delta);
         ball->collideWithPaddle( _paddle );
 
-        for( auto it = _bricks.begin(); it != _bricks.end(); it++)
+        for( auto str = _bricks.begin(); str != _bricks.end(); str++)
         {
-            for( auto it1 = (*it).begin(); it1 != (*it).end(); it1++)
+            for( auto clmn = (*str).begin(); clmn != (*str).end(); clmn++)
             {
-                if(ball->collideWithBrick(*it1))
+                if(ball->collideWithBrick(*clmn))
                 {
                     CCLOG("Delete Brick");
                     if(_bricks.size() == 0)
