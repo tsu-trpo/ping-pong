@@ -43,7 +43,10 @@ https://github.com/tsu-trpo/ping-pong/tree/master/Cocos-install-script
 ###### On bash:
 ```
 git clone git@github.com:tsu-trpo/ping-pong.git or git clone https://github.com/tsu-trpo/ping-pong.git
+cd ping-pong/
 git submodule update --recursive --init
+cd SUPER-PING-PONG/
+cmake .
 make
 cd bin/
 ./pong
