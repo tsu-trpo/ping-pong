@@ -1,6 +1,4 @@
 #include "Ball.h"
-#include "AudioPlayer.h"
-#include "VisibleRect.h"
 
 
 Ball* Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity)
@@ -8,7 +6,8 @@ Ball* Ball::createWithTexture(const std::string &textureName, Vec2 startPosition
     auto self = new Ball();
     self->_startVelocity = startVelocity;
     self->_startPosition = startPosition;
-    self->_collisionStrategy = std::make_shared<Classic>(); //Todo: change class CollisionStrategy
+    //TODO: Change class CollisionStrategy
+    self->_collisionStrategy = std::make_shared<Classic>();
     self->_position = startPosition;
 
     self->initWithFile(textureName);
@@ -16,7 +15,8 @@ Ball* Ball::createWithTexture(const std::string &textureName, Vec2 startPosition
 
     self->setPhysicsBody(PhysicsBody::createCircle(10,PhysicsMaterial(0.1f, 1.0f, 0.0f)));
     self->_physicsBody->setVelocity(startVelocity);
-    self->_physicsBody->setContactTestBitmask(0xFFFFFFFF); // change in future
+    //TODO: Change in future
+    self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
 
     return self;
 }
@@ -29,7 +29,6 @@ void Ball::respawn()
 }
 
 
-
 void Ball::setCollisionStrategy(std::shared_ptr<CollisionStrategy> strategy)
 {
     _collisionStrategy = strategy;
@@ -40,6 +39,8 @@ void Ball::setStartPosition(Vec2 startPosition)
 {
     _startPosition = startPosition;
 }
+
+
 Vec2 Ball::getStartPosition()
 {
     return _startPosition;
@@ -50,6 +51,8 @@ void Ball::setStartVelocity(Vec2 startVelocity)
 {
     _startVelocity = startVelocity;
 }
+
+
 Vec2 Ball::getStartVelocity()
 {
     return _startVelocity;
