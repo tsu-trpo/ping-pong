@@ -13,9 +13,9 @@ Scene* GameScene::createScene()
 
 void GameScene::createBricks(int perLine, int perColumn)
 {
+    _bricks = std::vector<std::vector<Brick*>>(perColumn);
     float center = VisibleRect::center().x;
     float top = VisibleRect::top().y;
-    _bricks = Vector<Brick*>(perLine*perColumn);
 
     float widthBrick = 90;
     float heightBrick = 35;
@@ -36,7 +36,7 @@ void GameScene::createBricks(int perLine, int perColumn)
             br->setHeight(heightBrick);
             br->setPosition(x, y);
             addChild(br);
-            _bricks.pushBack(br);
+            _bricks.at(j).push_back(br);
             x += widthBrick;
         }
         y -= heightBrick;
@@ -97,13 +97,15 @@ void GameScene::update(float delta)
 
         for( auto it = _bricks.begin(); it != _bricks.end(); it++)
         {
-            if (ball->collideWithBrick(*it))
+            for( auto it1 = (*it).begin(); it1 != (*it).end(); it1++)
             {
-                CCLOG("Delete Brick");
-
-                if(_bricks.size() == 0)
+                if(ball->collideWithBrick(*it1))
                 {
-                    CCLOG("WINNER WINNER CHICKEN DINNER" );
+                    CCLOG("Delete Brick");
+                    if(_bricks.size() == 0)
+                    {
+                        CCLOG("WINNER WINNER CHICKEN DINNER");
+                    }
                 }
             }
         }
