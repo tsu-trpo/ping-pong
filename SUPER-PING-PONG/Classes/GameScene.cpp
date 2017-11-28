@@ -11,7 +11,7 @@ Scene* GameScene::createScene()
     return scene;
 }
 
-void GameScene::createBricks(int perLine, int perColumn, std::string textureName)
+void GameScene::createBricks(int perLine, int perColumn)
 {
     float center = VisibleRect::center().x;
     float top = VisibleRect::top().y;
@@ -30,7 +30,7 @@ void GameScene::createBricks(int perLine, int perColumn, std::string textureName
         float x = beginString;
         for (int i = 0; i < perLine; i++)
         {
-            Brick* br = Brick::createWithTexture(textureName);
+            Brick* br = Brick::createWithTexture("res/brick.png");
             log("add brick");
             br->setWidth(widthBrick);
             br->setHeight(heightBrick);
@@ -78,7 +78,7 @@ bool GameScene::init()
 
     ///Bricks///
 
-    createBricks(7,2, "res/brick.png");
+    createBricks(7,2);
 
     /// Update method ///
 
