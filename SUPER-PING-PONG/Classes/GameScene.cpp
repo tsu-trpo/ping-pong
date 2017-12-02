@@ -13,7 +13,7 @@ Scene* GameScene::createScene()
 
 void GameScene::createBricks(int lines, int columns)
 {
-    _bricks = std::vector<std::vector<Brick*>>(lines);
+    _bricks = std::vector<Vector<Brick*>>(lines);
     float center = VisibleRect::center().x;
     float top = VisibleRect::top().y;
 
@@ -36,7 +36,7 @@ void GameScene::createBricks(int lines, int columns)
             br->setHeight(heightBrick);
             br->setPosition(x, y);
             addChild(br);
-            _bricks.at(j).push_back(br);
+            _bricks.at(j).pushBack(br);
             x += widthBrick;
         }
         y -= heightBrick;

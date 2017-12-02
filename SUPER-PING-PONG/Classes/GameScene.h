@@ -12,7 +12,7 @@ class GameScene : public cocos2d::Layer
 {
     Vector <Ball*> _balls;
     Paddle* _paddle;
-    std::vector<std::vector<Brick*>> _bricks;
+    std::vector<Vector<Brick*>> _bricks;
 
 public:
     CREATE_FUNC(GameScene);
