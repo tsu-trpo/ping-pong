@@ -12,6 +12,7 @@ class GameScene : public cocos2d::Layer
 {
     Vector <Ball*> _balls;
     Paddle* _paddle;
+    //Vector is safer, but can works only with cocos objects
     std::vector<Vector<Brick*>> _bricks;
 
 public:
