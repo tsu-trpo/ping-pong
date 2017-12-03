@@ -44,5 +44,6 @@ https://github.com/tsu-trpo/ping-pong/tree/master/Cocos-install-script
 ```
 git clone git@github.com:tsu-trpo/ping-pong.git or git clone https://github.com/tsu-trpo/ping-pong.git
 cd ping-pong/SUPER-PING-PONG/
+git submodule update --recursive --init
 cocos run -p linux
 ```
