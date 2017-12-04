@@ -1,6 +1,6 @@
 #include <Brick.h>
 
-Brick* Brick::createWithTexture(const std::string &textureName) i
+Brick* Brick::createWithTexture(const std::string &textureName) 
 {
     Brick* self = new Brick();
     self->initWithFile(textureName);
@@ -39,10 +39,10 @@ float Brick::getHeight()
 
 void Brick::setWidth(float newWidth)
 {
-    setScaleX(newWidth/getWidth());
+    setScaleX( getScaleX()* (newWidth/getWidth()) );
 }
 
 void Brick::setHeight(float newHeight)
 {
-    setScaleY(newHeight/getHeight());
+    setScaleY( getScaleY()* (newHeight/getHeight()) );
 }
