@@ -60,7 +60,9 @@ Vec2 Ball::getStartVelocity()
 
 void Ball::setRadius(float newRadius)
 {
-    setScale(getScale() * (newRadius / getRadius()));
+    // из формулы radius == scale * width / 2
+    // получаем: scale == radius * 2 / width
+    setScale(newRadius * 2 / getContentSize().width);
 }
 
 
