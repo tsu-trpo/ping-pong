@@ -49,8 +49,10 @@ bool GameScene::init()
 
     /// Paddle ///
 
+    const float bottomMarginY = VisibleRect::top().y * 0.07;
+
     _paddle = Paddle::createWithTexture("res/paddle.png");
-    _paddle->setPosition(Vec2(VisibleRect::center().x, VisibleRect::bottom().y + VisibleRect::top().y * 0.07));
+    _paddle->setPosition(Vec2(VisibleRect::center().x, VisibleRect::bottom().y + bottomMarginY));
     _paddle->setScaleX(1.2);
 
     addChild(_paddle);
