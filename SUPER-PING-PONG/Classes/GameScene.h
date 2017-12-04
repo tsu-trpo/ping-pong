@@ -1,4 +1,5 @@
 #pragma once
+
 #include "cocos2d.h"
 #include "Ball.h"
 #include "Paddle.h"
@@ -8,7 +9,7 @@
 using namespace cocos2d;
 
 
-class GameScene : public cocos2d::Layer
+class GameScene : public Layer
 {
     Vector <Ball*> _balls;
     Paddle* _paddle;
@@ -17,10 +18,9 @@ class GameScene : public cocos2d::Layer
 
 public:
     CREATE_FUNC(GameScene);
-    static cocos2d::Scene* createScene();
+    static Scene* createScene();
     virtual bool init();
 
     void createBricks(int perLine, int perColumn);
     void update(float delta);
-   // void move(float delta, Ball& ball);
 };
