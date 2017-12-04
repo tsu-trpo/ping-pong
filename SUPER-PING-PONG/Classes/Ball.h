@@ -27,7 +27,7 @@ public:
     void move(float delta);
     bool collideWithBottom();
     void collideWithPaddle(Paddle* paddle);
-    bool collideWithBrick(Brick* brick);
+    bool collideWithBrick(Brick &brick);
 
     void respawn();
     void setCollisionStrategy(std::shared_ptr<CollisionStrategy> strategy);

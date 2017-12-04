@@ -80,9 +80,9 @@ void Ball::collideWithPaddle(Paddle* paddle)
 }
 
 
-bool Ball::collideWithBrick(Brick *brick)
+bool Ball::collideWithBrick(Brick &brick)
 {
-    return _collisionStrategy->collideWithBrick(this, brick);
+    return _collisionStrategy->collideWithBrick(*this, brick);
 }
 
 

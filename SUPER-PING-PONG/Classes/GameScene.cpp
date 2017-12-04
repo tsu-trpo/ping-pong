@@ -99,7 +99,7 @@ void GameScene::update(float delta)
         {
             for( auto column= line->begin(); column != line->end(); column++)
             {
-                if(ball->collideWithBrick(*column))
+                if(ball->collideWithBrick(**column))
                 {
                     CCLOG("Delete Brick");
                     if(_bricks.size() == 0)

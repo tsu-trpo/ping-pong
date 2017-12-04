@@ -22,5 +22,5 @@ public:
 
     void createBricks(int perLine, int perColumn);
     void update(float delta);
-    void move(float delta, Ball* ball);
+   // void move(float delta, Ball& ball);
 };
