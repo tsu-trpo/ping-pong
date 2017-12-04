@@ -17,11 +17,14 @@ public:
     static Ball* createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity);
 
     void respawn();
-    void setCollisionStrategy(std::shared_ptr<CollisionStrategy> strategy);
+    void setCollisionStrategy(std::shared_ptr<CollisionStrategy> newStrategy);
 
-    void setStartPosition(Vec2 startPosition);
+    void setStartPosition(Vec2 newStartPosition);
     Vec2 getStartPosition();
 
-    void setStartVelocity(Vec2 startVelocity);
+    void setStartVelocity(Vec2 newStartVelocity);
     Vec2 getStartVelocity();
+
+    void setRadius(float newRadius);
+    float getRadius();
 };

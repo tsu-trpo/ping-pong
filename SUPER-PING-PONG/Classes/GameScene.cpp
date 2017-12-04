@@ -1,13 +1,16 @@
 #include "GameScene.h"
 #include "AudioPlayer.h"
 #include "VisibleRect.h"
+#include "DefaultMaterial.h"
 
+
+const int debugDrawAllMask = 0xffff;
 
 Scene* GameScene::createScene()
 {
     auto scene = Scene::createWithPhysics();
     scene->getPhysicsWorld()->setGravity(Vec2(0,0));
-    scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+    scene->getPhysicsWorld()->setDebugDrawMask(debugDrawAllMask);
 
     auto layer = GameScene::create();
     scene->addChild(layer);
@@ -34,7 +37,8 @@ bool GameScene::init()
     /// World boundaries ///
 
     Size visibleSize = Director::getInstance()->getVisibleSize();
-    auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PhysicsMaterial(0.1f, 1.0f, 0.0f), 5);
+    const int edgeBorder = 5;
+    auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, defaultMaterial, edgeBorder);
     edgeBody->setDynamic(false);
 
     auto edgeNode = Node::create();

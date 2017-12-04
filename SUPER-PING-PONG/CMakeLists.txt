@@ -147,6 +147,7 @@ set(GAME_HEADERS
         Classes/AudioPlayer.h
         Classes/Brick.h
         ${PLATFORM_SPECIFIC_HEADERS}
+        Classes/DefaultMaterial.h
         )
 
 

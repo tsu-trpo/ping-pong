@@ -1,4 +1,5 @@
 #include "Ball.h"
+#include "DefaultMaterial.h"
 
 
 Ball* Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity)
@@ -13,7 +14,7 @@ Ball* Ball::createWithTexture(const std::string &textureName, Vec2 startPosition
     self->initWithFile(textureName);
     self->autorelease();
 
-    self->setPhysicsBody(PhysicsBody::createCircle(10,PhysicsMaterial(0.1f, 1.0f, 0.0f)));
+    self->setPhysicsBody(PhysicsBody::createCircle(self->getRadius(), defaultMaterial));
     self->_physicsBody->setVelocity(startVelocity);
     //TODO: Change in future
     self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
@@ -29,15 +30,15 @@ void Ball::respawn()
 }
 
 
-void Ball::setCollisionStrategy(std::shared_ptr<CollisionStrategy> strategy)
+void Ball::setCollisionStrategy(std::shared_ptr<CollisionStrategy> newStrategy)
 {
-    _collisionStrategy = strategy;
+    _collisionStrategy = newStrategy;
 }
 
 
-void Ball::setStartPosition(Vec2 startPosition)
+void Ball::setStartPosition(Vec2 newStartPosition)
 {
-    _startPosition = startPosition;
+    _startPosition = newStartPosition;
 }
 
 
@@ -47,13 +48,25 @@ Vec2 Ball::getStartPosition()
 }
 
 
-void Ball::setStartVelocity(Vec2 startVelocity)
+void Ball::setStartVelocity(Vec2 newStartVelocity)
 {
-    _startVelocity = startVelocity;
+    _startVelocity = newStartVelocity;
 }
 
 
 Vec2 Ball::getStartVelocity()
 {
     return _startVelocity;
+}
+
+
+void Ball::setRadius(float newRadius)
+{
+    setScale(getScale() * (newRadius / getRadius()));
+}
+
+
+float Ball::getRadius()
+{
+    return getContentSize().width * getScaleX() / 2;
 }
