@@ -30,13 +30,13 @@ void GameScene::createBricks(int lines, int columns)
         float x = beginString;
         for (int i = 0; i < columns; i++)
         {
-            Brick* br = Brick::createWithTexture("res/brick.png");
+            Brick* brick = Brick::createWithTexture("res/brick.png");
             log("add brick");
-            br->setWidth(widthBrick);
-            br->setHeight(heightBrick);
-            br->setPosition(x, y);
-            addChild(br);
-            _bricks.at(j).pushBack(br);
+            brick->setWidth(widthBrick);
+            brick->setHeight(heightBrick);
+            brick->setPosition(x, y);
+            addChild(brick);
+            _bricks.at(j).pushBack(brick);
             x += widthBrick;
         }
         y -= heightBrick;
