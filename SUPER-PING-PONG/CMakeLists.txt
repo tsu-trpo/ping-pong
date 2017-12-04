@@ -146,8 +146,8 @@ set(GAME_HEADERS
         Classes/VisibleRect.h
         Classes/AudioPlayer.h
         Classes/Brick.h
-        ${PLATFORM_SPECIFIC_HEADERS}
         Classes/DefaultMaterial.h
+        ${PLATFORM_SPECIFIC_HEADERS}
         )
 
 
