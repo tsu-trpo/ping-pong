@@ -23,7 +23,8 @@ void GameScene::createBricks(int lines, int columns)
     int oneSide = columns/2;
     bool isEven = columns%2;
     float beginString = center - widthBrick*oneSide - (widthBrick*isEven)/2 + widthBrick/2;
-    float y = top - heightBrick/2 - heightBrick*1.5;
+    float marginTop = 1.5*heightBrick;
+    float y = top - heightBrick/2 - marginTop;
 
     for(int j = 0; j < lines; j++)
     {
