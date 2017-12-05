@@ -22,5 +22,4 @@ public:
     virtual bool init();
 
     void createBricks(int perLine, int perColumn);
-    void update(float delta);
 };

@@ -3,7 +3,7 @@
 
 bool Classic::collideWithBrick(Ball &ball, Brick &brick)
 {
-    auto brickBox = brick.getBox();
+/*    auto brickBox = brick.getBox();
 
     if (ball.getBoundingBox().intersectsRect(brickBox))
     {
@@ -36,7 +36,7 @@ bool Classic::collideWithBrick(Ball &ball, Brick &brick)
         AudioPlayer::playEffect(AudioPlayer::hitBrick);       
         return true;
     }
-    return false;
+    return false;*/
 }
 
 

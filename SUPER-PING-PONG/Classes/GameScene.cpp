@@ -99,9 +99,5 @@ bool GameScene::init()
 
     createBricks(2,7);
 
-    /// Update method ///
-
-    schedule( CC_SCHEDULE_SELECTOR(GameScene::update) );
-
     return true;
 }
