@@ -12,7 +12,8 @@ public:
     Rect getBox();
 
     float getWidth();
-    float getHeight();
     void setWidth(float newWidth);
+
+    float getHeight();
     void setHeight(float newHeight);
 };

@@ -32,14 +32,14 @@ float Brick::getWidth()
     return getContentSize().width * getScaleX();
 }
 
-float Brick::getHeight()
-{
-    return getContentSize().height * getScaleY();
-}
-
 void Brick::setWidth(float newWidth)
 {
     setScaleX( newWidth  / getContentSize().width );
+}
+
+float Brick::getHeight()
+{
+    return getContentSize().height * getScaleY();
 }
 
 void Brick::setHeight(float newHeight)

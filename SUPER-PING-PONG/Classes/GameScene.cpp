@@ -20,19 +20,17 @@ void GameScene::createBricks(int lines, int columns)
     float widthBrick = 90;
     float heightBrick = 35;
 
-    int oneSide = columns/2;
-    bool isEven = columns%2;
-    float beginString = center - widthBrick*oneSide - (widthBrick*isEven)/2 + widthBrick/2;
-    float marginTop = 1.5*heightBrick;
-    float y = top - heightBrick/2 - marginTop;
+    float halfLine = (columns/2.0)*widthBrick;
+    float beginLine = center - halfLine + widthBrick/2;
+    float offsetTop = 1.5*heightBrick;
+    float y = top - offsetTop + heightBrick/2;
 
     for(int j = 0; j < lines; j++)
     {
-        float x = beginString;
+        float x = beginLine;
         for (int i = 0; i < columns; i++)
         {
             Brick* brick = Brick::createWithTexture("res/brick.png");
-            log("add brick");
             brick->setWidth(widthBrick);
             brick->setHeight(heightBrick);
             brick->setPosition(x, y);
