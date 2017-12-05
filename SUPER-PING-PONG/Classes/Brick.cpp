@@ -1,10 +1,15 @@
-#include <Brick.h>
+#include "Brick.h"
+#include "DefaultMaterial.h"
 
 Brick* Brick::createWithTexture(const std::string &textureName) 
 {
     Brick* self = new Brick();
     self->initWithFile(textureName);
     self->autorelease();
+
+    auto bodySize = Size(self->getWidth(), self->getHeight());
+    self->setPhysicsBody(PhysicsBody::createBox(bodySize, defaultMaterial));
+    self->_physicsBody->setDynamic(false);
 
     return self;
 }
