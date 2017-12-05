@@ -1,10 +1,17 @@
 #include "GameScene.h"
 #include "AudioPlayer.h"
 #include "VisibleRect.h"
+#include "DefaultMaterial.h"
+
+
+const int debugDrawAllMask = 0xffff;
 
 Scene* GameScene::createScene()
 {
-    auto scene = Scene::create();
+    auto scene = Scene::createWithPhysics();
+    scene->getPhysicsWorld()->setGravity(Vec2(0,0));
+    scene->getPhysicsWorld()->setDebugDrawMask(debugDrawAllMask);
+
     auto layer = GameScene::create();
     scene->addChild(layer);
 
@@ -57,11 +64,25 @@ bool GameScene::init()
     bg->setPosition(VisibleRect::center());
     addChild(bg);
 
+    /// World boundaries ///
+
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    const int edgeBorder = 5;
+    auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, defaultMaterial, edgeBorder);
+    edgeBody->setDynamic(false);
+
+    auto edgeNode = Node::create();
+    edgeNode->setPosition(VisibleRect::center());
+    edgeNode->setPhysicsBody(edgeBody);
+
+    this->addChild(edgeNode);
 
     /// Paddle ///
 
+    const float bottomMarginY = VisibleRect::top().y * 0.07;
+
     _paddle = Paddle::createWithTexture("res/paddle.png");
-    _paddle->setPosition(Vec2(VisibleRect::center().x, VisibleRect::bottom().y + VisibleRect::top().y * 0.07));
+    _paddle->setPosition(Vec2(VisibleRect::center().x, VisibleRect::bottom().y + bottomMarginY));
     _paddle->setScaleX(1.2);
 
     addChild(_paddle);
@@ -69,10 +90,9 @@ bool GameScene::init()
     /// Balls ///
 
     Vec2 ballStartPosition = Vec2(VisibleRect::center().x, VisibleRect::center().y);
-    Vec2 ballStartDirection = Vec2(0,-1);
-    int ballStartVelocity = 300;
+    Vec2 ballStartVelocity = Vec2(0,-500);
 
-    _balls.pushBack(Ball::createWithTexture("res/ball.png", ballStartPosition, ballStartDirection, ballStartVelocity));
+    _balls.pushBack(Ball::createWithTexture("res/ball.png", ballStartPosition, ballStartVelocity));
     addChild(_balls.at(0));
 
     ///Bricks///
@@ -84,36 +104,4 @@ bool GameScene::init()
     schedule( CC_SCHEDULE_SELECTOR(GameScene::update) );
 
     return true;
-}
-
-
-void GameScene::update(float delta)
-{
-    for(auto ball : _balls)
-    {
-        ball->move(delta);
-        ball->collideWithPaddle( _paddle );
-
-        for( auto line = _bricks.begin(); line != _bricks.end(); line++)
-        {
-            for( auto column= line->begin(); column != line->end(); column++)
-            {
-                if(ball->collideWithBrick(**column))
-                {
-                    CCLOG("Delete Brick");
-                    if(_bricks.size() == 0)
-                    {
-                        CCLOG("WINNER WINNER CHICKEN DINNER");
-                    }
-                }
-            }
-        }
-
-        if(ball->collideWithBottom())
-        {
-            AudioPlayer::playEffect(AudioPlayer::lose);
-            ball->respawn();
-            CCLOG("BETTER LUCK NEXT TIME" );
-        }
-    }
 }

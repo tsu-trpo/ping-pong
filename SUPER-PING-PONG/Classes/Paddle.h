@@ -15,11 +15,11 @@ public:
     virtual void onEnter() override;
     virtual void onExit() override;
 
-    cocos2d::Rect getRect();
-    cocos2d::Rect getBox();
-    bool containsTouchLocation(cocos2d::Touch* touch);
+    Rect getRect();
+    Rect getBox();
+    bool containsTouchLocation(Touch* touch);
 
-    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
-    void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
-    void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
+    bool onTouchBegan(Touch* touch, Event* event);
+    void onTouchMoved(Touch* touch, Event* event);
+    void onTouchEnded(Touch* touch, Event* event);
 };
