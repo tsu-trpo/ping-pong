@@ -18,6 +18,36 @@ Scene* GameScene::createScene()
     return scene;
 }
 
+void GameScene::createBricks(int lines, int columns)
+{
+    _bricks = std::vector<Vector<Brick*>>(lines);
+    float center = VisibleRect::center().x;
+    float top = VisibleRect::top().y;
+
+    float widthBrick = 90;
+    float heightBrick = 35;
+
+    float halfLine = (columns/2.0)*widthBrick;
+    float beginLine = center - halfLine + widthBrick/2;
+    float offsetTop = 1.5*heightBrick;
+    float y = top - offsetTop + heightBrick/2;
+
+    for(int j = 0; j < lines; j++)
+    {
+        float x = beginLine;
+        for (int i = 0; i < columns; i++)
+        {
+            Brick* brick = Brick::createWithTexture("res/brick.png");
+            brick->setWidth(widthBrick);
+            brick->setHeight(heightBrick);
+            brick->setPosition(x, y);
+            addChild(brick);
+            _bricks.at(j).pushBack(brick);
+            x += widthBrick;
+        }
+        y -= heightBrick;
+    }
+}
 
 bool GameScene::init()
 {
@@ -64,6 +94,10 @@ bool GameScene::init()
 
     _balls.pushBack(Ball::createWithTexture("res/ball.png", ballStartPosition, ballStartVelocity));
     addChild(_balls.at(0));
+
+    ///Bricks///
+
+    createBricks(2,7);
 
     return true;
 }

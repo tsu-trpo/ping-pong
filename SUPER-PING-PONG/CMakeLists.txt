@@ -135,6 +135,7 @@ set(GAME_SRC
         Classes/PaddleController.cpp
         Classes/VisibleRect.cpp
         Classes/AudioPlayer.cpp
+        Classes/Brick.cpp
         ${PLATFORM_SPECIFIC_SRC}
         )
 
