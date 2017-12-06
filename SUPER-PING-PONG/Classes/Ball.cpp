@@ -19,43 +19,36 @@ Ball* Ball::createWithTexture(const std::string &textureName, Vec2 startPosition
     return self;
 }
 
-
 void Ball::respawn()
 {
     _position = _startPosition;
     _physicsBody->setVelocity(_startVelocity);
 }
 
-
 void Ball::setCollisionStrategy(std::shared_ptr<CollisionStrategy> newStrategy)
 {
     _collisionStrategy = newStrategy;
 }
-
 
 void Ball::setStartPosition(Vec2 newStartPosition)
 {
     _startPosition = newStartPosition;
 }
 
-
 Vec2 Ball::getStartPosition()
 {
     return _startPosition;
 }
-
 
 void Ball::setStartVelocity(Vec2 newStartVelocity)
 {
     _startVelocity = newStartVelocity;
 }
 
-
 Vec2 Ball::getStartVelocity()
 {
     return _startVelocity;
 }
-
 
 void Ball::setRadius(float newRadius)
 {
@@ -63,7 +56,6 @@ void Ball::setRadius(float newRadius)
     // получаем: scale == radius * 2 / width
     setScale(newRadius * 2 / getContentSize().width);
 }
-
 
 float Ball::getRadius()
 {

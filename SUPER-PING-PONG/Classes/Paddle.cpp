@@ -10,7 +10,6 @@ Paddle * Paddle::createWithTexture(std::string textureName)
     return self;
 }
 
-
 void Paddle::onEnter()
 {
     Sprite::onEnter();
@@ -24,7 +23,6 @@ void Paddle::onEnter()
     listener->onTouchEnded = CC_CALLBACK_2(Paddle::onTouchEnded, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
-
 
 void Paddle::onExit()
 {
@@ -61,14 +59,12 @@ bool Paddle::onTouchBegan(Touch* touch, Event* event)
     return containsTouchLocation(touch);
 }
 
-
 void Paddle::onTouchMoved(Touch* touch, Event* event)
 {
     auto touchPoint = touch->getLocation();
     float x = MIN( MAX(touchPoint.x, _leftLimit), _rightLimit);
     setPosition( Vec2(x, getPosition().y) );
 }
-
 
 void Paddle::onTouchEnded(Touch* touch, Event* event)
 {
