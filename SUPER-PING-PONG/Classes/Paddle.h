@@ -1,11 +1,15 @@
 #pragma once
 #include "cocos2d.h"
+#include "PaddleController.h"
+
+class PaddleController;
 
 using namespace cocos2d;
 
 
 class Paddle : public Sprite
 {
+    PaddleController* _controller;
 public:
     static Paddle* createWithTexture(const std::string &textureName);
 

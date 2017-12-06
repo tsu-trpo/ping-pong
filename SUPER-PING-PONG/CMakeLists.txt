@@ -132,6 +132,7 @@ set(GAME_SRC
         Classes/Ball.cpp
         Classes/CollisionStrategy.cpp
         Classes/Paddle.cpp
+        Classes/PaddleController.cpp
         Classes/VisibleRect.cpp
         Classes/AudioPlayer.cpp
         ${PLATFORM_SPECIFIC_SRC}
@@ -143,6 +144,7 @@ set(GAME_HEADERS
         Classes/Ball.h
         Classes/CollisionStrategy.h
         Classes/Paddle.h
+        Classes/PaddleController.h
         Classes/VisibleRect.h
         Classes/AudioPlayer.h
         Classes/Brick.h
