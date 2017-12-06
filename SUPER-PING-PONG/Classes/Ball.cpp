@@ -8,7 +8,6 @@ Ball* Ball::createWithTexture(const std::string &textureName, Vec2 startPosition
     self->_startVelocity = startVelocity;
     self->_startPosition = startPosition;
     //TODO: Change class CollisionStrategy
-    self->_collisionStrategy = std::make_shared<Classic>();
     self->_position = startPosition;
 
     self->initWithFile(textureName);
