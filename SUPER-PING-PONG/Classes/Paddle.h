@@ -6,20 +6,15 @@ using namespace cocos2d;
 
 class Paddle : public Sprite
 {
-    float _rightLimit;
-    float _leftLimit;
-
 public:
-    static Paddle* createWithTexture(std::string textureName);
+    static Paddle* createWithTexture(const std::string &textureName);
 
-    virtual void onEnter() override;
-    virtual void onExit() override;
+    Rect getRect() const;
+    bool containsTouchLocation(Touch* touch) const;
 
-    Rect getRect();
-    Rect getBox();
-    bool containsTouchLocation(Touch* touch);
+    void setWidth(float newWidth);
+    float getWidth() const;
 
-    bool onTouchBegan(Touch* touch, Event* event);
-    void onTouchMoved(Touch* touch, Event* event);
-    void onTouchEnded(Touch* touch, Event* event);
+    void setHeight(float newHeight);
+    float getHeight() const;
 };

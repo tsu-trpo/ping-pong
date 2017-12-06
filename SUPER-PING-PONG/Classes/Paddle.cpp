@@ -1,75 +1,56 @@
 #include "Paddle.h"
-#include "VisibleRect.h"
+#include "DefaultMaterial.h"
 
-Paddle * Paddle::createWithTexture(std::string textureName)
+
+Paddle * Paddle::createWithTexture(const std::string &textureName)
 {
-    Paddle* self = new (std::nothrow) Paddle();
+    auto self = new Paddle();
     self->initWithFile(textureName);
     self->autorelease();
+
+    auto bodySize = Size(self->getWidth(), self->getHeight());
+    self->setPhysicsBody(PhysicsBody::createBox(bodySize, defaultMaterial));
+    self->_physicsBody->setDynamic(false);
 
     return self;
 }
 
-
-void Paddle::onEnter()
-{
-    Sprite::onEnter();
-
-    _rightLimit = VisibleRect::right().x - getContentSize().width * getScaleX() * 0.5;
-    _leftLimit = VisibleRect::left().x + getContentSize().width * getScaleX() * 0.5;
-
-    auto listener = EventListenerTouchOneByOne::create();
-    listener->onTouchBegan = CC_CALLBACK_2(Paddle::onTouchBegan, this);
-    listener->onTouchMoved = CC_CALLBACK_2(Paddle::onTouchMoved, this);
-    listener->onTouchEnded = CC_CALLBACK_2(Paddle::onTouchEnded, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-}
-
-
-void Paddle::onExit()
-{
-    Sprite::onExit();
-}
-
-
-Rect Paddle::getRect()
+Rect Paddle::getRect() const
 {
     return Rect(
-            -(getContentSize().width * getScaleX() * 0.5),
-            -(getContentSize().height * getScaleY() * 0.5),
+            -(getContentSize().width * getScaleX() / 2),
+            -(getContentSize().height * getScaleY() / 2),
             getContentSize().width * getScaleX(),
             getContentSize().height * getScaleY());
 }
 
-Rect Paddle::getBox()
-{
-    auto box = getRect();
-    box.origin.x += getPosition().x; //setting rect to it's real position
-    box.origin.y += getPosition().y;
-    return box;
-}
 
-
-bool Paddle::containsTouchLocation(Touch* touch)
+bool Paddle::containsTouchLocation(Touch* touch) const
 {
     return getRect().containsPoint(convertTouchToNodeSpaceAR(touch));
 }
 
 
-bool Paddle::onTouchBegan(Touch* touch, Event* event)
+void Paddle::setWidth(float newWidth)
 {
-    return containsTouchLocation(touch);
+    setScaleX(newWidth  / getContentSize().width);
 }
 
 
-void Paddle::onTouchMoved(Touch* touch, Event* event)
+float Paddle::getWidth() const
 {
-    auto touchPoint = touch->getLocation();
-    float x = MIN( MAX(touchPoint.x, _leftLimit), _rightLimit);
-    setPosition( Vec2(x, getPosition().y) );
+    return getContentSize().width * getScaleX();
 }
 
 
-void Paddle::onTouchEnded(Touch* touch, Event* event)
+void Paddle::setHeight(float newHeight)
 {
+    setScaleY(newHeight / getContentSize().height);
 }
+
+
+float Paddle::getHeight() const
+{
+    return getContentSize().height * getScaleY();
+}
+
