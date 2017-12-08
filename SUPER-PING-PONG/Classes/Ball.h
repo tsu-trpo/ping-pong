@@ -1,7 +1,5 @@
 #pragma once
 #include "cocos2d.h"
-#include "CollisionStrategy.h"
-
 
 using namespace cocos2d;
 
