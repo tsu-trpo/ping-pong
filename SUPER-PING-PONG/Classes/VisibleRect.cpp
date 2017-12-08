@@ -2,79 +2,79 @@
 
 using namespace cocos2d;
 
-Rect VisibleRect::s_visibleRect;
+Rect VisibleRect::sVisibleRect;
 
 void VisibleRect::lazyInit()
 {
     // no lazy init
     // Useful if we change the resolution in runtime
-    s_visibleRect = Director::getInstance()->getOpenGLView()->getVisibleRect();
+    sVisibleRect = Director::getInstance()->getOpenGLView()->getVisibleRect();
 }
 
 Rect VisibleRect::getVisibleRect()
 {
     lazyInit();
-    return s_visibleRect;
+    return sVisibleRect;
 }
 
 Vec2 VisibleRect::left()
 {
     lazyInit();
-    return Vec2(s_visibleRect.origin.x,
-                s_visibleRect.origin.y+s_visibleRect.size.height/2);
+    return Vec2(sVisibleRect.origin.x,
+                sVisibleRect.origin.y+sVisibleRect.size.height/2.0);
 }
 
 Vec2 VisibleRect::right()
 {
     lazyInit();
-    return Vec2(s_visibleRect.origin.x+s_visibleRect.size.width,
-                s_visibleRect.origin.y+s_visibleRect.size.height/2);
+    return Vec2(sVisibleRect.origin.x+sVisibleRect.size.width,
+                sVisibleRect.origin.y+sVisibleRect.size.height/2.0);
 }
 
 Vec2 VisibleRect::top()
 {
     lazyInit();
-    return Vec2(s_visibleRect.origin.x+s_visibleRect.size.width/2,
-                s_visibleRect.origin.y+s_visibleRect.size.height);
+    return Vec2(sVisibleRect.origin.x+sVisibleRect.size.width/2.0,
+                sVisibleRect.origin.y+sVisibleRect.size.height);
 }
 
 Vec2 VisibleRect::bottom()
 {
     lazyInit();
-    return Vec2(s_visibleRect.origin.x+s_visibleRect.size.width/2,
-                s_visibleRect.origin.y);
+    return Vec2(sVisibleRect.origin.x+sVisibleRect.size.width/2.0,
+                sVisibleRect.origin.y);
 }
 
 Vec2 VisibleRect::center()
 {
     lazyInit();
-    return Vec2(s_visibleRect.origin.x+s_visibleRect.size.width/2,
-                s_visibleRect.origin.y+s_visibleRect.size.height/2);
+    return Vec2(sVisibleRect.origin.x+sVisibleRect.size.width/2.0,
+                sVisibleRect.origin.y+sVisibleRect.size.height/2.0);
 }
 
 Vec2 VisibleRect::leftTop()
 {
     lazyInit();
-    return Vec2(s_visibleRect.origin.x,
-                s_visibleRect.origin.y+s_visibleRect.size.height);
+    return Vec2(sVisibleRect.origin.x,
+                sVisibleRect.origin.y+sVisibleRect.size.height);
 }
 
 Vec2 VisibleRect::rightTop()
 {
     lazyInit();
-    return Vec2(s_visibleRect.origin.x+s_visibleRect.size.width,
-                s_visibleRect.origin.y+s_visibleRect.size.height);
+    return Vec2(sVisibleRect.origin.x+sVisibleRect.size.width,
+                sVisibleRect.origin.y+sVisibleRect.size.height);
 }
 
 Vec2 VisibleRect::leftBottom()
 {
     lazyInit();
-    return s_visibleRect.origin;
+    return sVisibleRect.origin;
 }
 
 Vec2 VisibleRect::rightBottom()
 {
     lazyInit();
-    return Vec2(s_visibleRect.origin.x+s_visibleRect.size.width,
-                s_visibleRect.origin.y);
+    return Vec2(sVisibleRect.origin.x+sVisibleRect.size.width,
+                sVisibleRect.origin.y);
 }

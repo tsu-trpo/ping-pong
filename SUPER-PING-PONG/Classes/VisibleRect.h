@@ -1,21 +1,23 @@
 #pragma once
 #include "cocos2d.h"
 
+using namespace cocos2d;
+
 class VisibleRect
 {
 public:
-    static cocos2d::Rect getVisibleRect();
+    static Rect getVisibleRect();
 
-    static cocos2d::Vec2 left();
-    static cocos2d::Vec2 right();
-    static cocos2d::Vec2 top();
-    static cocos2d::Vec2 bottom();
-    static cocos2d::Vec2 center();
-    static cocos2d::Vec2 leftTop();
-    static cocos2d::Vec2 rightTop();
-    static cocos2d::Vec2 leftBottom();
-    static cocos2d::Vec2 rightBottom();
+    static Vec2 left();
+    static Vec2 right();
+    static Vec2 top();
+    static Vec2 bottom();
+    static Vec2 center();
+    static Vec2 leftTop();
+    static Vec2 rightTop();
+    static Vec2 leftBottom();
+    static Vec2 rightBottom();
 private:
     static void lazyInit();
-    static cocos2d::Rect s_visibleRect;
+    static Rect sVisibleRect;
 };
