@@ -130,7 +130,6 @@ set(GAME_SRC
         Classes/AppDelegate.cpp
         Classes/GameScene.cpp
         Classes/Ball.cpp
-        Classes/CollisionStrategy.cpp
         Classes/Paddle.cpp
         Classes/PaddleController.cpp
         Classes/VisibleRect.cpp
@@ -143,7 +142,6 @@ set(GAME_HEADERS
         Classes/AppDelegate.h
         Classes/GameScene.h
         Classes/Ball.h
-        Classes/CollisionStrategy.h
         Classes/Paddle.h
         Classes/PaddleController.h
         Classes/VisibleRect.h

@@ -10,3 +10,4 @@ SUPER-PING-PONG/proj.win10/
 SUPER-PING-PONG/build
 SUPER-PING-PONG/proj.win32/
 *.swp
+*.orig
