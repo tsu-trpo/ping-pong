@@ -6,7 +6,7 @@ Paddle * Paddle::createWithTexture(const std::string &textureName)
     auto self = new Paddle();
     self->initWithFile(textureName);
     self->autorelease();
-    self->_controller = new PaddleController(self);
+    self->_controller = std::make_shared<PaddleController>(self);
 
     auto bodySize = Size(self->getWidth(), self->getHeight());
     self->setPhysicsBody(PhysicsBody::createBox(bodySize, defaultMaterial));

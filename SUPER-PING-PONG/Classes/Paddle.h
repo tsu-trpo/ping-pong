@@ -8,7 +8,7 @@ using namespace cocos2d;
 
 class Paddle : public Sprite
 {
-    PaddleController* _controller;
+    std::shared_ptr<PaddleController> _controller;
 public:
     static Paddle* createWithTexture(const std::string &textureName);
 
