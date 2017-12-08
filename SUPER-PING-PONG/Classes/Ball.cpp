@@ -25,11 +25,6 @@ void Ball::respawn()
     _physicsBody->setVelocity(_startVelocity);
 }
 
-void Ball::setCollisionStrategy(std::shared_ptr<CollisionStrategy> newStrategy)
-{
-    _collisionStrategy = newStrategy;
-}
-
 void Ball::setStartPosition(Vec2 newStartPosition)
 {
     _startPosition = newStartPosition;
