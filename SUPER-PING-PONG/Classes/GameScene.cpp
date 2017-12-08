@@ -3,7 +3,6 @@
 #include "VisibleRect.h"
 #include "DefaultMaterial.h"
 
-
 const int debugDrawAllMask = 0xffff;
 
 Scene* GameScene::createScene()

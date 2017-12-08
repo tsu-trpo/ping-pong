@@ -1,7 +1,6 @@
 #include "PaddleController.h"
 #include "VisibleRect.h"
 
-
 PaddleController::PaddleController(Paddle* paddle) : _paddle(paddle)
 {
     _listener = EventListenerTouchOneByOne::create();
@@ -11,12 +10,10 @@ PaddleController::PaddleController(Paddle* paddle) : _paddle(paddle)
     _eventDispatcher->addEventListenerWithSceneGraphPriority(_listener, _paddle);
 }
 
-
 PaddleController::~PaddleController()
 {
     _eventDispatcher->removeEventListener(_listener);
 }
-
 
 bool PaddleController::onTouchBegan(Touch* touch, Event* event)
 {
@@ -25,14 +22,12 @@ bool PaddleController::onTouchBegan(Touch* touch, Event* event)
     return _paddle->containsTouchLocation(touch);
 }
 
-
 void PaddleController::onTouchMoved(Touch* touch, Event* event)
 {
     auto touchPoint = touch->getLocation();
     float x = MIN( MAX(touchPoint.x, _leftLimit), _rightLimit);
     _paddle->setPosition( Vec2(x, _paddle->getPosition().y) );
 }
-
 
 void PaddleController::onTouchEnded(Touch* touch, Event* event)
 {

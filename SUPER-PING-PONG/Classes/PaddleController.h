@@ -6,7 +6,6 @@ class Paddle;
 
 using namespace cocos2d;
 
-
 class PaddleController : public Layer
 {
     Paddle* _paddle;

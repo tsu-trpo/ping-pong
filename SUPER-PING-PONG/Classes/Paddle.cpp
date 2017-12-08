@@ -1,7 +1,6 @@
 #include "Paddle.h"
 #include "DefaultMaterial.h"
 
-
 Paddle * Paddle::createWithTexture(const std::string &textureName)
 {
     auto self = new Paddle();
@@ -25,30 +24,25 @@ Rect Paddle::getRect() const
             getContentSize().height * getScaleY());
 }
 
-
 bool Paddle::containsTouchLocation(Touch* touch) const
 {
     return getRect().containsPoint(convertTouchToNodeSpaceAR(touch));
 }
-
 
 void Paddle::setWidth(float newWidth)
 {
     setScaleX(newWidth  / getContentSize().width);
 }
 
-
 float Paddle::getWidth() const
 {
     return getContentSize().width * getScaleX();
 }
 
-
 void Paddle::setHeight(float newHeight)
 {
     setScaleY(newHeight / getContentSize().height);
 }
-
 
 float Paddle::getHeight() const
 {

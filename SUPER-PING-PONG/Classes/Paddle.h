@@ -6,7 +6,6 @@ class PaddleController;
 
 using namespace cocos2d;
 
-
 class Paddle : public Sprite
 {
     PaddleController* _controller;
