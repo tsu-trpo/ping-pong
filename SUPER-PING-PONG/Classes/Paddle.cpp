@@ -18,8 +18,8 @@ Paddle * Paddle::createWithTexture(const std::string &textureName)
 Rect Paddle::getRect() const
 {
     return Rect(
-            -(getContentSize().width * getScaleX() / 2),
-            -(getContentSize().height * getScaleY() / 2),
+            -(getContentSize().width * getScaleX() / 2.0),
+            -(getContentSize().height * getScaleY() / 2.0),
             getContentSize().width * getScaleX(),
             getContentSize().height * getScaleY());
 }

@@ -17,8 +17,8 @@ PaddleController::~PaddleController()
 
 bool PaddleController::onTouchBegan(Touch* touch, Event* event)
 {
-    _rightLimit = VisibleRect::right().x - (_paddle->getWidth() / 2);
-    _leftLimit = VisibleRect::left().x + (_paddle->getWidth() / 2);
+    _rightLimit = VisibleRect::right().x - (_paddle->getWidth() / 2.0);
+    _leftLimit = VisibleRect::left().x + (_paddle->getWidth() / 2.0);
     return _paddle->containsTouchLocation(touch);
 }
 
