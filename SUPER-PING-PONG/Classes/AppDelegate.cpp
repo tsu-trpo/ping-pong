@@ -6,16 +6,12 @@ using namespace cocos2d;
 
 static cocos2d::Size designResolutionSize = cocos2d::Size(1440, 960);
 
+AppDelegate::AppDelegate() {}
 
-AppDelegate::AppDelegate()
-{
-}
-
-AppDelegate::~AppDelegate() 
+AppDelegate::~AppDelegate()
 {
     CocosDenshion::SimpleAudioEngine::end();
 }
-
 
 // if you want a different context, modify the value of glContextAttrs
 // it will affect all platforms
@@ -27,22 +23,23 @@ void AppDelegate::initGLContextAttrs()
     GLView::setGLContextAttrs(glContextAttrs);
 }
 
-
-// if you want to use the package manager to install more packages,  
+// if you want to use the package manager to install more packages,
 // don't modify or remove this function
 static int register_all_packages()
 {
-    return 0; //flag for packages manager
+    return 0;  // flag for packages manager
 }
 
-
-bool AppDelegate::applicationDidFinishLaunching() {
+bool AppDelegate::applicationDidFinishLaunching()
+{
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
-    if(!glview) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("pong", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+    if (!glview) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || \
+    (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
+        glview = GLViewImpl::createWithRect(
+            "pong", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
 #else
         glview = GLViewImpl::create("pong");
 #endif
@@ -56,7 +53,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0f / 60);
 
     // Set the design resolution
-    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
+    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height,
+                                    ResolutionPolicy::NO_BORDER);
     auto frameSize = glview->getFrameSize();
 
     register_all_packages();
@@ -70,22 +68,20 @@ bool AppDelegate::applicationDidFinishLaunching() {
     return true;
 }
 
-
 // This function will be called when the app is inactive. Note, when receiving a phone call it is invoked.
-void AppDelegate::applicationDidEnterBackground() {
+void AppDelegate::applicationDidEnterBackground()
+{
     Director::getInstance()->stopAnimation();
 
     CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
     CocosDenshion::SimpleAudioEngine::getInstance()->pauseAllEffects();
-
 }
 
-
 // this function will be called when the app is active again
-void AppDelegate::applicationWillEnterForeground() {
+void AppDelegate::applicationWillEnterForeground()
+{
     Director::getInstance()->startAnimation();
 
     CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
     CocosDenshion::SimpleAudioEngine::getInstance()->resumeAllEffects();
-
 }

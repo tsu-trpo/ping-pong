@@ -1,8 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 
-class VisibleRect
-{
+class VisibleRect {
 public:
     static cocos2d::Rect getVisibleRect();
 
@@ -15,6 +14,7 @@ public:
     static cocos2d::Vec2 rightTop();
     static cocos2d::Vec2 leftBottom();
     static cocos2d::Vec2 rightBottom();
+
 private:
     static void lazyInit();
     static cocos2d::Rect s_visibleRect;
