@@ -3,8 +3,6 @@
 
 using namespace cocos2d;
 
-//class CollisionStrategy;
-
 class Ball : public Sprite
 {
     Vec2 _startPosition;
