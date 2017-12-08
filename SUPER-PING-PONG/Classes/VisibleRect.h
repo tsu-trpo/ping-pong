@@ -19,5 +19,5 @@ public:
     static Vec2 rightBottom();
 private:
     static void lazyInit();
-    static Rect s_visibleRect;
+    static Rect sVisibleRect;
 };
