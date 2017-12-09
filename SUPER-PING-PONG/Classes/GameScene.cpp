@@ -1,15 +1,14 @@
 #include "GameScene.h"
 #include "AudioPlayer.h"
-#include "VisibleRect.h"
 #include "DefaultMaterial.h"
-
+#include "VisibleRect.h"
 
 const int debugDrawAllMask = 0xffff;
 
-Scene* GameScene::createScene()
+Scene *GameScene::createScene()
 {
     auto scene = Scene::createWithPhysics();
-    scene->getPhysicsWorld()->setGravity(Vec2(0,0));
+    scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
     scene->getPhysicsWorld()->setDebugDrawMask(debugDrawAllMask);
 
     auto layer = GameScene::create();
@@ -20,24 +19,22 @@ Scene* GameScene::createScene()
 
 void GameScene::createBricks(int lines, int columns)
 {
-    _bricks = std::vector<Vector<Brick*>>(lines);
+    _bricks = std::vector<Vector<Brick *>>(lines);
     float center = VisibleRect::center().x;
     float top = VisibleRect::top().y;
 
     float widthBrick = 90;
     float heightBrick = 35;
 
-    float halfLine = (columns/2.0)*widthBrick;
-    float beginLine = center - halfLine + widthBrick/2;
-    float offsetTop = 1.5*heightBrick;
-    float y = top - offsetTop + heightBrick/2;
+    float halfLine = (columns / 2.0) * widthBrick;
+    float beginLine = center - halfLine + widthBrick / 2;
+    float offsetTop = 1.5 * heightBrick;
+    float y = top - offsetTop + heightBrick / 2;
 
-    for(int j = 0; j < lines; j++)
-    {
+    for (int j = 0; j < lines; j++) {
         float x = beginLine;
-        for (int i = 0; i < columns; i++)
-        {
-            Brick* brick = Brick::createWithTexture("res/brick.png");
+        for (int i = 0; i < columns; i++) {
+            Brick *brick = Brick::createWithTexture("res/brick.png");
             brick->setWidth(widthBrick);
             brick->setHeight(heightBrick);
             brick->setPosition(x, y);
@@ -51,8 +48,7 @@ void GameScene::createBricks(int lines, int columns)
 
 bool GameScene::init()
 {
-    if ( !Layer::init() )
-    {
+    if (!Layer::init()) {
         return false;
     }
 
@@ -90,14 +86,14 @@ bool GameScene::init()
     /// Balls ///
 
     Vec2 ballStartPosition = Vec2(VisibleRect::center().x, VisibleRect::center().y);
-    Vec2 ballStartVelocity = Vec2(0,-500);
+    Vec2 ballStartVelocity = Vec2(0, -500);
 
     _balls.pushBack(Ball::createWithTexture("res/ball.png", ballStartPosition, ballStartVelocity));
     addChild(_balls.at(0));
 
-    ///Bricks///
+    /// Bricks///
 
-    createBricks(2,7);
+    createBricks(2, 7);
 
     return true;
 }
