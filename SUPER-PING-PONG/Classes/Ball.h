@@ -15,7 +15,6 @@ public:
     static Ball *createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity);
 
     void respawn();
-    void setCollisionStrategy(std::shared_ptr<CollisionStrategy> newStrategy);
 
     void setStartPosition(Vec2 newStartPosition);
     Vec2 getStartPosition();
