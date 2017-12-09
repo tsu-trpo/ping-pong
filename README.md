@@ -59,8 +59,7 @@ make
 cd bin/
 ./pong
 ```
-
 ##Для тех, кто хочет добавить код в наш проект
 Прежде чем сделать PR воспользуйтесь `SUPER_PING_PONG/clang-format.sh`, который использует `clang-format-5.0`
 инструкцию по установке `clang-format-5.0`  вы можете найти в `WIKI`
-[установка clang-format 5.0]: https://github.com/tsu-trpo/ping-pong/wiki/%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-clang-format-5.0
+[установка clang-format 5.0](https://github.com/tsu-trpo/ping-pong/wiki/%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-clang-format-5.0)
