@@ -3,13 +3,14 @@
 
 using namespace cocos2d;
 
-class Ball : public Sprite
-{
+class CollisionStrategy;
+
+class Ball : public Sprite {
     Vec2 _startPosition;
     Vec2 _startVelocity;
 
 public:
-    static Ball* createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity);
+    static Ball *createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity);
 
     void respawn();
 

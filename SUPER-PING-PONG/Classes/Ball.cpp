@@ -1,13 +1,12 @@
 #include "Ball.h"
 #include "DefaultMaterial.h"
 
-
-Ball* Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity)
+Ball *Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity)
 {
     auto self = new Ball();
     self->_startVelocity = startVelocity;
     self->_startPosition = startPosition;
-    //TODO: Change class CollisionStrategy
+    // TODO: Change class CollisionStrategy
     self->_position = startPosition;
 
     self->initWithFile(textureName);
