@@ -20,4 +20,8 @@ public:
 
     void setHeight(float newHeight);
     float getHeight() const;
+
+    float getLeftLimit() const;
+    float getRightLimit() const;
+
 };

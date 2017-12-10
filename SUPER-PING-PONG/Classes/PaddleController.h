@@ -10,9 +10,6 @@ class PaddleController : public Layer
 {
     Paddle* _paddle;
     EventListenerTouchOneByOne* _listener;
-    float _rightLimit;
-    float _leftLimit;
-
 public:
     PaddleController(Paddle* paddle);
     ~PaddleController();

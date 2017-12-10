@@ -17,15 +17,15 @@ PaddleController::~PaddleController()
 
 bool PaddleController::onTouchBegan(Touch* touch, Event* event)
 {
-    _rightLimit = VisibleRect::right().x - (_paddle->getWidth() / 2.0);
-    _leftLimit = VisibleRect::left().x + (_paddle->getWidth() / 2.0);
     return _paddle->containsTouchLocation(touch);
 }
 
 void PaddleController::onTouchMoved(Touch* touch, Event* event)
 {
+    float rightLimit = _paddle->getRightLimit();
+    float leftLimit = _paddle->getLeftLimit();
     auto touchPoint = touch->getLocation();
-    float x = MIN( MAX(touchPoint.x, _leftLimit), _rightLimit);
+    float x = MIN( MAX(touchPoint.x, leftLimit), rightLimit);
     _paddle->setPosition( Vec2(x, _paddle->getPosition().y) );
 }
 

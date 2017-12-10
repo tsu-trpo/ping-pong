@@ -1,5 +1,6 @@
 #include "Paddle.h"
 #include "DefaultMaterial.h"
+#include "VisibleRect.h"
 
 Paddle * Paddle::createWithTexture(const std::string &textureName)
 {
@@ -48,3 +49,15 @@ float Paddle::getHeight() const
 {
     return getContentSize().height * getScaleY();
 }
+
+float Paddle::getLeftLimit() const
+{
+    return VisibleRect::left().x + (getWidth() / 2.0);
+
+}
+
+float Paddle::getRightLimit() const
+{
+    return VisibleRect::right().x - (getWidth() / 2.0);
+}
+
