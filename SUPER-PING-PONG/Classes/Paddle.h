@@ -1,19 +1,19 @@
 #pragma once
-#include "cocos2d.h"
 #include "PaddleController.h"
+#include "cocos2d.h"
 
 class PaddleController;
 
 using namespace cocos2d;
 
-class Paddle : public Sprite
-{
+class Paddle : public Sprite {
     std::shared_ptr<PaddleController> _controller;
+
 public:
-    static Paddle* createWithTexture(const std::string &textureName);
+    static Paddle *createWithTexture(const std::string &textureName);
 
     Rect getRect() const;
-    bool containsTouchLocation(Touch* touch) const;
+    bool containsTouchLocation(Touch *touch) const;
 
     void setWidth(float newWidth);
     float getWidth() const;
@@ -23,5 +23,4 @@ public:
 
     float getLeftLimit() const;
     float getRightLimit() const;
-
 };

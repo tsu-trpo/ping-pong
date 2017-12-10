@@ -2,7 +2,7 @@
 #include "DefaultMaterial.h"
 #include "VisibleRect.h"
 
-Paddle * Paddle::createWithTexture(const std::string &textureName)
+Paddle *Paddle::createWithTexture(const std::string &textureName)
 {
     auto self = new Paddle();
     self->initWithFile(textureName);
@@ -18,21 +18,18 @@ Paddle * Paddle::createWithTexture(const std::string &textureName)
 
 Rect Paddle::getRect() const
 {
-    return Rect(
-            -(getContentSize().width * getScaleX() / 2.0),
-            -(getContentSize().height * getScaleY() / 2.0),
-            getContentSize().width * getScaleX(),
-            getContentSize().height * getScaleY());
+    return Rect(-(getContentSize().width * getScaleX() / 2.0), -(getContentSize().height * getScaleY() / 2.0),
+                getContentSize().width * getScaleX(), getContentSize().height * getScaleY());
 }
 
-bool Paddle::containsTouchLocation(Touch* touch) const
+bool Paddle::containsTouchLocation(Touch *touch) const
 {
     return getRect().containsPoint(convertTouchToNodeSpaceAR(touch));
 }
 
 void Paddle::setWidth(float newWidth)
 {
-    setScaleX(newWidth  / getContentSize().width);
+    setScaleX(newWidth / getContentSize().width);
 }
 
 float Paddle::getWidth() const
@@ -53,11 +50,9 @@ float Paddle::getHeight() const
 float Paddle::getLeftLimit() const
 {
     return VisibleRect::left().x + (getWidth() / 2.0);
-
 }
 
 float Paddle::getRightLimit() const
 {
     return VisibleRect::right().x - (getWidth() / 2.0);
 }
-
