@@ -95,9 +95,17 @@ bool GameScene::init()
     _balls.pushBack(Ball::createWithTexture("res/ball.png", ballStartPosition, ballStartVelocity));
     addChild(_balls.at(0));
 
-    ///Bricks///
+    /// Bricks ///
 
     createBricks(2,7);
+
+    /// Bonuses ///
+
+    Vec2 bonusStartPosition = Vec2(VisibleRect::center().x, VisibleRect::center().y);
+    Vec2 bonusStartVelocity = Vec2(0,-700);
+
+    _bonuses.pushBack(Bonus::createWithTexture("res/bonus.png", bonusStartPosition, bonusStartVelocity));
+    addChild(_bonuses.at(0));
 
     return true;
 }
