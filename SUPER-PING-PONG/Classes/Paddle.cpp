@@ -47,12 +47,15 @@ float Paddle::getHeight() const
     return getContentSize().height * getScaleY();
 }
 
-float Paddle::getLeftLimit() const
+void Paddle::setPosition(float x, float y)
 {
-    return VisibleRect::left().x + (getWidth() / 2.0);
+    float rightLimit = VisibleRect::right().x - (getWidth() / 2.0);
+    float leftLimit = VisibleRect::left().x + (getWidth() / 2.0);
+    x = MIN(MAX(x, leftLimit), rightLimit);
+    Sprite::setPosition(x, y);
 }
 
-float Paddle::getRightLimit() const
+void Paddle::setPosition(const Vec2 &position)
 {
-    return VisibleRect::right().x - (getWidth() / 2.0);
+    setPosition(position.x, position.y);
 }

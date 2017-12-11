@@ -13,14 +13,18 @@ public:
     static Paddle *createWithTexture(const std::string &textureName);
 
     Rect getRect() const;
+
     bool containsTouchLocation(Touch *touch) const;
 
     void setWidth(float newWidth);
+
     float getWidth() const;
 
     void setHeight(float newHeight);
+
     float getHeight() const;
 
-    float getLeftLimit() const;
-    float getRightLimit() const;
+    void setPosition(float x, float y);
+
+    void setPosition(const Vec2 &position);
 };

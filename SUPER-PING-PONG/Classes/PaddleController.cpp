@@ -1,5 +1,4 @@
 #include "PaddleController.h"
-#include "VisibleRect.h"
 
 PaddleController::PaddleController(Paddle *paddle)
     : _paddle(paddle)
@@ -23,11 +22,7 @@ bool PaddleController::onTouchBegan(Touch *touch, Event *event)
 
 void PaddleController::onTouchMoved(Touch *touch, Event *event)
 {
-    float rightLimit = _paddle->getRightLimit();
-    float leftLimit = _paddle->getLeftLimit();
-    auto touchPoint = touch->getLocation();
-    float x = MIN(MAX(touchPoint.x, leftLimit), rightLimit);
-    _paddle->setPosition(Vec2(x, _paddle->getPosition().y));
+    _paddle->setPosition(Vec2(touch->getLocation().x, _paddle->getPosition().y));
 }
 
 void PaddleController::onTouchEnded(Touch *touch, Event *event) {}
