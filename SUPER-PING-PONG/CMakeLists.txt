@@ -131,6 +131,7 @@ set(GAME_SRC
         Classes/GameScene.cpp
         Classes/Ball.cpp
         Classes/Paddle.cpp
+        Classes/PaddleController.cpp
         Classes/VisibleRect.cpp
         Classes/AudioPlayer.cpp
         Classes/Brick.cpp
@@ -142,6 +143,7 @@ set(GAME_HEADERS
         Classes/GameScene.h
         Classes/Ball.h
         Classes/Paddle.h
+        Classes/PaddleController.h
         Classes/VisibleRect.h
         Classes/AudioPlayer.h
         Classes/Brick.h

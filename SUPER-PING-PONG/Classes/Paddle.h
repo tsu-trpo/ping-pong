@@ -1,23 +1,30 @@
 #pragma once
+#include "PaddleController.h"
 #include "cocos2d.h"
+
+class PaddleController;
 
 using namespace cocos2d;
 
 class Paddle : public Sprite {
-    float _rightLimit;
-    float _leftLimit;
+    std::shared_ptr<PaddleController> _controller;
 
 public:
-    static Paddle *createWithTexture(std::string textureName);
+    static Paddle *createWithTexture(const std::string &textureName);
 
-    virtual void onEnter() override;
-    virtual void onExit() override;
+    Rect getRect() const;
 
-    Rect getRect();
-    Rect getBox();
-    bool containsTouchLocation(Touch *touch);
+    bool containsTouchLocation(Touch *touch) const;
 
-    bool onTouchBegan(Touch *touch, Event *event);
-    void onTouchMoved(Touch *touch, Event *event);
-    void onTouchEnded(Touch *touch, Event *event);
+    void setWidth(float newWidth);
+
+    float getWidth() const;
+
+    void setHeight(float newHeight);
+
+    float getHeight() const;
+
+    void setPosition(float x, float y);
+
+    void setPosition(const Vec2 &position);
 };

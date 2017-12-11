@@ -20,50 +20,46 @@ Rect VisibleRect::getVisibleRect()
 Vec2 VisibleRect::left()
 {
     lazyInit();
-    return Vec2(sVisibleRect.origin.x,
-                sVisibleRect.origin.y+sVisibleRect.size.height/2.0);
+    return Vec2(sVisibleRect.origin.x, sVisibleRect.origin.y + sVisibleRect.size.height / 2.0);
 }
 
 Vec2 VisibleRect::right()
 {
     lazyInit();
-    return Vec2(sVisibleRect.origin.x+sVisibleRect.size.width,
-                sVisibleRect.origin.y+sVisibleRect.size.height/2.0);
+    return Vec2(sVisibleRect.origin.x + sVisibleRect.size.width,
+                sVisibleRect.origin.y + sVisibleRect.size.height / 2.0);
 }
 
 Vec2 VisibleRect::top()
 {
     lazyInit();
-    return Vec2(sVisibleRect.origin.x+sVisibleRect.size.width/2.0,
-                sVisibleRect.origin.y+sVisibleRect.size.height);
+    return Vec2(sVisibleRect.origin.x + sVisibleRect.size.width / 2.0,
+                sVisibleRect.origin.y + sVisibleRect.size.height);
 }
 
 Vec2 VisibleRect::bottom()
 {
     lazyInit();
-    return Vec2(sVisibleRect.origin.x+sVisibleRect.size.width/2.0,
-                sVisibleRect.origin.y);
+    return Vec2(sVisibleRect.origin.x + sVisibleRect.size.width / 2.0, sVisibleRect.origin.y);
 }
 
 Vec2 VisibleRect::center()
 {
     lazyInit();
-    return Vec2(sVisibleRect.origin.x+sVisibleRect.size.width/2.0,
-                sVisibleRect.origin.y+sVisibleRect.size.height/2.0);
+    return Vec2(sVisibleRect.origin.x + sVisibleRect.size.width / 2.0,
+                sVisibleRect.origin.y + sVisibleRect.size.height / 2.0);
 }
 
 Vec2 VisibleRect::leftTop()
 {
     lazyInit();
-    return Vec2(sVisibleRect.origin.x,
-                sVisibleRect.origin.y+sVisibleRect.size.height);
+    return Vec2(sVisibleRect.origin.x, sVisibleRect.origin.y + sVisibleRect.size.height);
 }
 
 Vec2 VisibleRect::rightTop()
 {
     lazyInit();
-    return Vec2(sVisibleRect.origin.x+sVisibleRect.size.width,
-                sVisibleRect.origin.y+sVisibleRect.size.height);
+    return Vec2(sVisibleRect.origin.x + sVisibleRect.size.width, sVisibleRect.origin.y + sVisibleRect.size.height);
 }
 
 Vec2 VisibleRect::leftBottom()
@@ -75,6 +71,5 @@ Vec2 VisibleRect::leftBottom()
 Vec2 VisibleRect::rightBottom()
 {
     lazyInit();
-    return Vec2(sVisibleRect.origin.x+sVisibleRect.size.width,
-                sVisibleRect.origin.y);
+    return Vec2(sVisibleRect.origin.x + sVisibleRect.size.width, sVisibleRect.origin.y);
 }
