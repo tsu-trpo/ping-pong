@@ -129,7 +129,7 @@ bool GameScene::ContactBallBrick(PhysicsContact& contact)
 
     if (ball && brick)
     {
-        std::cout << "collide" << std::endl;
+        CCLOG("Collide: ball + brick");
         GameScene::dropBonus(brick);
     }
     return true;
@@ -138,7 +138,7 @@ bool GameScene::ContactBallBrick(PhysicsContact& contact)
 bool GameScene::dropBonus(Node *brick)
 {
     Vec2 bonusStartPosition = Vec2(VisibleRect::center().x, VisibleRect::center().y);
-    Vec2 bonusStartVelocity = Vec2(0,-700);
+    Vec2 bonusStartVelocity = Vec2(0,-300);
 
     Bonus* bonus = Bonus::createWithTexture("res/bonus.png", bonusStartPosition, bonusStartVelocity);
     bonus->setBonusPosition(brick, bonus);
