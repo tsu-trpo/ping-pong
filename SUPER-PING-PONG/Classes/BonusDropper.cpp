@@ -15,11 +15,16 @@ Bonus* Bonus::createWithTexture(const std::string &textureName, Vec2 spawnPositi
 
     self->setPhysicsBody(PhysicsBody::createCircle(self->getBonusRadius(), defaultMaterial));
     self->_physicsBody->setVelocity(spawnVelocity);
-
+    self->_physicsBody->setName("bonus");
     return self;
 }
 
 float Bonus::getBonusRadius()
 {
-    return getContentSize().width * getScaleX() / 2;
+    return getContentSize().width * getScaleX() / 2.0;
+}
+
+void Bonus::setBonusPosition(Node *brick, Bonus *bonus)
+{
+    bonus->setPosition(brick->getPosition());
 }

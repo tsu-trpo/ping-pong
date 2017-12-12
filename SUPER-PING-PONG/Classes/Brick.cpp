@@ -10,7 +10,8 @@ Brick* Brick::createWithTexture(const std::string &textureName)
     auto bodySize = Size(self->getWidth(), self->getHeight());
     self->setPhysicsBody(PhysicsBody::createBox(bodySize, defaultMaterial));
     self->_physicsBody->setDynamic(false);
-
+    self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
+    self->_physicsBody->setName("brick");
     return self;
 }
 

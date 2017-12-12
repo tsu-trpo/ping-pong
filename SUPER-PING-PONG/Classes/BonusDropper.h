@@ -1,5 +1,6 @@
 #pragma once
 #include "cocos2d.h"
+#include "Brick.h"
 
 using namespace cocos2d;
 
@@ -10,4 +11,5 @@ class Bonus : public Sprite
 public:
     static Bonus* createWithTexture(const std::string &textureName, Vec2 spawnPosition, Vec2 spawnVelocity);
     float getBonusRadius();
+    void setBonusPosition(Node *brick, Bonus *bonus);
 };

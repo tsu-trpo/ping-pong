@@ -24,4 +24,6 @@ public:
     virtual bool init();
 
     void createBricks(int perLine, int perColumn);
+    bool ContactBallBrick(PhysicsContact& contact);
+    bool dropBonus(Node *brick);
 };

@@ -15,7 +15,8 @@ Ball* Ball::createWithTexture(const std::string &textureName, Vec2 startPosition
 
     self->setPhysicsBody(PhysicsBody::createCircle(self->getRadius(), defaultMaterial));
     self->_physicsBody->setVelocity(startVelocity);
-
+    self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
+    self->_physicsBody->setName("ball");
     return self;
 }
 
