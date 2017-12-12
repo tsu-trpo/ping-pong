@@ -1,6 +1,7 @@
 #include "Ball.h"
 #include "AudioPlayer.h"
 #include "DefaultMaterial.h"
+#include "ObjectTags.h"
 
 Ball *Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity)
 {
@@ -17,7 +18,7 @@ Ball *Ball::createWithTexture(const std::string &textureName, Vec2 startPosition
 
     self->setPhysicsBody(PhysicsBody::createCircle(self->getRadius(), defaultMaterial));
     self->_physicsBody->setVelocity(startVelocity);
-    self->_physicsBody->setName("ball");
+    self->_physicsBody->setName(ballTag);
     self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
 
     self->_contactListener = EventListenerPhysicsContact::create();
@@ -87,22 +88,22 @@ float Ball::getRadius()
 
 bool Ball::onContact(PhysicsContact &contact)
 {
-    PhysicsBody *collidedBody = nullptr;
+    PhysicsShape *collidedShape = nullptr;
 
-    if (contact.getShapeA()->getBody()->getName() == "ball") {
-        collidedBody = contact.getShapeB()->getBody();
-    } else if (contact.getShapeB()->getBody()->getName() == "ball") {
-        collidedBody = contact.getShapeA()->getBody();
+    if (isTagEqualTo(contact.getShapeA(), ballTag)) {
+        collidedShape = contact.getShapeB();
+    } else if (isTagEqualTo(contact.getShapeB(), ballTag)) {
+        collidedShape = contact.getShapeA();
     } else {
         return false;
     }
 
-    if (collidedBody->getName() == "paddle") {
-        auto paddle = dynamic_cast<Paddle *>(collidedBody->getNode());
+    if (isTagEqualTo(collidedShape, paddleTag)) {
+        auto paddle = dynamic_cast<Paddle *>(collidedShape->getBody()->getNode());
         assert(paddle);
         onContactWithPaddle(paddle);
-    } else if (collidedBody->getName() == "brick") {
-        auto brick = dynamic_cast<Brick *>(collidedBody->getNode());
+    } else if (isTagEqualTo(collidedShape, brickTag)) {
+        auto brick = dynamic_cast<Brick *>(collidedShape->getBody()->getNode());
         assert(brick);
         onContactWithBrick(brick);
     } else {

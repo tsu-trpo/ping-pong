@@ -1,5 +1,6 @@
 #include "Paddle.h"
 #include "DefaultMaterial.h"
+#include "ObjectTags.h"
 #include "VisibleRect.h"
 
 Paddle *Paddle::createWithTexture(const std::string &textureName)
@@ -12,7 +13,7 @@ Paddle *Paddle::createWithTexture(const std::string &textureName)
     auto bodySize = Size(self->getWidth(), self->getHeight());
     self->setPhysicsBody(PhysicsBody::createBox(bodySize, defaultMaterial));
     self->_physicsBody->setDynamic(false);
-    self->_physicsBody->setName("paddle");
+    self->_physicsBody->setName(paddleTag);
     self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
 
     return self;

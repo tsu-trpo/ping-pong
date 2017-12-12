@@ -1,5 +1,6 @@
 #include "Brick.h"
 #include "DefaultMaterial.h"
+#include "ObjectTags.h"
 
 Brick *Brick::createWithTexture(const std::string &textureName)
 {
@@ -10,7 +11,7 @@ Brick *Brick::createWithTexture(const std::string &textureName)
     auto bodySize = Size(self->getWidth(), self->getHeight());
     self->setPhysicsBody(PhysicsBody::createBox(bodySize, defaultMaterial));
     self->_physicsBody->setDynamic(false);
-    self->_physicsBody->setName("brick");
+    self->_physicsBody->setName(brickTag);
     self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
 
     return self;
