@@ -98,9 +98,13 @@ bool Ball::onContact(PhysicsContact &contact)
     }
 
     if (collidedBody->getName() == "paddle") {
-        onContactWithPaddle(dynamic_cast<Paddle *>(collidedBody->getNode()));
+        auto paddle = dynamic_cast<Paddle *>(collidedBody->getNode());
+        assert(paddle);
+        onContactWithPaddle(paddle);
     } else if (collidedBody->getName() == "brick") {
-        onContactWithBrick(dynamic_cast<Brick *>(collidedBody->getNode()));
+        auto brick = dynamic_cast<Brick *>(collidedBody->getNode());
+        assert(brick);
+        onContactWithBrick(brick);
     } else {
         return false;
     }
@@ -111,6 +115,7 @@ void Ball::onContactWithPaddle(Paddle *paddle)
 {
     // Позиция контакта относительно Paddle [-1;1]
     float relativePosition = (getPosition().x - paddle->getPosition().x) / (paddle->getWidth() / 2.0);
+    assert(-1 <= relativePosition && relativePosition <= 1);
 
     // Чем ближе к краю ракетки - тем больше угол отскока и скорость шарика
     float x = relativePosition * _maxSpeed;
