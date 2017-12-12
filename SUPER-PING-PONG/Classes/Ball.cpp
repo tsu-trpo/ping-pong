@@ -27,11 +27,6 @@ Ball *Ball::createWithTexture(const std::string &textureName, Vec2 startPosition
     return self;
 }
 
-Ball::~Ball()
-{
-    _eventDispatcher->removeEventListener(_contactListener);
-}
-
 void Ball::respawn()
 {
     _position = _startPosition;
