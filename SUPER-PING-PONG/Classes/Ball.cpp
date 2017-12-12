@@ -1,4 +1,5 @@
 #include "Ball.h"
+#include "AudioPlayer.h"
 #include "DefaultMaterial.h"
 
 Ball *Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity)
@@ -8,14 +9,27 @@ Ball *Ball::createWithTexture(const std::string &textureName, Vec2 startPosition
     self->_startPosition = startPosition;
     // TODO: Change class CollisionStrategy
     self->_position = startPosition;
+    self->_minSpeed = 600;
+    self->_maxSpeed = 800;
 
     self->initWithFile(textureName);
     self->autorelease();
 
     self->setPhysicsBody(PhysicsBody::createCircle(self->getRadius(), defaultMaterial));
     self->_physicsBody->setVelocity(startVelocity);
+    self->_physicsBody->setName("ball");
+    self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
+
+    self->_contactListener = EventListenerPhysicsContact::create();
+    self->_contactListener->onContactBegin = CC_CALLBACK_1(Ball::onContact, self);
+    self->getEventDispatcher()->addEventListenerWithSceneGraphPriority(self->_contactListener, self);
 
     return self;
+}
+
+Ball::~Ball()
+{
+    _eventDispatcher->removeEventListener(_contactListener);
 }
 
 void Ball::respawn()
@@ -29,7 +43,7 @@ void Ball::setStartPosition(Vec2 newStartPosition)
     _startPosition = newStartPosition;
 }
 
-Vec2 Ball::getStartPosition()
+Vec2 Ball::getStartPosition() const
 {
     return _startPosition;
 }
@@ -39,9 +53,29 @@ void Ball::setStartVelocity(Vec2 newStartVelocity)
     _startVelocity = newStartVelocity;
 }
 
-Vec2 Ball::getStartVelocity()
+Vec2 Ball::getStartVelocity() const
 {
     return _startVelocity;
+}
+
+float Ball::getMaxSpeed() const
+{
+    return _maxSpeed;
+}
+
+void Ball::setMaxSpeed(float maxSpeed)
+{
+    _maxSpeed = maxSpeed;
+}
+
+float Ball::getMinSpeed() const
+{
+    return _minSpeed;
+}
+
+void Ball::setMinSpeed(float minSpeed)
+{
+    _minSpeed = minSpeed;
 }
 
 void Ball::setRadius(float newRadius)
@@ -54,4 +88,47 @@ void Ball::setRadius(float newRadius)
 float Ball::getRadius()
 {
     return getContentSize().width * getScaleX() / 2;
+}
+
+bool Ball::onContact(PhysicsContact &contact)
+{
+    PhysicsBody *collidedBody = nullptr;
+
+    if (contact.getShapeA()->getBody()->getName() == "ball") {
+        collidedBody = contact.getShapeB()->getBody();
+    } else if (contact.getShapeB()->getBody()->getName() == "ball") {
+        collidedBody = contact.getShapeA()->getBody();
+    } else {
+        return false;
+    }
+
+    if (collidedBody->getName() == "paddle") {
+        onContactWithPaddle(dynamic_cast<Paddle *>(collidedBody->getNode()));
+    } else if (collidedBody->getName() == "brick") {
+        onContactWithBrick(dynamic_cast<Brick *>(collidedBody->getNode()));
+    } else {
+        return false;
+    }
+    return true;
+}
+
+void Ball::onContactWithPaddle(Paddle *paddle)
+{
+    // Позиция контакта относительно Paddle [-1;1]
+    float relativePosition = (getPosition().x - paddle->getPosition().x) / (paddle->getWidth() / 2.0);
+
+    // Чем ближе к краю ракетки - тем больше угол отскока и скорость шарика
+    float x = relativePosition * _maxSpeed;
+    float y = _minSpeed + (_maxSpeed - _minSpeed) * fabsf(relativePosition);
+
+    getPhysicsBody()->setVelocity(Vec2(x, y));
+
+    AudioPlayer::playEffect(AudioPlayer::hitPaddle);
+}
+
+void Ball::onContactWithBrick(Brick *brick)
+{
+    brick->deleteBrick();
+
+    AudioPlayer::playEffect(AudioPlayer::hitBrick);
 }
