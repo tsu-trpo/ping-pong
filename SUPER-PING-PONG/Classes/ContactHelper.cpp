@@ -14,8 +14,7 @@ ContactHelper::ContactHelper(PhysicsContact &contact, const std::string &mainTag
 
 bool ContactHelper::wasContacted()
 {
-    // это тоже самое, что и `_main != nullptr && _other != nullptr`.
-    return !!_main && !!_other;
+    return _main && _other;
 }
 
 PhysicsShape *ContactHelper::getOther()
