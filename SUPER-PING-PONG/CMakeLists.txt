@@ -136,6 +136,7 @@ set(GAME_SRC
         Classes/AudioPlayer.cpp
         Classes/Brick.cpp
         Classes/SimpleBrick.cpp
+        Classes/ExplosionBrick.cpp
         Classes/BrickFactory.cpp
         Classes/ContactHelper.cpp
         ${PLATFORM_SPECIFIC_SRC}
@@ -151,6 +152,7 @@ set(GAME_HEADERS
         Classes/AudioPlayer.h
         Classes/Brick.h
         Classes/SimpleBrick.h
+        Classes/ExplosionBrick.h
         Classes/BrickFactory.h
         Classes/DefaultMaterial.h
         Classes/ObjectTags.h

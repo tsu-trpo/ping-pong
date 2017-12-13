@@ -34,7 +34,8 @@ void GameScene::createBricks(int lines, int columns)
     for (int j = 0; j < lines; j++) {
         float x = beginLine;
         for (int i = 0; i < columns; i++) {
-            Brick *brick = BrickFactory::createBrick(0);
+            int type = rand()%2;
+            Brick *brick = BrickFactory::createBrick(type,_bricks);
             brick->setWidth(widthBrick);
             brick->setHeight(heightBrick);
             brick->setPosition(x, y);
@@ -93,7 +94,7 @@ bool GameScene::init()
 
     /// Bricks///
 
-    createBricks(2, 7);
+    createBricks(7, 7);
 
     return true;
 }

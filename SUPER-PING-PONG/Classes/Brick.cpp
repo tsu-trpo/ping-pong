@@ -1,5 +1,4 @@
 #include "Brick.h"
-#include "DefaultMaterial.h"
 
 Rect Brick::getRect()
 {

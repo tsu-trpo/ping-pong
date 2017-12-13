@@ -1,12 +1,12 @@
-#include "SimpleBrick.h"
+#include "ExplosionBrick.h"
 #include "DefaultMaterial.h"
 #include "ObjectTags.h"
 
-Brick* SimpleBrick::createBrick(std::vector<Vector<Brick *>> &bricks) {
+Brick* ExplosionBrick::createBrick(std::vector<Vector<Brick*>> &bricks) {
 
-    SimpleBrick *self;
-    self = new SimpleBrick();
-    self->initWithFile("res/brick.png");
+    ExplosionBrick *self;
+    self = new ExplosionBrick();
+    self->initWithFile("res/brickRed.png");
     self->autorelease();
     self->_bricks = bricks;
 
@@ -18,6 +18,6 @@ Brick* SimpleBrick::createBrick(std::vector<Vector<Brick *>> &bricks) {
     return self;
 }
 
-void SimpleBrick::onContact() {
+void ExplosionBrick::onContact() {
     removeFromParent();
 }

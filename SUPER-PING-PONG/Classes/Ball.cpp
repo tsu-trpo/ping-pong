@@ -106,6 +106,7 @@ bool Ball::onContact(PhysicsContact &contact)
         assert(paddle);
         onContactWithPaddle(paddle);
     } else if (isTagEqualTo(collidedShape, brickTag)) {
+        log("asdf");
         auto brick = dynamic_cast<Brick *>(collidedShape->getBody()->getNode());
         assert(brick);
         onContactWithBrick(brick);
@@ -131,7 +132,8 @@ void Ball::onContactWithPaddle(Paddle *paddle)
 
 void Ball::onContactWithBrick(Brick *brick)
 {
-    brick->deleteBrick();
+
+    brick->onContact();
 
     AudioPlayer::playEffect(AudioPlayer::hitBrick);
 }

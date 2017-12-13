@@ -5,6 +5,9 @@ using namespace cocos2d;
 
 class Brick : public Sprite {
 public:
+
+    std::vector<Vector<Brick *>> _bricks;
+
     Rect getRect();
     Rect getBox();
 
