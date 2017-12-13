@@ -26,18 +26,23 @@ void ExplosionBrick::onContact() {
 
     std::cout << _line << " " << _column << " " <<  _bricks->at(6).size() << std::endl;
     for( int i = _line-1; i < _line+2; i++) {
-        if(i == temp->size()) {
+        if(i == temp->size())  {
             std::cout << "выход" << i << std::endl;
             return;
+        }
+        if( i == -1) {
+            continue;
         }
 
         for(int j = _column-1; j < _column + 2; j++) {
             if(j == temp->at(i).size()) {
                 break;
             }
+            if(j == -1) {
+                continue;
+            }
             std::cout<< "DELETE " << i << " " << j << std::endl;
             temp->at(i).at(j)->removeFromParent();
-            temp->at(i).erase(j);
         }
     }
 }
