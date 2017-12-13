@@ -34,7 +34,7 @@ void GameScene::createBricks(int lines, int columns)
     for (int j = 0; j < lines; j++) {
         float x = beginLine;
         for (int i = 0; i < columns; i++) {
-            Brick *brick = Brick::createWithTexture("res/brick.png");
+            Brick *brick = BrickFactory::createBrick(0);
             brick->setWidth(widthBrick);
             brick->setHeight(heightBrick);
             brick->setPosition(x, y);

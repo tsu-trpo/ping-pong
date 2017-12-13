@@ -131,6 +131,8 @@ public:
      * Gets count of nodes those are attached to scene graph.
      */
     static int getAttachedNodeCount();
+
+    PhysicsBody* _physicsBody;
 public:
     
     /**
@@ -1859,6 +1861,9 @@ public:
 CC_CONSTRUCTOR_ACCESS:
     // Nodes should be created using create();
     Node();
+
+    Node(PhysicsBody *_physicsBody);
+
     virtual ~Node();
 
     virtual bool init();
@@ -2002,8 +2007,7 @@ protected:
 
 //Physics:remaining backwardly compatible  
 #if CC_USE_PHYSICS
-    PhysicsBody* _physicsBody;
-public:
+    public:
     void setPhysicsBody(PhysicsBody* physicsBody)
     {
         if (_physicsBody != nullptr)

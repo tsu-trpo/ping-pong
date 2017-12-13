@@ -1,19 +1,6 @@
 #include "Brick.h"
 #include "DefaultMaterial.h"
 
-Brick *Brick::createWithTexture(const std::string &textureName)
-{
-    Brick *self = new Brick();
-    self->initWithFile(textureName);
-    self->autorelease();
-
-    auto bodySize = Size(self->getWidth(), self->getHeight());
-    self->setPhysicsBody(PhysicsBody::createBox(bodySize, defaultMaterial));
-    self->_physicsBody->setDynamic(false);
-
-    return self;
-}
-
 Rect Brick::getRect()
 {
     return Rect(-(getContentSize().width * getScaleX() * 0.5), -(getContentSize().height * getScaleY() * 0.5),
@@ -48,3 +35,7 @@ void Brick::setHeight(float newHeight)
 {
     setScaleY(newHeight / getContentSize().height);
 }
+
+/*void Brick::onContact() {
+
+}*/

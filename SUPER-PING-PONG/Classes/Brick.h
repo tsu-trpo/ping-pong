@@ -5,7 +5,6 @@ using namespace cocos2d;
 
 class Brick : public Sprite {
 public:
-    static Brick *createWithTexture(const std::string &textureName);
     Rect getRect();
     Rect getBox();
 
@@ -14,4 +13,5 @@ public:
 
     float getHeight();
     void setHeight(float newHeight);
+    virtual void onContact() = 0;
 };

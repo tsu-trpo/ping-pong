@@ -2202,6 +2202,8 @@ int Node::getAttachedNodeCount()
     return __attachedNodeCount;
 }
 
+    Node::Node(PhysicsBody *_physicsBody) : _physicsBody(_physicsBody) {}
+
 // MARK: Deprecated
 
 __NodeRGBA::__NodeRGBA()
