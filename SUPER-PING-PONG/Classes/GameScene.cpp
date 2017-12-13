@@ -35,7 +35,7 @@ void GameScene::createBricks(int lines, int columns)
     for (int i = 0; i < lines; i++) {
         float x = beginLine;
         for (int j = 0; j < columns; j++) {
-            int type = rand()%2;
+            int type = rand()%3;
             Brick *brick = BrickFactory::createBrick(type,&_bricks, i, j);
             brick->setWidth(widthBrick);
             brick->setHeight(heightBrick);

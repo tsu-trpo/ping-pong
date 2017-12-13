@@ -2,6 +2,7 @@
 #include "Brick.h"
 #include "SimpleBrick.h"
 #include "ExplosionBrick.h"
+#include "UnbreackableBrick.h"
 
 class Brick;
 class SimpleBrick;

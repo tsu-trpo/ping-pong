@@ -8,5 +8,9 @@ Brick* BrickFactory::createBrick(int type, std::vector<Vector<Brick *>> *bricks,
     if(type == 1) {
         return ExplosionBrick::createBrick(bricks, newLine, newColumn);
     }
+
+    if(type == 2) {
+        return UnbreackableBrick::createBrick(bricks, newLine, newColumn);
+    }
 }
 
