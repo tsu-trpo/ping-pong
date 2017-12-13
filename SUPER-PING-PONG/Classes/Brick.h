@@ -9,6 +9,7 @@ public:
     std::vector<Vector<Brick *>>* _bricks;
     int  _line, _column;
 
+    void initBrick(std::vector<Vector<Brick*>>* bricks, int newLine, int newColumn);
     Rect getRect();
     Rect getBox();
 
