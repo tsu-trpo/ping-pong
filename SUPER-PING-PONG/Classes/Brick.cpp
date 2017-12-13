@@ -35,7 +35,3 @@ void Brick::setHeight(float newHeight)
 {
     setScaleY(newHeight / getContentSize().height);
 }
-
-/*void Brick::onContact() {
-
-}*/

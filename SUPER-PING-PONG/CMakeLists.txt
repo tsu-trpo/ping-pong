@@ -137,6 +137,7 @@ set(GAME_SRC
         Classes/Brick.cpp
         Classes/SimpleBrick.cpp
         Classes/BrickFactory.cpp
+        Classes/ContactHelper.cpp
         ${PLATFORM_SPECIFIC_SRC}
         )
 
@@ -152,6 +153,8 @@ set(GAME_HEADERS
         Classes/SimpleBrick.h
         Classes/BrickFactory.h
         Classes/DefaultMaterial.h
+        Classes/ObjectTags.h
+        Classes/ContactHelper.h
         ${PLATFORM_SPECIFIC_HEADERS}
         )
 
