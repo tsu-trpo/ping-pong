@@ -106,7 +106,6 @@ bool Ball::onContact(PhysicsContact &contact)
         assert(paddle);
         onContactWithPaddle(paddle);
     } else if (isTagEqualTo(collidedShape, brickTag)) {
-        log("asdf");
         auto brick = dynamic_cast<Brick *>(collidedShape->getBody()->getNode());
         assert(brick);
         onContactWithBrick(brick);
