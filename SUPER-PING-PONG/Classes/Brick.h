@@ -14,4 +14,5 @@ public:
 
     float getHeight();
     void setHeight(float newHeight);
+    void deleteBrick();
 };

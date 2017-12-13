@@ -1,5 +1,6 @@
 #include "Brick.h"
 #include "DefaultMaterial.h"
+#include "ObjectTags.h"
 
 Brick *Brick::createWithTexture(const std::string &textureName)
 {
@@ -10,6 +11,8 @@ Brick *Brick::createWithTexture(const std::string &textureName)
     auto bodySize = Size(self->getWidth(), self->getHeight());
     self->setPhysicsBody(PhysicsBody::createBox(bodySize, defaultMaterial));
     self->_physicsBody->setDynamic(false);
+    self->_physicsBody->setName(brickTag);
+    self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
 
     return self;
 }
@@ -47,4 +50,9 @@ float Brick::getHeight()
 void Brick::setHeight(float newHeight)
 {
     setScaleY(newHeight / getContentSize().height);
+}
+
+void Brick::deleteBrick()
+{
+    removeFromParent();
 }
