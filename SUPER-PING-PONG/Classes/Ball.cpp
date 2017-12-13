@@ -1,5 +1,6 @@
 #include "Ball.h"
 #include "AudioPlayer.h"
+#include "ContactHelper.h"
 #include "DefaultMaterial.h"
 #include "ObjectTags.h"
 
@@ -91,17 +92,40 @@ float Ball::getRadius()
     return getContentSize().width * getScaleX() / 2;
 }
 
+// bool Ball::onContact(PhysicsContact &contact)
+//{
+//    PhysicsShape *collidedShape = nullptr;
+//
+//    if (isTagEqualTo(contact.getShapeA(), ballTag)) {
+//        collidedShape = contact.getShapeB();
+//    } else if (isTagEqualTo(contact.getShapeB(), ballTag)) {
+//        collidedShape = contact.getShapeA();
+//    } else {
+//        return false;
+//    }
+//
+//    if (isTagEqualTo(collidedShape, paddleTag)) {
+//        auto paddle = dynamic_cast<Paddle *>(collidedShape->getBody()->getNode());
+//        assert(paddle);
+//        onContactWithPaddle(paddle);
+//    } else if (isTagEqualTo(collidedShape, brickTag)) {
+//        auto brick = dynamic_cast<Brick *>(collidedShape->getBody()->getNode());
+//        assert(brick);
+//        onContactWithBrick(brick);
+//    } else {
+//        return false;
+//    }
+//    return true;
+//}
+//
 bool Ball::onContact(PhysicsContact &contact)
 {
-    PhysicsShape *collidedShape = nullptr;
-
-    if (isTagEqualTo(contact.getShapeA(), ballTag)) {
-        collidedShape = contact.getShapeB();
-    } else if (isTagEqualTo(contact.getShapeB(), ballTag)) {
-        collidedShape = contact.getShapeA();
-    } else {
+    ContactHelper helper{contact, ballTag};
+    if (!helper.wasContacted()) {
         return false;
     }
+
+    PhysicsShape *collidedShape = helper.getOther();
 
     if (isTagEqualTo(collidedShape, paddleTag)) {
         auto paddle = dynamic_cast<Paddle *>(collidedShape->getBody()->getNode());

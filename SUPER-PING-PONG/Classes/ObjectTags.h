@@ -1,4 +1,7 @@
 #pragma once
+#include "cocos2d.h"
+
+using namespace cocos2d;
 
 const std::string ballTag = "ball";
 const std::string paddleTag = "paddle";
