@@ -118,8 +118,7 @@ bool Ball::onContact(PhysicsContact &contact)
 void Ball::onContactWithPaddle(Paddle *paddle)
 {
     // Позиция контакта относительно Paddle [-1;1]
-    // Если шарик ударился о боковую грань ракетки, то значение |relativePosition| > 1
-    float relativePosition = (getPosition().x - paddle->getPosition().x) / (paddle->getWidth() / 2.0);
+    float relativePosition = (getPosition().x - paddle->getPosition().x) / ((paddle->getWidth() + getRadius()) / 2.0);
 
     // Чем ближе к краю ракетки - тем больше угол отскока и скорость шарика
     float x = relativePosition * _maxSpeed;
