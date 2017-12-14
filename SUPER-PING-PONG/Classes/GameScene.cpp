@@ -28,7 +28,7 @@ void GameScene::createBricks(int lines, int columns)
 
     float halfLine = (columns / 2.0) * widthBrick;
     float beginLine = center - halfLine + widthBrick / 2;
-    float offsetTop = 1.5 * heightBrick;
+    float offsetTop = 2.5 * heightBrick;
     float y = top - offsetTop + heightBrick / 2;
 
     for (int j = 0; j < lines; j++) {
@@ -93,7 +93,12 @@ bool GameScene::init()
 
     /// Bricks///
 
-    createBricks(2, 7);
+    createBricks(5, 16);
+
+    /// Score ///
+
+    _score = new Score();
+    addChild(_score);
 
     return true;
 }

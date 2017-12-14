@@ -3,6 +3,7 @@
 #include "ContactHelper.h"
 #include "DefaultMaterial.h"
 #include "ObjectTags.h"
+#include "Score.h"
 
 Ball *Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity)
 {
@@ -132,6 +133,10 @@ void Ball::onContactWithPaddle(Paddle *paddle)
 void Ball::onContactWithBrick(Brick *brick)
 {
     brick->deleteBrick();
+
+    EventCustom event(Score::scoreEvent);
+    event.setUserData((char *) Score::hitBrick);
+    getEventDispatcher()->dispatchEvent(&event);
 
     AudioPlayer::playEffect(AudioPlayer::hitBrick);
 }
