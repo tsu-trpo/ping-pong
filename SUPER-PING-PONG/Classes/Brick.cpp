@@ -2,19 +2,18 @@
 #include "DefaultMaterial.h"
 #include "ObjectTags.h"
 
-Brick *Brick::createWithTexture(const std::string &textureName)
+void Brick::initBrick(std::vector<Vector<Brick *>> *bricks, int newLine, int newColumn)
 {
-    Brick *self = new Brick();
-    self->initWithFile(textureName);
-    self->autorelease();
+    autorelease();
+    _bricks = bricks;
+    _line = newLine;
+    _column = newColumn;
 
-    auto bodySize = Size(self->getWidth(), self->getHeight());
-    self->setPhysicsBody(PhysicsBody::createBox(bodySize, defaultMaterial));
-    self->_physicsBody->setDynamic(false);
-    self->_physicsBody->setName(brickTag);
-    self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
-
-    return self;
+    auto bodySize = Size(getWidth(), getHeight());
+    setPhysicsBody(PhysicsBody::createBox(bodySize, defaultMaterial));
+    _physicsBody->setDynamic(false);
+    _physicsBody->setName(brickTag);
+    _physicsBody->setContactTestBitmask(0xffffffff);
 }
 
 Rect Brick::getRect()
@@ -50,9 +49,4 @@ float Brick::getHeight()
 void Brick::setHeight(float newHeight)
 {
     setScaleY(newHeight / getContentSize().height);
-}
-
-void Brick::deleteBrick()
-{
-    removeFromParent();
 }

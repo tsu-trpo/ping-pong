@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include <iostream>
 #include "AudioPlayer.h"
 #include "DefaultMaterial.h"
 #include "VisibleRect.h"
@@ -31,18 +32,23 @@ void GameScene::createBricks(int lines, int columns)
     float offsetTop = 1.5 * heightBrick;
     float y = top - offsetTop + heightBrick / 2;
 
-    for (int j = 0; j < lines; j++) {
+    for (int i = 0; i < lines; i++) {
         float x = beginLine;
-        for (int i = 0; i < columns; i++) {
-            Brick *brick = Brick::createWithTexture("res/brick.png");
+        for (int j = 0; j < columns; j++) {
+            int type = rand() % 3;
+            Brick *brick = BrickFactory::createBrick(type, &_bricks, i, j);
             brick->setWidth(widthBrick);
             brick->setHeight(heightBrick);
             brick->setPosition(x, y);
             addChild(brick);
-            _bricks.at(j).pushBack(brick);
+            _bricks.at(i).pushBack(brick);
             x += widthBrick;
         }
         y -= heightBrick;
+    }
+
+    for (int i = 0; i < lines; i++) {
+        std::cout << _bricks.at(i).size() << std::endl;
     }
 }
 
@@ -93,7 +99,7 @@ bool GameScene::init()
 
     /// Bricks///
 
-    createBricks(2, 7);
+    createBricks(10, 10);
 
     return true;
 }

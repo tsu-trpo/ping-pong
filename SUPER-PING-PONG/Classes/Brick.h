@@ -5,7 +5,10 @@ using namespace cocos2d;
 
 class Brick : public Sprite {
 public:
-    static Brick *createWithTexture(const std::string &textureName);
+    std::vector<Vector<Brick *>> *_bricks;
+    int _line, _column;
+
+    void initBrick(std::vector<Vector<Brick *>> *bricks, int newLine, int newColumn);
     Rect getRect();
     Rect getBox();
 
@@ -14,5 +17,7 @@ public:
 
     float getHeight();
     void setHeight(float newHeight);
-    void deleteBrick();
+    /*булево значение отображает разбился кубик или нет,
+     * нужно для бонусов*/
+    virtual bool onContact() = 0;
 };
