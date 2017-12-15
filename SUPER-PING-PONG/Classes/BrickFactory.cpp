@@ -1,16 +1,17 @@
 #include "BrickFactory.h"
+#include "TypesBricks.h"
 
 Brick *BrickFactory::createBrick(int type, std::vector<Vector<Brick *>> *bricks, int newLine, int newColumn)
 {
-    if (type == 0) {
+    if (type == simple) {
         return SimpleBrick::createBrick(bricks, newLine, newColumn);
     }
 
-    if (type == 1) {
+    if (type == explosion) {
         return ExplosionBrick::createBrick(bricks, newLine, newColumn);
     }
 
-    if (type == 2) {
+    if (type == unbreackable) {
         return UnbreackableBrick::createBrick(bricks, newLine, newColumn);
     }
 }

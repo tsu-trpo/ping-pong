@@ -157,6 +157,7 @@ set(GAME_HEADERS
         Classes/UnbreackableBrick.h
         Classes/BrickFactory.h
         Classes/DefaultMaterial.h
+        Classes/TypesBricks.h
         Classes/ObjectTags.h
         Classes/ContactHelper.h
         ${PLATFORM_SPECIFIC_HEADERS}
