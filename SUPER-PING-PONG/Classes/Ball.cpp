@@ -126,14 +126,12 @@ void Ball::onContactWithPaddle(Paddle *paddle)
 
     getPhysicsBody()->setVelocity(Vec2(x, y));
 
-    EventCustom hitPaddleEvent(hitPaddle);
-    getEventDispatcher()->dispatchEvent(&hitPaddleEvent);
+    getEventDispatcher()->dispatchCustomEvent(hitPaddle);
 }
 
 void Ball::onContactWithBrick(Brick *brick)
 {
     brick->deleteBrick();
 
-    EventCustom hitBrickEvent(hitBrick);
-    getEventDispatcher()->dispatchEvent(&hitBrickEvent);
+    getEventDispatcher()->dispatchCustomEvent(hitBrick);
 }
