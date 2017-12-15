@@ -1,13 +1,16 @@
 #pragma once
 #include "cocos2d.h"
 
-class AudioPlayer {
+using namespace cocos2d;
+
+class AudioPlayer : public Node {
 public:
-    static constexpr const char *hitPaddle = "res/jump.wav";
-    static constexpr const char *hitBrick = "res/hit.wav";
-    static constexpr const char *lose = "res/lose.wav";
+    AudioPlayer();
+    ~AudioPlayer();
 
     static void playBackgroundMusic();
-    static void playEffect(const char *effect);
     static void stopAllEffects();
+
+private:
+    void playEffect(const char *effect);
 };

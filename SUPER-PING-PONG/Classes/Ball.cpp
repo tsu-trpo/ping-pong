@@ -1,5 +1,4 @@
 #include "Ball.h"
-#include "AudioPlayer.h"
 #include "ContactHelper.h"
 #include "DefaultMaterial.h"
 #include "Events.h"
@@ -127,7 +126,8 @@ void Ball::onContactWithPaddle(Paddle *paddle)
 
     getPhysicsBody()->setVelocity(Vec2(x, y));
 
-    AudioPlayer::playEffect(AudioPlayer::hitPaddle);
+    EventCustom hitPaddleEvent(hitPaddle);
+    getEventDispatcher()->dispatchEvent(&hitPaddleEvent);
 }
 
 void Ball::onContactWithBrick(Brick *brick)
@@ -136,6 +136,4 @@ void Ball::onContactWithBrick(Brick *brick)
 
     EventCustom hitBrickEvent(hitBrick);
     getEventDispatcher()->dispatchEvent(&hitBrickEvent);
-
-    AudioPlayer::playEffect(AudioPlayer::hitBrick);
 }

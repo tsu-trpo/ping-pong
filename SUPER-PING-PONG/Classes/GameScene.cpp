@@ -1,5 +1,4 @@
 #include "GameScene.h"
-#include "AudioPlayer.h"
 #include "DefaultMaterial.h"
 #include "FilenameConstants.h"
 #include "VisibleRect.h"
@@ -55,6 +54,7 @@ bool GameScene::init()
 
     /// Background ///
 
+    _audioPlayer = new AudioPlayer();
     AudioPlayer::playBackgroundMusic();
 
     auto *bg = Sprite::create(backgroundTexture);

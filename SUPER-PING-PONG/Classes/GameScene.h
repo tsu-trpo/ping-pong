@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "AudioPlayer.h"
 #include "Ball.h"
 #include "Brick.h"
 #include "Paddle.h"
@@ -15,6 +16,7 @@ class GameScene : public Layer {
     // Vector is safer, but can works only with cocos objects
     std::vector<Vector<Brick *>> _bricks;
     Score *_score = nullptr;
+    AudioPlayer *_audioPlayer = nullptr;
 
 public:
     CREATE_FUNC(GameScene);
