@@ -18,5 +18,5 @@ public:
 
     float getHeight();
     void setHeight(float newHeight);
-    virtual void onContact() = 0;
+    virtual bool onContact() = 0;
 };

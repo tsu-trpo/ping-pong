@@ -9,11 +9,11 @@ Brick* ExplosionBrick::createBrick(std::vector<Vector<Brick*>> *bricks, int newL
     return self;
 }
 
-void ExplosionBrick::onContact() {
+bool ExplosionBrick::onContact() {
 
     for( int i = _line-1; i < _line+2; i++) {
         if(i == _bricks->size())  {
-            return;
+            return true;
         }
         if(i == -1) {
             continue;
@@ -28,4 +28,5 @@ void ExplosionBrick::onContact() {
             _bricks->at(i).at(j)->removeFromParent();
         }
     }
+    return false;
 }

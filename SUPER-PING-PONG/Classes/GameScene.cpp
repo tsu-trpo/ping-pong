@@ -99,7 +99,7 @@ bool GameScene::init()
 
     /// Bricks///
 
-    createBricks(7, 7);
+    createBricks(10, 10);
 
     return true;
 }

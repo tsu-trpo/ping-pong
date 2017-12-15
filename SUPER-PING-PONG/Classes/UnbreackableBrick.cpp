@@ -9,4 +9,6 @@ Brick* UnbreackableBrick::createBrick(std::vector<Vector<Brick *>> *bricks, int 
     return self;
 }
 
-void UnbreackableBrick::onContact() {}
+bool UnbreackableBrick::onContact() {
+    return false;
+}

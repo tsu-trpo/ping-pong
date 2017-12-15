@@ -9,7 +9,8 @@ Brick* SimpleBrick::createBrick(std::vector<Vector<Brick *>> *bricks, int newLin
     return self;
 }
 
-void SimpleBrick::onContact() {
+bool SimpleBrick::onContact() {
 
     removeFromParent();
+    return true;
 }
