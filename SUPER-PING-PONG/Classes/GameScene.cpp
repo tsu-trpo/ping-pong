@@ -34,7 +34,7 @@ void GameScene::createBricks(int lines, int columns)
     for (int j = 0; j < lines; j++) {
         float x = beginLine;
         for (int i = 0; i < columns; i++) {
-            Brick *brick = Brick::createWithTexture(brickTexture);
+            Brick *brick = Brick::createWithTexture(file::texture::brick);
             brick->setWidth(widthBrick);
             brick->setHeight(heightBrick);
             brick->setPosition(x, y);
@@ -57,7 +57,7 @@ bool GameScene::init()
     AudioPlayer *audioPlayer = new AudioPlayer();
     AudioPlayer::playBackgroundMusic();
 
-    auto *bg = Sprite::create(backgroundTexture);
+    auto *bg = Sprite::create(file::texture::background);
     bg->setPosition(VisibleRect::center());
     addChild(bg);
 
@@ -78,7 +78,7 @@ bool GameScene::init()
 
     const float bottomOffset = VisibleRect::top().y * 0.07;
 
-    _paddle = Paddle::createWithTexture(paddleTexture);
+    _paddle = Paddle::createWithTexture(file::texture::paddle);
     _paddle->setPosition(Vec2(VisibleRect::center().x, VisibleRect::bottom().y + bottomOffset));
     _paddle->setScaleX(1.2);
 
@@ -89,7 +89,7 @@ bool GameScene::init()
     Vec2 ballStartPosition = Vec2(VisibleRect::center().x, VisibleRect::center().y);
     Vec2 ballStartVelocity = Vec2(0, -500);
 
-    _balls.pushBack(Ball::createWithTexture(ballTexture, ballStartPosition, ballStartVelocity));
+    _balls.pushBack(Ball::createWithTexture(file::texture::ball, ballStartPosition, ballStartVelocity));
     addChild(_balls.at(0));
 
     /// Bricks///

@@ -11,23 +11,23 @@ CocosDenshion::SimpleAudioEngine &getPlayer()
 AudioPlayer::AudioPlayer()
 {
     auto hitBrickListener =
-        EventListenerCustom::create(hitBrick, [=](EventCustom *event) { playEffect(hitBrickEffect); });
+        EventListenerCustom::create(event::hitBrick, [=](EventCustom *event) { playEffect(file::effect::hitBrick); });
     getEventDispatcher()->addEventListenerWithFixedPriority(hitBrickListener, 1);
 
     auto hitPaddleListener =
-        EventListenerCustom::create(hitPaddle, [=](EventCustom *event) { playEffect(hitPaddleEffect); });
+        EventListenerCustom::create(event::hitPaddle, [=](EventCustom *event) { playEffect(file::effect::hitPaddle); });
     getEventDispatcher()->addEventListenerWithFixedPriority(hitPaddleListener, 1);
 
     auto loseBallListener =
-        EventListenerCustom::create(loseBall, [=](EventCustom *event) { playEffect(loseBallEffect); });
+        EventListenerCustom::create(event::loseBall, [=](EventCustom *event) { playEffect(file::effect::loseBall); });
     getEventDispatcher()->addEventListenerWithFixedPriority(loseBallListener, 1);
 }
 
 AudioPlayer::~AudioPlayer()
 {
-    getEventDispatcher()->removeCustomEventListeners(hitBrick);
-    getEventDispatcher()->removeCustomEventListeners(hitPaddle);
-    getEventDispatcher()->removeCustomEventListeners(loseBall);
+    getEventDispatcher()->removeCustomEventListeners(event::hitBrick);
+    getEventDispatcher()->removeCustomEventListeners(event::hitPaddle);
+    getEventDispatcher()->removeCustomEventListeners(event::loseBall);
 }
 
 void AudioPlayer::playEffect(const char *effect)
@@ -37,7 +37,7 @@ void AudioPlayer::playEffect(const char *effect)
 
 void AudioPlayer::playBackgroundMusic()
 {
-    getPlayer().playBackgroundMusic(backgroundMusic, true);
+    getPlayer().playBackgroundMusic(file::music::background, true);
 }
 
 void AudioPlayer::stopAllEffects()
