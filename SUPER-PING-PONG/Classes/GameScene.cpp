@@ -54,7 +54,7 @@ bool GameScene::init()
 
     /// Background ///
 
-    _audioPlayer = new AudioPlayer();
+    AudioPlayer *audioPlayer = new AudioPlayer();
     AudioPlayer::playBackgroundMusic();
 
     auto *bg = Sprite::create(backgroundTexture);
@@ -98,8 +98,8 @@ bool GameScene::init()
 
     /// Score ///
 
-    _score = new Score();
-    addChild(_score);
+    Score *score = new Score();
+    addChild(score);
 
     return true;
 }

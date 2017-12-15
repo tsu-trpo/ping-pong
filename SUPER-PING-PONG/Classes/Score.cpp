@@ -6,7 +6,7 @@
 Score::Score()
 {
     const int fontSize = 20;
-    std::string scoreText = "Score: " + std::to_string(_score * 10);
+    std::string scoreText = "Score: " + std::to_string(_score);
     _label = Label::createWithTTF(scoreText, scoreFont, fontSize);
     _label->setColor(Color3B::WHITE);
     _label->setAnchorPoint(Vec2(0, 1));
@@ -28,19 +28,20 @@ Score::~Score()
 
 void Score::updateLabel()
 {
-    _label->setString("Score: " + std::to_string(_score * 10));
+    _label->setString("Score: " + std::to_string(_score ));
 }
 
 void Score::addListeners()
 {
     auto hitBrickListener = EventListenerCustom::create(hitBrick, [=](EventCustom *event) {
-        _score += _multiplier;
+        unsigned int hitPoints = 10;
+        _score += hitPoints * _multiplier;
         updateLabel();
     });
     getEventDispatcher()->addEventListenerWithFixedPriority(hitBrickListener, 1);
 
     auto getScoreBonusListener = EventListenerCustom::create(getScoreBonus, [=](EventCustom *event) {
-        unsigned int bonusPoints = 10;
+        unsigned int bonusPoints = 150;
         _score += bonusPoints * _multiplier;
         updateLabel();
     });
