@@ -131,7 +131,6 @@ void Ball::onContactWithPaddle(Paddle *paddle)
 
 void Ball::onContactWithBrick(Brick *brick)
 {
-
     brick->onContact();
 
     AudioPlayer::playEffect(AudioPlayer::hitBrick);

@@ -1,8 +1,8 @@
 #include "GameScene.h"
+#include <iostream>
 #include "AudioPlayer.h"
 #include "DefaultMaterial.h"
 #include "VisibleRect.h"
-#include <iostream>
 
 const int debugDrawAllMask = 0xffff;
 
@@ -35,8 +35,8 @@ void GameScene::createBricks(int lines, int columns)
     for (int i = 0; i < lines; i++) {
         float x = beginLine;
         for (int j = 0; j < columns; j++) {
-            int type = rand()%3;
-            Brick *brick = BrickFactory::createBrick(type,&_bricks, i, j);
+            int type = rand() % 3;
+            Brick *brick = BrickFactory::createBrick(type, &_bricks, i, j);
             brick->setWidth(widthBrick);
             brick->setHeight(heightBrick);
             brick->setPosition(x, y);
@@ -47,8 +47,8 @@ void GameScene::createBricks(int lines, int columns)
         y -= heightBrick;
     }
 
-    for( int i = 0; i < lines; i++ ) {
-        std::cout<< _bricks.at(i).size() << std::endl;
+    for (int i = 0; i < lines; i++) {
+        std::cout << _bricks.at(i).size() << std::endl;
     }
 }
 

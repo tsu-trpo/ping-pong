@@ -2,7 +2,7 @@
 #include "DefaultMaterial.h"
 #include "ObjectTags.h"
 
-void Brick::initBrick( std::vector<Vector<Brick*>>* bricks, int newLine, int newColumn)
+void Brick::initBrick(std::vector<Vector<Brick *>> *bricks, int newLine, int newColumn)
 {
     autorelease();
     _bricks = bricks;
@@ -12,8 +12,8 @@ void Brick::initBrick( std::vector<Vector<Brick*>>* bricks, int newLine, int new
     auto bodySize = Size(getWidth(), getHeight());
     setPhysicsBody(PhysicsBody::createBox(bodySize, defaultMaterial));
     _physicsBody->setDynamic(false);
-   _physicsBody->setName(brickTag);
-   _physicsBody->setContactTestBitmask(0xffffffff);
+    _physicsBody->setName(brickTag);
+    _physicsBody->setContactTestBitmask(0xffffffff);
 }
 
 Rect Brick::getRect()

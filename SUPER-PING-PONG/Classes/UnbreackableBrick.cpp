@@ -1,7 +1,7 @@
 #include "UnbreackableBrick.h"
 
-Brick* UnbreackableBrick::createBrick(std::vector<Vector<Brick *>> *bricks, int newLine, int newColumn) {
-
+Brick *UnbreackableBrick::createBrick(std::vector<Vector<Brick *>> *bricks, int newLine, int newColumn)
+{
     UnbreackableBrick *self;
     self = new UnbreackableBrick();
     self->initWithFile("res/brickGrey.png");
@@ -9,6 +9,7 @@ Brick* UnbreackableBrick::createBrick(std::vector<Vector<Brick *>> *bricks, int 
     return self;
 }
 
-bool UnbreackableBrick::onContact() {
+bool UnbreackableBrick::onContact()
+{
     return false;
 }

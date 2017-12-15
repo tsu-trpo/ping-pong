@@ -1,7 +1,7 @@
 #include "ExplosionBrick.h"
 
-Brick* ExplosionBrick::createBrick(std::vector<Vector<Brick*>> *bricks, int newLine, int newColumn) {
-
+Brick *ExplosionBrick::createBrick(std::vector<Vector<Brick *>> *bricks, int newLine, int newColumn)
+{
     ExplosionBrick *self;
     self = new ExplosionBrick();
     self->initWithFile("res/brickRed.png");
@@ -9,20 +9,20 @@ Brick* ExplosionBrick::createBrick(std::vector<Vector<Brick*>> *bricks, int newL
     return self;
 }
 
-bool ExplosionBrick::onContact() {
-
-    for( int i = _line-1; i < _line+2; i++) {
-        if(i == _bricks->size())  {
+bool ExplosionBrick::onContact()
+{
+    for (int i = _line - 1; i < _line + 2; i++) {
+        if (i == _bricks->size()) {
             return true;
         }
-        if(i == -1) {
+        if (i == -1) {
             continue;
         }
-        for(int j = _column-1; j < _column + 2; j++) {
-            if(j == _bricks->at(i).size()) {
+        for (int j = _column - 1; j < _column + 2; j++) {
+            if (j == _bricks->at(i).size()) {
                 break;
             }
-            if(j == -1) {
+            if (j == -1) {
                 continue;
             }
             _bricks->at(i).at(j)->removeFromParent();

@@ -10,12 +10,12 @@ CocosDenshion::SimpleAudioEngine &getPlayer()
 
 void AudioPlayer::playBackgroundMusic()
 {
-    //getPlayer().playBackgroundMusic(bgMusic, true);
+    // getPlayer().playBackgroundMusic(bgMusic, true);
 }
 
 void AudioPlayer::playEffect(const char *effect)
 {
-    //getPlayer().playEffect(effect, false, 1.0f, 1.0f, 1.0f);
+    // getPlayer().playEffect(effect, false, 1.0f, 1.0f, 1.0f);
 }
 
 void AudioPlayer::stopAllEffects()

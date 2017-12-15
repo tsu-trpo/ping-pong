@@ -1,7 +1,7 @@
 #pragma once
 #include "Brick.h"
-#include "SimpleBrick.h"
 #include "ExplosionBrick.h"
+#include "SimpleBrick.h"
 #include "UnbreackableBrick.h"
 
 class Brick;

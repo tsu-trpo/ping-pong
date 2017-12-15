@@ -1,7 +1,7 @@
 #include "SimpleBrick.h"
 
-Brick* SimpleBrick::createBrick(std::vector<Vector<Brick *>> *bricks, int newLine, int newColumn) {
-
+Brick *SimpleBrick::createBrick(std::vector<Vector<Brick *>> *bricks, int newLine, int newColumn)
+{
     SimpleBrick *self;
     self = new SimpleBrick();
     self->initWithFile("res/brick.png");
@@ -9,8 +9,8 @@ Brick* SimpleBrick::createBrick(std::vector<Vector<Brick *>> *bricks, int newLin
     return self;
 }
 
-bool SimpleBrick::onContact() {
-
+bool SimpleBrick::onContact()
+{
     removeFromParent();
     return true;
 }
