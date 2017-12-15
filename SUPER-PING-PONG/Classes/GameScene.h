@@ -11,10 +11,10 @@ using namespace cocos2d;
 
 class GameScene : public Layer {
     Vector<Ball *> _balls;
-    Paddle *_paddle;
+    Paddle *_paddle = nullptr;
     // Vector is safer, but can works only with cocos objects
     std::vector<Vector<Brick *>> _bricks;
-    Score *_score;
+    Score *_score = nullptr;
 
 public:
     CREATE_FUNC(GameScene);
