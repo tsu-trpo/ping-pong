@@ -134,8 +134,8 @@ void Ball::onContactWithBrick(Brick *brick)
 {
     brick->deleteBrick();
 
-    EventCustom event(hitBrick);
-    getEventDispatcher()->dispatchEvent(&event);
+    EventCustom hitBrickEvent(hitBrick);
+    getEventDispatcher()->dispatchEvent(&hitBrickEvent);
 
     AudioPlayer::playEffect(AudioPlayer::hitBrick);
 }
