@@ -154,6 +154,7 @@ set(GAME_HEADERS
         Classes/ContactHelper.h
         Classes/Score.h
         Classes/Events.h
+        Classes/FilenameConstants.h
         ${PLATFORM_SPECIFIC_HEADERS}
         )
 

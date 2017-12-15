@@ -2,8 +2,8 @@
 #include "AudioPlayer.h"
 #include "ContactHelper.h"
 #include "DefaultMaterial.h"
-#include "ObjectTags.h"
 #include "Events.h"
+#include "ObjectTags.h"
 
 Ball *Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity)
 {

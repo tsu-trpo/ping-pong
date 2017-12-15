@@ -12,7 +12,6 @@ public:
     Score();
     ~Score();
 
-
 private:
     void updateLabel();
     void addListeners();

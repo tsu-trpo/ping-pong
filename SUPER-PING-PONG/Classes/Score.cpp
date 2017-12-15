@@ -1,12 +1,13 @@
 #include "Score.h"
-#include "VisibleRect.h"
 #include "Events.h"
+#include "FilenameConstants.h"
+#include "VisibleRect.h"
 
 Score::Score()
 {
     const int fontSize = 20;
     std::string scoreText = "Score: " + std::to_string(_score * 10);
-    _label = Label::createWithTTF(scoreText, "fonts/FFFFORWA.TTF", fontSize);
+    _label = Label::createWithTTF(scoreText, scoreFont, fontSize);
     _label->setColor(Color3B::WHITE);
     _label->setAnchorPoint(Vec2(0, 1));
 
@@ -40,7 +41,7 @@ void Score::addListeners()
 
     auto getScoreBonusListener = EventListenerCustom::create(getScoreBonus, [=](EventCustom *event) {
         unsigned int bonusPoints = 10;
-        _score += bonusPoints *_multiplier;
+        _score += bonusPoints * _multiplier;
         updateLabel();
     });
     getEventDispatcher()->addEventListenerWithFixedPriority(getScoreBonusListener, 1);
@@ -52,9 +53,8 @@ void Score::addListeners()
     getEventDispatcher()->addEventListenerWithFixedPriority(getScoreMultiplierListener, 1);
 
     auto loseBallListener = EventListenerCustom::create(loseBall, [=](EventCustom *event) {
-        _multiplier =1;
+        _multiplier = 1;
         updateLabel();
     });
     getEventDispatcher()->addEventListenerWithFixedPriority(loseBallListener, 1);
-
 }
