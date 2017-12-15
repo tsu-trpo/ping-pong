@@ -153,6 +153,7 @@ set(GAME_HEADERS
         Classes/ObjectTags.h
         Classes/ContactHelper.h
         Classes/Score.h
+        Classes/Events.h
         ${PLATFORM_SPECIFIC_HEADERS}
         )
 

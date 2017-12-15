@@ -1,5 +1,6 @@
 #include "Score.h"
 #include "VisibleRect.h"
+#include "Events.h"
 
 Score::Score()
 {
@@ -13,34 +14,15 @@ Score::Score()
     _label->setPosition(VisibleRect::leftTop() + offset);
 
     addChild(_label);
-    addListener();
+    addListeners();
 };
 
 Score::~Score()
 {
-    getEventDispatcher()->removeCustomEventListeners(scoreEvent);
-}
-
-void Score::addPoints(unsigned int points)
-{
-    _score += points * _multiplier;
-    updateLabel();
-}
-
-void Score::decPoints(unsigned int points)
-{
-    _score -= points;
-    updateLabel();
-}
-
-void Score::setMultiplier(unsigned int newMultiplier)
-{
-    _multiplier = newMultiplier;
-}
-
-unsigned int Score::getMultiplier() const
-{
-    return _multiplier;
+    getEventDispatcher()->removeCustomEventListeners(hitBrick);
+    getEventDispatcher()->removeCustomEventListeners(getScoreBonus);
+    getEventDispatcher()->removeCustomEventListeners(getScoreMultiplier);
+    getEventDispatcher()->removeCustomEventListeners(loseBall);
 }
 
 void Score::updateLabel()
@@ -48,16 +30,31 @@ void Score::updateLabel()
     _label->setString("Score: " + std::to_string(_score * 10));
 }
 
-void Score::addListener()
+void Score::addListeners()
 {
-    auto _hitListener = EventListenerCustom::create(scoreEvent, [=](EventCustom *event) {
-
-        // convert char* to int
-        int points = atoi((char *) event->getUserData());
-
-        _score += points * _multiplier;
+    auto hitBrickListener = EventListenerCustom::create(hitBrick, [=](EventCustom *event) {
+        _score += _multiplier;
         updateLabel();
     });
+    getEventDispatcher()->addEventListenerWithFixedPriority(hitBrickListener, 1);
 
-    getEventDispatcher()->addEventListenerWithFixedPriority(_hitListener, 1);
+    auto getScoreBonusListener = EventListenerCustom::create(getScoreBonus, [=](EventCustom *event) {
+        unsigned int bonusPoints = 10;
+        _score += bonusPoints *_multiplier;
+        updateLabel();
+    });
+    getEventDispatcher()->addEventListenerWithFixedPriority(getScoreBonusListener, 1);
+
+    auto getScoreMultiplierListener = EventListenerCustom::create(getScoreMultiplier, [=](EventCustom *event) {
+        _multiplier *= 2;
+        updateLabel();
+    });
+    getEventDispatcher()->addEventListenerWithFixedPriority(getScoreMultiplierListener, 1);
+
+    auto loseBallListener = EventListenerCustom::create(loseBall, [=](EventCustom *event) {
+        _multiplier =1;
+        updateLabel();
+    });
+    getEventDispatcher()->addEventListenerWithFixedPriority(loseBallListener, 1);
+
 }
