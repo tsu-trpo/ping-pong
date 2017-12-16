@@ -16,7 +16,7 @@ namespace sound {
 static const char *hitPaddle = "res/jump.wav";
 static const char *hitBrick = "res/hit.wav";
 static const char *loseBall = "res/lose.wav";
-}  // namespace effect
+}  // namespace sound
 
 namespace music {
 static const char *background = "res/bg_1.ogg";
