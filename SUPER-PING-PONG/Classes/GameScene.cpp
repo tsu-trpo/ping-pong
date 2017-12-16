@@ -103,39 +103,3 @@ bool GameScene::init()
 
     return true;
 }
-
-bool GameScene::ContactBallBrick(PhysicsContact& contact)
-{
-    Node *brick = nullptr;
-    Node *ball = nullptr;
-
-    if (contact.getShapeA()->getBody()->getName() == "brick" &&
-        contact.getShapeB()->getBody()->getName() == "ball")
-    {
-        brick = contact.getShapeA()->getBody()->getNode();
-        ball = contact.getShapeB()->getBody()->getNode();
-    }
-    else if (contact.getShapeA()->getBody()->getName() == "ball" &&
-             contact.getShapeB()->getBody()->getName() == "brick")
-    {
-        brick = contact.getShapeB()->getBody()->getNode();
-        ball = contact.getShapeA()->getBody()->getNode();
-    }
-
-    if (ball && brick)
-    {
-        CCLOG("Collide: ball + brick");
-        GameScene::dropBonus(brick);
-    }
-    return true;
-}
-
-bool GameScene::dropBonus(Node *brick)
-{
-    Vec2 bonusStartPosition = Vec2(VisibleRect::center().x, VisibleRect::center().y);
-    Vec2 bonusStartVelocity = Vec2(0,-300);
-
-    Bonus* bonus = Bonus::createWithTexture("res/bonus.png", bonusStartPosition, bonusStartVelocity);
-    bonus->setBonusPosition(brick, bonus);
-    addChild(bonus);
-}

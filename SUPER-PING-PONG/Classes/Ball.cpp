@@ -3,6 +3,7 @@
 #include "DefaultMaterial.h"
 #include "Events.h"
 #include "ObjectTags.h"
+#include "BonusDropper.h"
 
 Ball *Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity)
 {
@@ -131,7 +132,15 @@ void Ball::onContactWithPaddle(Paddle *paddle)
 
 void Ball::onContactWithBrick(Brick *brick)
 {
+    CCLOG("%f %f",brick->getPosition().x,brick->getPosition().y );
+    auto bonus = Bonus::dropBonus(brick);
+    auto save = brick->getPosition();
     brick->deleteBrick();
-
     getEventDispatcher()->dispatchCustomEvent(event::hitBrick);
+    CCLOG("BEFORE %f %f",bonus->getPosition().x,bonus->getPosition().y );
+//    getScene()->addChild(bonus);
+    bonus->setPosition(save);
+    Director::getInstance()->getRunningScene()->addChild(bonus);
+    bonus->setPosition(save);
+    CCLOG("AFTER %f %f",bonus->getPosition().x,bonus->getPosition().y );
 }
