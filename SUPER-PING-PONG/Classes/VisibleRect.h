@@ -3,8 +3,7 @@
 
 using namespace cocos2d;
 
-class VisibleRect
-{
+class VisibleRect {
 public:
     static Rect getVisibleRect();
 
@@ -17,6 +16,7 @@ public:
     static Vec2 rightTop();
     static Vec2 leftBottom();
     static Vec2 rightBottom();
+
 private:
     static void lazyInit();
     static Rect sVisibleRect;

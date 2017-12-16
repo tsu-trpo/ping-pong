@@ -131,9 +131,12 @@ set(GAME_SRC
         Classes/GameScene.cpp
         Classes/Ball.cpp
         Classes/Paddle.cpp
+        Classes/PaddleController.cpp
         Classes/VisibleRect.cpp
         Classes/AudioPlayer.cpp
         Classes/Brick.cpp
+        Classes/ContactHelper.cpp
+        Classes/Score.cpp
         ${PLATFORM_SPECIFIC_SRC}
         )
 
@@ -142,10 +145,16 @@ set(GAME_HEADERS
         Classes/GameScene.h
         Classes/Ball.h
         Classes/Paddle.h
+        Classes/PaddleController.h
         Classes/VisibleRect.h
         Classes/AudioPlayer.h
         Classes/Brick.h
         Classes/DefaultMaterial.h
+        Classes/ObjectTags.h
+        Classes/ContactHelper.h
+        Classes/Score.h
+        Classes/Events.h
+        Classes/FilenameConstants.h
         ${PLATFORM_SPECIFIC_HEADERS}
         )
 

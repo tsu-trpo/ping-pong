@@ -1,71 +1,64 @@
 #include "Paddle.h"
+#include "DefaultMaterial.h"
+#include "ObjectTags.h"
 #include "VisibleRect.h"
 
-Paddle * Paddle::createWithTexture(std::string textureName)
+Paddle *Paddle::createWithTexture(const std::string &textureName)
 {
-    Paddle* self = new (std::nothrow) Paddle();
+    auto self = new Paddle();
     self->initWithFile(textureName);
     self->autorelease();
+    self->_controller = std::make_shared<PaddleController>(self);
+
+    auto bodySize = Size(self->getWidth(), self->getHeight());
+    self->setPhysicsBody(PhysicsBody::createBox(bodySize, defaultMaterial));
+    self->_physicsBody->setDynamic(false);
+    self->_physicsBody->setName(paddleTag);
+    self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
 
     return self;
 }
 
-void Paddle::onEnter()
+Rect Paddle::getRect() const
 {
-    Sprite::onEnter();
-
-    _rightLimit = VisibleRect::right().x - getContentSize().width * getScaleX() * 0.5;
-    _leftLimit = VisibleRect::left().x + getContentSize().width * getScaleX() * 0.5;
-
-    auto listener = EventListenerTouchOneByOne::create();
-    listener->onTouchBegan = CC_CALLBACK_2(Paddle::onTouchBegan, this);
-    listener->onTouchMoved = CC_CALLBACK_2(Paddle::onTouchMoved, this);
-    listener->onTouchEnded = CC_CALLBACK_2(Paddle::onTouchEnded, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    return Rect(-(getContentSize().width * getScaleX() / 2.0), -(getContentSize().height * getScaleY() / 2.0),
+                getContentSize().width * getScaleX(), getContentSize().height * getScaleY());
 }
 
-void Paddle::onExit()
-{
-    Sprite::onExit();
-}
-
-
-Rect Paddle::getRect()
-{
-    return Rect(
-            -(getContentSize().width * getScaleX() * 0.5),
-            -(getContentSize().height * getScaleY() * 0.5),
-            getContentSize().width * getScaleX(),
-            getContentSize().height * getScaleY());
-}
-
-Rect Paddle::getBox()
-{
-    auto box = getRect();
-    box.origin.x += getPosition().x; //setting rect to it's real position
-    box.origin.y += getPosition().y;
-    return box;
-}
-
-
-bool Paddle::containsTouchLocation(Touch* touch)
+bool Paddle::containsTouchLocation(Touch *touch) const
 {
     return getRect().containsPoint(convertTouchToNodeSpaceAR(touch));
 }
 
-
-bool Paddle::onTouchBegan(Touch* touch, Event* event)
+void Paddle::setWidth(float newWidth)
 {
-    return containsTouchLocation(touch);
+    setScaleX(newWidth / getContentSize().width);
 }
 
-void Paddle::onTouchMoved(Touch* touch, Event* event)
+float Paddle::getWidth() const
 {
-    auto touchPoint = touch->getLocation();
-    float x = MIN( MAX(touchPoint.x, _leftLimit), _rightLimit);
-    setPosition( Vec2(x, getPosition().y) );
+    return getContentSize().width * getScaleX();
 }
 
-void Paddle::onTouchEnded(Touch* touch, Event* event)
+void Paddle::setHeight(float newHeight)
 {
+    setScaleY(newHeight / getContentSize().height);
+}
+
+float Paddle::getHeight() const
+{
+    return getContentSize().height * getScaleY();
+}
+
+void Paddle::setPosition(float x, float y)
+{
+    float rightLimit = VisibleRect::right().x - (getWidth() / 2.0);
+    float leftLimit = VisibleRect::left().x + (getWidth() / 2.0);
+    x = MIN(MAX(x, leftLimit), rightLimit);
+    Sprite::setPosition(x, y);
+}
+
+void Paddle::setPosition(const Vec2 &position)
+{
+    setPosition(position.x, position.y);
 }
