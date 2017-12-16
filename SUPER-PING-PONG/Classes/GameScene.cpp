@@ -1,6 +1,6 @@
 #include "GameScene.h"
-#include "AudioPlayer.h"
 #include "DefaultMaterial.h"
+#include "FilenameConstants.h"
 #include "VisibleRect.h"
 
 const int debugDrawAllMask = 0xffff;
@@ -28,13 +28,13 @@ void GameScene::createBricks(int lines, int columns)
 
     float halfLine = (columns / 2.0) * widthBrick;
     float beginLine = center - halfLine + widthBrick / 2;
-    float offsetTop = 1.5 * heightBrick;
+    float offsetTop = 2.5 * heightBrick;
     float y = top - offsetTop + heightBrick / 2;
 
     for (int j = 0; j < lines; j++) {
         float x = beginLine;
         for (int i = 0; i < columns; i++) {
-            Brick *brick = Brick::createWithTexture("res/brick.png");
+            Brick *brick = Brick::createWithTexture(file::texture::brick);
             brick->setWidth(widthBrick);
             brick->setHeight(heightBrick);
             brick->setPosition(x, y);
@@ -54,9 +54,10 @@ bool GameScene::init()
 
     /// Background ///
 
+    AudioPlayer *audioPlayer = new AudioPlayer();
     AudioPlayer::playBackgroundMusic();
 
-    auto *bg = Sprite::create("res/pongBG.png");
+    auto *bg = Sprite::create(file::texture::background);
     bg->setPosition(VisibleRect::center());
     addChild(bg);
 
@@ -75,10 +76,10 @@ bool GameScene::init()
 
     /// Paddle ///
 
-    const float bottomMarginY = VisibleRect::top().y * 0.07;
+    const float bottomOffset = VisibleRect::top().y * 0.07;
 
-    _paddle = Paddle::createWithTexture("res/paddle.png");
-    _paddle->setPosition(Vec2(VisibleRect::center().x, VisibleRect::bottom().y + bottomMarginY));
+    _paddle = Paddle::createWithTexture(file::texture::paddle);
+    _paddle->setPosition(Vec2(VisibleRect::center().x, VisibleRect::bottom().y + bottomOffset));
     _paddle->setScaleX(1.2);
 
     addChild(_paddle);
@@ -88,12 +89,17 @@ bool GameScene::init()
     Vec2 ballStartPosition = Vec2(VisibleRect::center().x, VisibleRect::center().y);
     Vec2 ballStartVelocity = Vec2(0, -500);
 
-    _balls.pushBack(Ball::createWithTexture("res/ball.png", ballStartPosition, ballStartVelocity));
+    _balls.pushBack(Ball::createWithTexture(file::texture::ball, ballStartPosition, ballStartVelocity));
     addChild(_balls.at(0));
 
     /// Bricks///
 
-    createBricks(2, 7);
+    createBricks(5, 16);
+
+    /// Score ///
+
+    Score *score = new Score();
+    addChild(score);
 
     return true;
 }

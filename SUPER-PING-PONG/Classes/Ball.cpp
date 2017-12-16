@@ -1,7 +1,7 @@
 #include "Ball.h"
-#include "AudioPlayer.h"
 #include "ContactHelper.h"
 #include "DefaultMaterial.h"
+#include "Events.h"
 #include "ObjectTags.h"
 
 Ball *Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity)
@@ -126,12 +126,12 @@ void Ball::onContactWithPaddle(Paddle *paddle)
 
     getPhysicsBody()->setVelocity(Vec2(x, y));
 
-    AudioPlayer::playEffect(AudioPlayer::hitPaddle);
+    getEventDispatcher()->dispatchCustomEvent(event::hitPaddle);
 }
 
 void Ball::onContactWithBrick(Brick *brick)
 {
     brick->deleteBrick();
 
-    AudioPlayer::playEffect(AudioPlayer::hitBrick);
+    getEventDispatcher()->dispatchCustomEvent(event::hitBrick);
 }
