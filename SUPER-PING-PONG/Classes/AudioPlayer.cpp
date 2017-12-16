@@ -11,15 +11,15 @@ CocosDenshion::SimpleAudioEngine &getPlayer()
 AudioPlayer::AudioPlayer()
 {
     auto hitBrickListener =
-        EventListenerCustom::create(event::hitBrick, [=](EventCustom *event) { playEffect(file::effect::hitBrick); });
+        EventListenerCustom::create(event::hitBrick, [=](EventCustom *event) { playEffect(file::sound::hitBrick); });
     getEventDispatcher()->addEventListenerWithFixedPriority(hitBrickListener, 1);
 
     auto hitPaddleListener =
-        EventListenerCustom::create(event::hitPaddle, [=](EventCustom *event) { playEffect(file::effect::hitPaddle); });
+        EventListenerCustom::create(event::hitPaddle, [=](EventCustom *event) { playEffect(file::sound::hitPaddle); });
     getEventDispatcher()->addEventListenerWithFixedPriority(hitPaddleListener, 1);
 
     auto loseBallListener =
-        EventListenerCustom::create(event::loseBall, [=](EventCustom *event) { playEffect(file::effect::loseBall); });
+        EventListenerCustom::create(event::loseBall, [=](EventCustom *event) { playEffect(file::sound::loseBall); });
     getEventDispatcher()->addEventListenerWithFixedPriority(loseBallListener, 1);
 }
 

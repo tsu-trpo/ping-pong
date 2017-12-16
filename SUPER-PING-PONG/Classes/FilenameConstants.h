@@ -12,7 +12,7 @@ static const char *paddle = "res/paddle.png";
 static const char *background = "res/pongBG.png";
 }  // namespace texture
 
-namespace effect {
+namespace sound {
 static const char *hitPaddle = "res/jump.wav";
 static const char *hitBrick = "res/hit.wav";
 static const char *loseBall = "res/lose.wav";
