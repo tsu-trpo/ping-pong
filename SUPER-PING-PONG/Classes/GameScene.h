@@ -5,7 +5,6 @@
 #include "Ball.h"
 #include "Brick.h"
 #include "Paddle.h"
-#include "Score.h"
 #include "cocos2d.h"
 
 using namespace cocos2d;

@@ -137,6 +137,7 @@ set(GAME_SRC
         Classes/Brick.cpp
         Classes/ContactHelper.cpp
         Classes/Score.cpp
+        Classes/Life.cpp
         ${PLATFORM_SPECIFIC_SRC}
         )
 
@@ -155,6 +156,7 @@ set(GAME_HEADERS
         Classes/Score.h
         Classes/Events.h
         Classes/FilenameConstants.h
+        Classes/Life.h
         ${PLATFORM_SPECIFIC_HEADERS}
         )
 

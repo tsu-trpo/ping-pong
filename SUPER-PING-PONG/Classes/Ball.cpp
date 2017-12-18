@@ -19,7 +19,7 @@ Ball *Ball::createWithTexture(const std::string &textureName, Vec2 startPosition
 
     self->setPhysicsBody(PhysicsBody::createCircle(self->getRadius(), defaultMaterial));
     self->_physicsBody->setVelocity(startVelocity);
-    self->_physicsBody->setName(ballTag);
+    self->_physicsBody->setName(tag::ball);
     self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
 
     self->_contactListener = EventListenerPhysicsContact::create();
@@ -94,21 +94,23 @@ float Ball::getRadius()
 
 bool Ball::onContact(PhysicsContact &contact)
 {
-    ContactHelper helper{contact, ballTag};
+    ContactHelper helper{contact, tag::ball};
     if (!helper.wasContacted()) {
         return false;
     }
 
     PhysicsShape *collidedShape = helper.getOther();
 
-    if (isTagEqualTo(collidedShape, paddleTag)) {
+    if (isTagEqualTo(collidedShape, tag::paddle)) {
         auto paddle = dynamic_cast<Paddle *>(collidedShape->getBody()->getNode());
         assert(paddle);
         onContactWithPaddle(paddle);
-    } else if (isTagEqualTo(collidedShape, brickTag)) {
+    } else if (isTagEqualTo(collidedShape, tag::brick)) {
         auto brick = dynamic_cast<Brick *>(collidedShape->getBody()->getNode());
         assert(brick);
         onContactWithBrick(brick);
+    } else if (isTagEqualTo(collidedShape, tag::bottom)) {
+        onContactWithBottom();
     } else {
         return false;
     }
@@ -134,4 +136,10 @@ void Ball::onContactWithBrick(Brick *brick)
     brick->deleteBrick();
 
     getEventDispatcher()->dispatchCustomEvent(event::hitBrick);
+}
+
+void Ball::onContactWithBottom()
+{
+//    respawn();
+    getEventDispatcher()->dispatchCustomEvent(event::loseBall);
 }

@@ -2,6 +2,9 @@
 #include "DefaultMaterial.h"
 #include "FilenameConstants.h"
 #include "VisibleRect.h"
+#include "Score.h"
+#include "Life.h"
+#include "ObjectTags.h"
 
 const int debugDrawAllMask = 0xffff;
 
@@ -72,7 +75,22 @@ bool GameScene::init()
     edgeNode->setPosition(VisibleRect::center());
     edgeNode->setPhysicsBody(edgeBody);
 
-    this->addChild(edgeNode);
+    addChild(edgeNode);
+
+    /// Bottom ///
+
+    auto bottomSize = Size(visibleSize.width, 20);
+    auto bottomBody = PhysicsBody::createBox(bottomSize, defaultMaterial);
+    bottomBody->setDynamic(false);
+    bottomBody->setName(tag::bottom);
+    bottomBody->setContactTestBitmask(0xFFFFFFFF);
+
+    auto bottomNode = Node::create();
+    bottomNode->setPosition(VisibleRect::bottom());
+    bottomNode->setPhysicsBody(bottomBody);
+
+
+    addChild(bottomNode);
 
     /// Paddle ///
 
@@ -100,6 +118,11 @@ bool GameScene::init()
 
     Score *score = new Score();
     addChild(score);
+
+    /// Life ///
+
+    Life *life = new Life();
+    addChild(life);
 
     return true;
 }

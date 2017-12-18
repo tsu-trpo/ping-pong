@@ -13,7 +13,7 @@ Paddle *Paddle::createWithTexture(const std::string &textureName)
     auto bodySize = Size(self->getWidth(), self->getHeight());
     self->setPhysicsBody(PhysicsBody::createBox(bodySize, defaultMaterial));
     self->_physicsBody->setDynamic(false);
-    self->_physicsBody->setName(paddleTag);
+    self->_physicsBody->setName(tag::paddle);
     self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
 
     return self;
