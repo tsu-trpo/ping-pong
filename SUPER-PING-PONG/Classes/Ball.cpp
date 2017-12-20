@@ -1,9 +1,12 @@
+#pragma once
+#include "BonusDropper.h"
 #include "Ball.h"
 #include "ContactHelper.h"
 #include "DefaultMaterial.h"
 #include "Events.h"
 #include "ObjectTags.h"
 #include "BonusDropper.h"
+#include "GameScene.h"
 
 Ball *Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity)
 {
@@ -132,15 +135,8 @@ void Ball::onContactWithPaddle(Paddle *paddle)
 
 void Ball::onContactWithBrick(Brick *brick)
 {
-    CCLOG("%f %f",brick->getPosition().x,brick->getPosition().y );
-    auto bonus = Bonus::dropBonus(brick);
-    auto save = brick->getPosition();
     brick->deleteBrick();
+    // Fix physics-bug with left bottom corner
+    runAction(CallFunc::create( CC_CALLBACK_0(Bonus::dropBonus,brick->getPosition())));
     getEventDispatcher()->dispatchCustomEvent(event::hitBrick);
-    CCLOG("BEFORE %f %f",bonus->getPosition().x,bonus->getPosition().y );
-//    getScene()->addChild(bonus);
-    bonus->setPosition(save);
-    Director::getInstance()->getRunningScene()->addChild(bonus);
-    bonus->setPosition(save);
-    CCLOG("AFTER %f %f",bonus->getPosition().x,bonus->getPosition().y );
 }

@@ -26,12 +26,11 @@ float Bonus::getRadius()
     return getContentSize().width * getScaleX() * 0.85;
 }
 
-Bonus* Bonus::dropBonus(Brick *brick)
+Bonus* Bonus::dropBonus(Vec2 bonusStartPosition)
 {
-    Vec2 bonusStartPosition = brick->getPosition();
     Vec2 bonusStartVelocity = Vec2(0,-300);
-
     Bonus* bonus = Bonus::createWithTexture("res/bonus.png", bonusStartPosition, bonusStartVelocity);
     bonus->setPosition(bonusStartPosition);
+    Director::getInstance()->getRunningScene()->addChild(bonus);
     return bonus;
 }
