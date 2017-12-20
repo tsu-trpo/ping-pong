@@ -36,22 +36,22 @@ void Life::addListeners()
     auto loseBallListener = EventListenerCustom::create(event::loseBall, [=](EventCustom *event) {
 
         _life -= 1;
+        updateLabel();
         if (!_life) {
             getEventDispatcher()->dispatchCustomEvent(event::gameOver);
         }
-        updateLabel();
     });
     getEventDispatcher()->addEventListenerWithFixedPriority(loseBallListener, 1);
 
     auto lifePointsListener = EventListenerCustom::create(event::getbonus::lifePoints, [=](EventCustom *event) {
 
-        if (_life < 5) {
+        if (_life < _maxLives) {
             _life += 1;
+            updateLabel();
         } else {
             getEventDispatcher()->dispatchCustomEvent(event::getbonus::scorePoints);
             getEventDispatcher()->dispatchCustomEvent(event::getbonus::scoreMultiplier);
         }
-        updateLabel();
     });
     getEventDispatcher()->addEventListenerWithFixedPriority(lifePointsListener, 1);
 }
