@@ -1,10 +1,10 @@
 #include "GameScene.h"
 #include "DefaultMaterial.h"
 #include "FilenameConstants.h"
-#include "VisibleRect.h"
-#include "Score.h"
 #include "Life.h"
 #include "ObjectTags.h"
+#include "Score.h"
+#include "VisibleRect.h"
 
 const int debugDrawAllMask = 0xffff;
 
@@ -88,7 +88,6 @@ bool GameScene::init()
     auto bottomNode = Node::create();
     bottomNode->setPosition(VisibleRect::bottom());
     bottomNode->setPhysicsBody(bottomBody);
-
 
     addChild(bottomNode);
 

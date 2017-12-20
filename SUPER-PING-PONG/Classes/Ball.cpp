@@ -140,6 +140,6 @@ void Ball::onContactWithBrick(Brick *brick)
 
 void Ball::onContactWithBottom()
 {
-//    respawn();
+    //    respawn();
     getEventDispatcher()->dispatchCustomEvent(event::loseBall);
 }

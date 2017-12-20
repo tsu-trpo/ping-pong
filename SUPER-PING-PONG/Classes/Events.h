@@ -10,5 +10,6 @@ static const char *gameOver = "gameOver";
 namespace getbonus {
 static const char *scorePoints = "scorePoints";
 static const char *scoreMultiplier = "scoreMultiplier";
+static const char *lifePoints = "lifePoints";
 }  // namespace getbonus
 }  // namespace event

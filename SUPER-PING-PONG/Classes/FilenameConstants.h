@@ -10,6 +10,7 @@ static const char *ball = "res/ball.png";
 static const char *brick = "res/brick.png";
 static const char *paddle = "res/paddle.png";
 static const char *background = "res/pongBG.png";
+static const char *heart = "res/heart.png";
 }  // namespace texture
 
 namespace sound {

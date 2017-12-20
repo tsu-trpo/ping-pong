@@ -4,14 +4,15 @@
 
 using namespace cocos2d;
 
-class Life: public Node {
+class Life : public Node {
+    Vector<Sprite *> _bar;
     int _life = 3;
-    Label *_label = nullptr;
+
 public:
     Life();
     ~Life();
+
 private:
     void updateLabel();
     void addListeners();
-
 };
