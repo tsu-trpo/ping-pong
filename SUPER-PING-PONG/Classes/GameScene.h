@@ -15,6 +15,7 @@ class GameScene : public Layer {
     Paddle *_paddle = nullptr;
     // Vector is safer, but can works only with cocos objects
     std::vector<Vector<Brick *>> _bricks;
+
 public:
     CREATE_FUNC(GameScene);
     static Scene *createScene();
