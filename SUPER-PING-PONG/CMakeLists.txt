@@ -140,6 +140,7 @@ set(GAME_SRC
         Classes/UnbreackableBrick.cpp
         Classes/BrickFactory.cpp
         Classes/ContactHelper.cpp
+        Classes/BricksWall.cpp
         ${PLATFORM_SPECIFIC_SRC}
         )
 
@@ -160,6 +161,7 @@ set(GAME_HEADERS
         Classes/TypesBricks.h
         Classes/ObjectTags.h
         Classes/ContactHelper.h
+        Classes/BricksWall.h
         ${PLATFORM_SPECIFIC_HEADERS}
         )
 
@@ -179,7 +181,7 @@ if( ANDROID )
         ADD_CUSTOM_COMMAND(TARGET ${APP_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} lib${APP_NAME}.so)
     ENDIF()
 else()
-    add_library(${LIB_NAME} STATIC ${GAME_SRC} ${GAME_HEADERS})
+    add_library(${LIB_NAME} STATIC ${GAME_SRC} ${GAME_HEADERS} )
     add_executable(${APP_NAME} ${MAIN_CPP} ${GAME_HEADERS})
 endif()
 

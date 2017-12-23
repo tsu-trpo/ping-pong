@@ -18,42 +18,9 @@ Scene *GameScene::createScene()
     return scene;
 }
 
-void GameScene::createBricks(int lines, int columns)
-{
-    _bricks = std::vector<Vector<Brick *>>(lines);
-    float center = VisibleRect::center().x;
-    float top = VisibleRect::top().y;
-
-    float widthBrick = 90;
-    float heightBrick = 35;
-
-    float halfLine = (columns / 2.0) * widthBrick;
-    float beginLine = center - halfLine + widthBrick / 2;
-    float offsetTop = 1.5 * heightBrick;
-    float y = top - offsetTop + heightBrick / 2;
-
-    for (int i = 0; i < lines; i++) {
-        float x = beginLine;
-        for (int j = 0; j < columns; j++) {
-            int type = rand() % 3;
-            Brick *brick = BrickFactory::createBrick(type, &_bricks, i, j);
-            brick->setWidth(widthBrick);
-            brick->setHeight(heightBrick);
-            brick->setPosition(x, y);
-            addChild(brick);
-            _bricks.at(i).pushBack(brick);
-            x += widthBrick;
-        }
-        y -= heightBrick;
-    }
-
-    for (int i = 0; i < lines; i++) {
-        std::cout << _bricks.at(i).size() << std::endl;
-    }
-}
-
 bool GameScene::init()
 {
+    _wall = new BricksWall();
     if (!Layer::init()) {
         return false;
     }
@@ -99,7 +66,7 @@ bool GameScene::init()
 
     /// Bricks///
 
-    createBricks(10, 10);
+    _wall->createBricks(10, 10, this);
 
     return true;
 }

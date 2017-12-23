@@ -1,1 +1,1 @@
-enum { simple, explosion, unbreackable};
+enum { simple, explosion, unbreackable };
