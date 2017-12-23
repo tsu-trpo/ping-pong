@@ -12,12 +12,10 @@ Brick *ExplosionBrick::createBrick(std::vector<Vector<Brick *>> *bricks, int new
 bool ExplosionBrick::onContact()
 {
     for (int i = _line - 1; i < _line + 2; i++) {
-        if (i == _bricks->size()) {
-            return true;
-        }
-        if (i == -1) {
+        if (i < 0|| i >= _bricks->size()) {
             continue;
         }
+
         for (int j = _column - 1; j < _column + 2; j++) {
             if (j == _bricks->at(i).size()) {
                 break;
@@ -28,5 +26,5 @@ bool ExplosionBrick::onContact()
             _bricks->at(i).at(j)->removeFromParent();
         }
     }
-    return false;
+    return true;
 }
