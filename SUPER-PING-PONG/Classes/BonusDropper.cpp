@@ -1,6 +1,10 @@
+#pragma once
+
 #include "BonusDropper.h"
 #include "DefaultMaterial.h"
+#include "ContactHelper.h"
 #include "VisibleRect.h"
+#include "ObjectTags.h"
 
 Bonus* Bonus::createWithTexture(const std::string &textureName, Vec2 spawnPosition, Vec2 spawnVelocity)
 {
@@ -12,12 +16,13 @@ Bonus* Bonus::createWithTexture(const std::string &textureName, Vec2 spawnPositi
 
     self->setPhysicsBody(PhysicsBody::createCircle(self->getRadius(), bonusMaterial));
     self->_physicsBody->setVelocity(spawnVelocity);
-    self->_physicsBody->setName("bonus");
+    self->_physicsBody->setName(bonusTag);
     self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
     self->_physicsBody->setCollisionBitmask(0);
 
     self->setColor(Color3B (random(0,255), random(0,255), random(0,255)));
     self->setPosition(spawnPosition);
+
     return self;
 }
 
@@ -33,4 +38,14 @@ Bonus* Bonus::dropBonus(Vec2 bonusStartPosition)
     bonus->setPosition(bonusStartPosition);
     Director::getInstance()->getRunningScene()->addChild(bonus);
     return bonus;
+}
+
+Bonus* Bonus::getBonus()
+{
+    return this;
+}
+
+void Bonus::bonusDelete()
+{
+    Director::getInstance()->getRunningScene()->removeChild(this, false);
 }
