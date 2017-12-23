@@ -12,7 +12,7 @@ Brick *ExplosionBrick::createBrick(std::vector<Vector<Brick *>> *bricks, int new
 bool ExplosionBrick::onContact()
 {
     for (int i = _line - 1; i <= _line + 1; i++) {
-        if (i < 0|| i >= _bricks->size()) {
+        if (i < 0 || i >= _bricks->size()) {
             continue;
         }
 
