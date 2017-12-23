@@ -1,8 +1,8 @@
 #include "Paddle.h"
+#include "ContactHelper.h"
 #include "DefaultMaterial.h"
 #include "ObjectTags.h"
 #include "VisibleRect.h"
-#include "ContactHelper.h"
 
 Paddle *Paddle::createWithTexture(const std::string &textureName)
 {

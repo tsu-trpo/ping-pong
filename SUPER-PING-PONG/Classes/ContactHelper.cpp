@@ -22,6 +22,7 @@ PhysicsShape *ContactHelper::getOther()
     return _other;
 }
 
-PhysicsShape *ContactHelper::getMain() {
+PhysicsShape *ContactHelper::getMain()
+{
     return _main;
 }

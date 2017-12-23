@@ -14,5 +14,4 @@ public:
 
     PhysicsShape *getOther();
     PhysicsShape *getMain();
-
 };

@@ -1,11 +1,10 @@
 #include "BonusDropper.h"
-#include "DefaultMaterial.h"
 #include "ContactHelper.h"
-#include "VisibleRect.h"
+#include "DefaultMaterial.h"
 #include "ObjectTags.h"
+#include "VisibleRect.h"
 
-
-//EventListenerPhysicsContact *Bonus::_contactListener = nullptr;
+// EventListenerPhysicsContact *Bonus::_contactListener = nullptr;
 
 bool Bonus::onContact(PhysicsContact &contact)
 {
@@ -22,8 +21,7 @@ bool Bonus::onContact(PhysicsContact &contact)
         auto paddle = dynamic_cast<Paddle *>(collidedShape->getBody()->getNode());
         assert(paddle);
         bonus->onContactWithPaddle(paddle);
-    }
-    else {
+    } else {
         return false;
     }
     return true;
@@ -35,7 +33,7 @@ void Bonus::onContactWithPaddle(Paddle *paddle)
     bonusDelete();
 }
 
-Bonus* Bonus::createWithTexture(const std::string &textureName, Vec2 spawnPosition, Vec2 spawnVelocity)
+Bonus *Bonus::createWithTexture(const std::string &textureName, Vec2 spawnPosition, Vec2 spawnVelocity)
 {
     auto self = new Bonus();
 
@@ -49,16 +47,14 @@ Bonus* Bonus::createWithTexture(const std::string &textureName, Vec2 spawnPositi
     self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
     self->_physicsBody->setCollisionBitmask(0);
 
-    self->setColor(Color3B (random(0,255), random(0,255), random(0,255)));
+    self->setColor(Color3B(random(0, 255), random(0, 255), random(0, 255)));
     self->setPosition(spawnPosition);
 
-
-
-//    if(!self->_contactListener) {
-        self->_contactListener = EventListenerPhysicsContact::create();
-        self->_contactListener->onContactBegin = CC_CALLBACK_1(Bonus::onContact, self);
-        Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(self->_contactListener, self);
-//    }
+    //    if(!self->_contactListener) {
+    self->_contactListener = EventListenerPhysicsContact::create();
+    self->_contactListener->onContactBegin = CC_CALLBACK_1(Bonus::onContact, self);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(self->_contactListener, self);
+    //    }
     return self;
 }
 
@@ -67,24 +63,23 @@ float Bonus::getRadius()
     return getContentSize().width * getScaleX() * 0.85;
 }
 
-Bonus* Bonus::dropBonus(Vec2 bonusStartPosition)
+Bonus *Bonus::dropBonus(Vec2 bonusStartPosition)
 {
-    Vec2 bonusStartVelocity = Vec2(0,-300);
-    Bonus* bonus = Bonus::createWithTexture("res/bonus.png", bonusStartPosition, bonusStartVelocity);
+    Vec2 bonusStartVelocity = Vec2(0, -300);
+    Bonus *bonus = Bonus::createWithTexture("res/bonus.png", bonusStartPosition, bonusStartVelocity);
     bonus->setPosition(bonusStartPosition);
     Director::getInstance()->getRunningScene()->addChild(bonus);
     return bonus;
 }
 
-Bonus* Bonus::getBonus()
+Bonus *Bonus::getBonus()
 {
     return this;
 }
 
 void Bonus::bonusDelete()
 {
-    if(this != 0)
-    {
+    if (this != 0) {
         removeFromParent();
         Director::getInstance()->getEventDispatcher()->removeEventListener(_contactListener);
     }

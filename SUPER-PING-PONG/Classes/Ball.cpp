@@ -1,5 +1,5 @@
-#include "BonusDropper.h"
 #include "Ball.h"
+#include "BonusDropper.h"
 #include "ContactHelper.h"
 #include "DefaultMaterial.h"
 #include "Events.h"
@@ -133,7 +133,7 @@ void Ball::onContactWithPaddle(Paddle *paddle)
 void Ball::onContactWithBrick(Brick *brick)
 {
     // Fix physics-bug with left bottom corner
-    runAction(CallFunc::create( CC_CALLBACK_0(Bonus::dropBonus,brick->getPosition())));
+    runAction(CallFunc::create(CC_CALLBACK_0(Bonus::dropBonus, brick->getPosition())));
     brick->deleteBrick();
     getEventDispatcher()->dispatchCustomEvent(event::hitBrick);
 }

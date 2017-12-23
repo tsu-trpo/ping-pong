@@ -27,5 +27,4 @@ public:
     void setPosition(float x, float y);
 
     void setPosition(const Vec2 &position);
-
 };
