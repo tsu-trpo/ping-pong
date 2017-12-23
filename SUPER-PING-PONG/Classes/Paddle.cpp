@@ -4,33 +4,6 @@
 #include "VisibleRect.h"
 #include "ContactHelper.h"
 
-bool Paddle::onContact(PhysicsContact &contact)
-{
-    CCLOG("onContact");
-    ContactHelper helper{contact, paddleTag};
-    if (!helper.wasContacted()) {
-        return false;
-    }
-
-    PhysicsShape *collidedShape = helper.getOther();
-
-    if (isTagEqualTo(collidedShape, bonusTag)) {
-        auto bonus = dynamic_cast<Bonus *>(collidedShape->getBody()->getNode());
-        assert(bonus);
-        CCLOG("WITH PADDLE");
-        onContactWithBonus(bonus);
-    }
-    else {
-        return false;
-    }
-    return true;
-}
-
-void Paddle::onContactWithBonus(Bonus *bonus)
-{
-    bonus->bonusDelete();
-}
-
 Paddle *Paddle::createWithTexture(const std::string &textureName)
 {
     auto self = new Paddle();
@@ -43,10 +16,6 @@ Paddle *Paddle::createWithTexture(const std::string &textureName)
     self->_physicsBody->setDynamic(false);
     self->_physicsBody->setName(paddleTag);
     self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
-
-    self->_contactListener = EventListenerPhysicsContact::create();
-    self->_contactListener->onContactBegin = CC_CALLBACK_1(Paddle::onContact, self);
-    self->getEventDispatcher()->addEventListenerWithSceneGraphPriority(self->_contactListener, self);
 
     return self;
 }

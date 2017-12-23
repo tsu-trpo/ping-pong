@@ -1,10 +1,39 @@
-#pragma once
-
 #include "BonusDropper.h"
 #include "DefaultMaterial.h"
 #include "ContactHelper.h"
 #include "VisibleRect.h"
 #include "ObjectTags.h"
+
+
+//EventListenerPhysicsContact *Bonus::_contactListener = nullptr;
+
+bool Bonus::onContact(PhysicsContact &contact)
+{
+    CCLOG("onContact");
+    ContactHelper helper{contact, bonusTag};
+    if (!helper.wasContacted()) {
+        return false;
+    }
+
+    auto bonus = dynamic_cast<Bonus *>(helper.getMain()->getBody()->getNode());
+    PhysicsShape *collidedShape = helper.getOther();
+
+    if (isTagEqualTo(collidedShape, paddleTag)) {
+        auto paddle = dynamic_cast<Paddle *>(collidedShape->getBody()->getNode());
+        assert(paddle);
+        bonus->onContactWithPaddle(paddle);
+    }
+    else {
+        return false;
+    }
+    return true;
+}
+
+void Bonus::onContactWithPaddle(Paddle *paddle)
+{
+    CCLOG("WITH PADDLE");
+    bonusDelete();
+}
 
 Bonus* Bonus::createWithTexture(const std::string &textureName, Vec2 spawnPosition, Vec2 spawnVelocity)
 {
@@ -23,6 +52,13 @@ Bonus* Bonus::createWithTexture(const std::string &textureName, Vec2 spawnPositi
     self->setColor(Color3B (random(0,255), random(0,255), random(0,255)));
     self->setPosition(spawnPosition);
 
+
+
+//    if(!self->_contactListener) {
+        self->_contactListener = EventListenerPhysicsContact::create();
+        self->_contactListener->onContactBegin = CC_CALLBACK_1(Bonus::onContact, self);
+        Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(self->_contactListener, self);
+//    }
     return self;
 }
 
@@ -47,5 +83,9 @@ Bonus* Bonus::getBonus()
 
 void Bonus::bonusDelete()
 {
-    Director::getInstance()->getRunningScene()->removeChild(this, false);
+    if(this != 0)
+    {
+        removeFromParent();
+        Director::getInstance()->getEventDispatcher()->removeEventListener(_contactListener);
+    }
 }
