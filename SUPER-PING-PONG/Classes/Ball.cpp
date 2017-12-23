@@ -5,7 +5,6 @@
 #include "DefaultMaterial.h"
 #include "Events.h"
 #include "ObjectTags.h"
-#include "BonusDropper.h"
 #include "GameScene.h"
 
 Ball *Ball::createWithTexture(const std::string &textureName, Vec2 startPosition, Vec2 startVelocity)
@@ -137,6 +136,9 @@ void Ball::onContactWithBrick(Brick *brick)
 {
     // Fix physics-bug with left bottom corner
     brick->deleteBrick();
-    runAction(CallFunc::create( CC_CALLBACK_0(Bonus::dropBonus,brick->getPosition())));
+    if (random(1, 10) == 1)
+    {
+        runAction(CallFunc::create(CC_CALLBACK_0(Bonus::dropBonus, brick->getPosition())));
+    }
     getEventDispatcher()->dispatchCustomEvent(event::hitBrick);
 }
