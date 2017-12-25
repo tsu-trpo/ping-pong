@@ -1,5 +1,6 @@
 #include "BricksWall.h"
 #include "VisibleRect.h"
+#include "TypesBricks.h"
 
 void BricksWall::createBricks(int lines, int columns, GameScene *Scene)
 {
@@ -19,7 +20,7 @@ void BricksWall::createBricks(int lines, int columns, GameScene *Scene)
         float x = beginLine;
         for (int j = 0; j < columns; j++) {
             int type = rand() % 3;
-            Brick *brick = BrickFactory::createBrick(type, &_bricks, i, j);
+            Brick *brick = BrickFactory(type, &_bricks, i, j);
             brick->setWidth(widthBrick);
             brick->setHeight(heightBrick);
             brick->setPosition(x, y);
@@ -30,3 +31,17 @@ void BricksWall::createBricks(int lines, int columns, GameScene *Scene)
         y -= heightBrick;
     }
 }
+
+Brick* BricksWall::BrickFactory(int type, std::vector<Vector<Brick *>> *bricks, int newLine, int newColumn)
+{
+        switch (type) {
+            case simple:
+                return SimpleBrick::createBrick(bricks, newLine, newColumn);
+            case explosion:
+                return ExplosionBrick::createBrick(bricks, newLine, newColumn);
+            case unbreackable:
+                return UnbreackableBrick::createBrick(bricks, newLine, newColumn);
+            default:;
+        }
+}
+

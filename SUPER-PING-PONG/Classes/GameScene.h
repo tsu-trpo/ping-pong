@@ -3,7 +3,6 @@
 #include <vector>
 #include "Ball.h"
 #include "Brick.h"
-#include "BrickFactory.h"
 #include "BricksWall.h"
 #include "Paddle.h"
 #include "cocos2d.h"

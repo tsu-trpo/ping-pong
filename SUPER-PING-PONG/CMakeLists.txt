@@ -135,10 +135,9 @@ set(GAME_SRC
         Classes/VisibleRect.cpp
         Classes/AudioPlayer.cpp
         Classes/Brick.cpp
-        Classes/SimpleBrick.cpp
-        Classes/ExplosionBrick.cpp
-        Classes/UnbreackableBrick.cpp
-        Classes/BrickFactory.cpp
+         Classes/SimpleBrick.cpp
+                Classes/ExplosionBrick.cpp
+         Classes/UnbreackableBrick.cpp
         Classes/ContactHelper.cpp
         Classes/BricksWall.cpp
         ${PLATFORM_SPECIFIC_SRC}
@@ -156,7 +155,6 @@ set(GAME_HEADERS
         Classes/SimpleBrick.h
         Classes/ExplosionBrick.h
         Classes/UnbreackableBrick.h
-        Classes/BrickFactory.h
         Classes/DefaultMaterial.h
         Classes/TypesBricks.h
         Classes/ObjectTags.h

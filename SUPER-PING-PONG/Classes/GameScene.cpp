@@ -1,5 +1,4 @@
 #include "GameScene.h"
-#include <iostream>
 #include "AudioPlayer.h"
 #include "DefaultMaterial.h"
 #include "VisibleRect.h"
@@ -66,7 +65,7 @@ bool GameScene::init()
 
     /// Bricks///
 
-    _wall->createBricks(10, 10, this);
+    _wall->createBricks(10, 15, this);
 
     return true;
 }
