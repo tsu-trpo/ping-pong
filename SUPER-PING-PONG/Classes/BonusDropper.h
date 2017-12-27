@@ -13,7 +13,6 @@ public:
     static Bonus *dropBonus(Vec2 startPosition);
 
     float getRadius();
-    Bonus *getBonus();
 
     bool onContact(PhysicsContact &contact);
     void onContactWithPaddle(Paddle *paddle);
