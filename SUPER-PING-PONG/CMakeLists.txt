@@ -137,6 +137,7 @@ set(GAME_SRC
         Classes/Brick.cpp
         Classes/ContactHelper.cpp
         Classes/Score.cpp
+        Classes/BonusDropper.cpp
         ${PLATFORM_SPECIFIC_SRC}
         )
 
@@ -155,6 +156,7 @@ set(GAME_HEADERS
         Classes/Score.h
         Classes/Events.h
         Classes/FilenameConstants.h
+        Classes/BonusDropper.h
         ${PLATFORM_SPECIFIC_HEADERS}
         )
 
@@ -174,7 +176,7 @@ if( ANDROID )
         ADD_CUSTOM_COMMAND(TARGET ${APP_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} lib${APP_NAME}.so)
     ENDIF()
 else()
-    add_library(${LIB_NAME} STATIC ${GAME_SRC} ${GAME_HEADERS} Classes/BonusDropper.cpp Classes/BonusDropper.h)
+    add_library(${LIB_NAME} STATIC ${GAME_SRC} ${GAME_HEADERS})
     add_executable(${APP_NAME} ${MAIN_CPP} ${GAME_HEADERS})
 endif()
 

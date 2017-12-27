@@ -132,8 +132,13 @@ void Ball::onContactWithPaddle(Paddle *paddle)
 
 void Ball::onContactWithBrick(Brick *brick)
 {
-    // Fix physics-bug with left bottom corner
-    runAction(CallFunc::create(CC_CALLBACK_0(Bonus::dropBonus, brick->getPosition())));
+    /*
+     * Fixed bug with the creation of a physical object that appeared
+     * in the lower left corner of the screen
+    */
+    //if (random(1, 10) == 1) {
+        runAction(CallFunc::create(CC_CALLBACK_0(Bonus::dropBonus, brick->getPosition())));
+    //}
     brick->deleteBrick();
     getEventDispatcher()->dispatchCustomEvent(event::hitBrick);
 }

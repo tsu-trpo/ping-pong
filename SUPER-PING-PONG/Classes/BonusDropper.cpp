@@ -3,8 +3,7 @@
 #include "DefaultMaterial.h"
 #include "ObjectTags.h"
 #include "VisibleRect.h"
-
-// EventListenerPhysicsContact *Bonus::_contactListener = nullptr;
+#include "FilenameConstants.h"
 
 bool Bonus::onContact(PhysicsContact &contact)
 {
@@ -63,11 +62,11 @@ float Bonus::getRadius()
     return getContentSize().width * getScaleX() * 0.85;
 }
 
-Bonus *Bonus::dropBonus(Vec2 bonusStartPosition)
+Bonus *Bonus::dropBonus(Vec2 startPosition)
 {
     Vec2 bonusStartVelocity = Vec2(0, -300);
-    Bonus *bonus = Bonus::createWithTexture("res/bonus.png", bonusStartPosition, bonusStartVelocity);
-    bonus->setPosition(bonusStartPosition);
+    Bonus *bonus = Bonus::createWithTexture(file::texture::bonus, startPosition, bonusStartVelocity);
+    bonus->setPosition(startPosition);
     Director::getInstance()->getRunningScene()->addChild(bonus);
     return bonus;
 }
