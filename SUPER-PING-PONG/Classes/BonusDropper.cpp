@@ -1,6 +1,7 @@
 #include "BonusDropper.h"
 #include "DefaultMaterial.h"
-#include "VisibleRect.h"
+#include "FilenameConstants.h"
+#include "ObjectTags.h"
 
 Bonus *Bonus::createWithTexture(const std::string &textureName, Vec2 spawnPosition, Vec2 spawnVelocity)
 {
@@ -12,7 +13,7 @@ Bonus *Bonus::createWithTexture(const std::string &textureName, Vec2 spawnPositi
 
     self->setPhysicsBody(PhysicsBody::createCircle(self->getRadius(), bonusMaterial));
     self->_physicsBody->setVelocity(spawnVelocity);
-    self->_physicsBody->setName("bonus");
+    self->_physicsBody->setName(bonusTag);
     self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
     self->_physicsBody->setCollisionBitmask(0);
 
@@ -26,11 +27,11 @@ float Bonus::getRadius()
     return getContentSize().width * getScaleX() * 0.85;
 }
 
-Bonus *Bonus::dropBonus(Vec2 bonusStartPosition)
+Bonus *Bonus::dropBonus(Vec2 startPosition)
 {
     Vec2 bonusStartVelocity = Vec2(0, -300);
-    Bonus *bonus = Bonus::createWithTexture("res/bonus.png", bonusStartPosition, bonusStartVelocity);
-    bonus->setPosition(bonusStartPosition);
+    Bonus *bonus = Bonus::createWithTexture(file::texture::bonus, startPosition, bonusStartVelocity);
+    bonus->setPosition(startPosition);
     Director::getInstance()->getRunningScene()->addChild(bonus);
     return bonus;
 }
