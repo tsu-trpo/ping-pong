@@ -6,6 +6,7 @@ static const char *score = "fonts/FFFFORWA.TTF";
 }
 
 namespace texture {
+static const char *bonus = "res/bonus.png";
 static const char *ball = "res/ball.png";
 static const char *brick = "res/brick.png";
 static const char *paddle = "res/paddle.png";

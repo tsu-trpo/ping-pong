@@ -20,6 +20,5 @@ public:
     CREATE_FUNC(GameScene);
     static Scene *createScene();
     virtual bool init();
-
     void createBricks(int perLine, int perColumn);
 };
