@@ -13,7 +13,7 @@ Bonus *Bonus::createWithTexture(const std::string &textureName, Vec2 spawnPositi
 
     self->setPhysicsBody(PhysicsBody::createCircle(self->getRadius(), bonusMaterial));
     self->_physicsBody->setVelocity(spawnVelocity);
-    self->_physicsBody->setName(bonusTag);
+    self->_physicsBody->setName(tag::bonus);
     self->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
     self->_physicsBody->setCollisionBitmask(0);
 

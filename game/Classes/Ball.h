@@ -39,4 +39,5 @@ public:
 
     void onContactWithPaddle(Paddle *paddle);
     void onContactWithBrick(Brick *brick);
+    void onContactWithBottom();
 };

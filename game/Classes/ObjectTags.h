@@ -3,10 +3,14 @@
 
 using namespace cocos2d;
 
-const std::string ballTag = "ball";
-const std::string paddleTag = "paddle";
-const std::string brickTag = "brick";
-const std::string bonusTag = "bonus";
+namespace tag {
+
+const std::string ball = "ball";
+const std::string paddle = "paddle";
+const std::string brick = "brick";
+const std::string bottom = "bottom";
+const std::string bonus = "bonus";
+}  // namespace tag
 
 inline bool isTagEqualTo(const PhysicsShape *shape, const std::string &tag)
 {
