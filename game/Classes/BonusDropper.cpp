@@ -1,4 +1,5 @@
 #include "BonusDropper.h"
+#include "ContactHelper.h"
 #include "DefaultMaterial.h"
 #include "FilenameConstants.h"
 #include "ObjectTags.h"
@@ -19,12 +20,11 @@ Bonus *Bonus::createWithTexture(const std::string &textureName, Vec2 spawnPositi
 
     self->setColor(Color3B(random(0, 255), random(0, 255), random(0, 255)));
     self->setPosition(spawnPosition);
-    return self;
-}
 
-float Bonus::getRadius()
-{
-    return getContentSize().width * getScaleX() * 0.85;
+    self->_contactListener = EventListenerPhysicsContact::create();
+    self->_contactListener->onContactBegin = CC_CALLBACK_1(Bonus::onContact, self);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(self->_contactListener, self);
+    return self;
 }
 
 Bonus *Bonus::dropBonus(Vec2 startPosition)
@@ -34,4 +34,44 @@ Bonus *Bonus::dropBonus(Vec2 startPosition)
     bonus->setPosition(startPosition);
     Director::getInstance()->getRunningScene()->addChild(bonus);
     return bonus;
+}
+
+bool Bonus::onContact(PhysicsContact &contact)
+{
+    CCLOG("Detect some contact");
+    ContactHelper helper{contact, tag::bonus};
+    if (!helper.wasContacted()) {
+        return false;
+    }
+
+    auto bonus = dynamic_cast<Bonus *>(helper.getMain()->getBody()->getNode());
+    PhysicsShape *collidedShape = helper.getOther();
+
+    if (isTagEqualTo(collidedShape, tag::paddle)) {
+        auto paddle = dynamic_cast<Paddle *>(collidedShape->getBody()->getNode());
+        assert(paddle);
+        bonus->onContactWithPaddle(paddle);
+    } else {
+        return false;
+    }
+    return true;
+}
+
+void Bonus::onContactWithPaddle(Paddle *paddle)
+{
+    CCLOG("Detect contact with paddle");
+    bonusDelete();
+}
+
+float Bonus::getRadius()
+{
+    return getContentSize().width * getScaleX() * 0.85;
+}
+
+void Bonus::bonusDelete()
+{
+    if (this != 0) {
+        removeFromParent();
+        Director::getInstance()->getEventDispatcher()->removeEventListener(_contactListener);
+    }
 }

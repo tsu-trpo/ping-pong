@@ -1,4 +1,5 @@
 #include "Paddle.h"
+#include "ContactHelper.h"
 #include "DefaultMaterial.h"
 #include "ObjectTags.h"
 #include "VisibleRect.h"

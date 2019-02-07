@@ -13,4 +13,5 @@ public:
     bool wasContacted();
 
     PhysicsShape *getOther();
+    PhysicsShape *getMain();
 };
