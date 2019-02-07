@@ -4,7 +4,7 @@
 
 using namespace cocos2d;
 
-static Size designResolutionSize = cocos2d::Size(1366, 700);
+static Size designResolutionSize = cocos2d::Size(1440, 960);
 
 AppDelegate::AppDelegate() {}
 
